@@ -1,9 +1,10 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/activity_horizontal_margin"
-    tools:context=".LoginActivity"
+    tools:context=".MainActivity"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -64,6 +65,51 @@
             android:layout_height="wrap_content"
             android:text="Login"/>
 
+
+
     </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/link_signup"
+        android:text="Don't have an account ?  Sign Up !"
+        android:textColor="@android:color/holo_red_dark"
+        android:textAlignment="center"
+        android:textSize="15dp"
+        android:layout_marginTop="35dp"
+        android:textStyle="bold|italic"
+        />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/grey_300">
+
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/button_facebook_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
+
+        <!--<Button-->
+            <!--android:id="@+id/button_facebook_signout"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerInParent="true"-->
+            <!--android:text="Sign Out"-->
+            <!--android:theme="@style/ThemeOverlay.MyDarkButton"-->
+            <!--android:visibility="gone"/>-->
+
+    </RelativeLayout>
+
+    <!--<com.facebook.login.widget.LoginButton-->
+        <!--android:id="@+id/fb_login_button_main"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:gravity="center|bottom"-->
+        <!--/>-->
 
 </LinearLayout>
