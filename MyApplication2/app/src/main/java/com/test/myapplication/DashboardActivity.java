@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -21,7 +24,7 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textViewName;
     TextView textViewEmail;
     TextView textViewPhoto;
-    Button buttonSignOut;
+//    Button buttonSignOut;
 
     String name;
     String email;
@@ -36,6 +39,13 @@ public class DashboardActivity extends AppCompatActivity {
 
         initializeViews();
 
+//        if(getActionBar() != null) {
+//            Intent i = new Intent();
+//            getActionBar().setDisplayHomeAsUpEnabled(true);
+//            setResult(RESULT_OK, i);
+//            finish();
+//        }
+
         mAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
@@ -48,21 +58,38 @@ public class DashboardActivity extends AppCompatActivity {
         textViewEmail.setText(email);
         textViewPhoto.setText(photo);
 
-        buttonSignOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent();
-                setResult(RESULT_OK, i);
-                finish();
-            }
-        });
+    }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_name) {
+            Toast.makeText(DashboardActivity.this, "action_name", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        if (id == R.id.logout) {
+
+            Intent i = new Intent();
+            setResult(RESULT_OK, i);
+            finish();
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initializeViews() {
         textViewName = (TextView) findViewById(R.id.dashboard_name);
         textViewEmail = (TextView) findViewById(R.id.dashboard_email);
         textViewPhoto = (TextView) findViewById(R.id.dashboard_photo);
-        buttonSignOut = (Button) findViewById(R.id.button_facebook_signout_dashboard);
+//        buttonSignOut = (Button) findViewById(R.id.button_facebook_signout_dashboard);
     }
 }
