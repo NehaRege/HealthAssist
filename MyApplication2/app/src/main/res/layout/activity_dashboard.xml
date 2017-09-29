@@ -19,7 +19,7 @@
         android:id="@+id/dashboard_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="name"
+        android:text="name FB"
         android:padding="30dp"
         />
 
@@ -27,7 +27,7 @@
         android:id="@+id/dashboard_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="email"
+        android:text="email FB"
         android:padding="30dp"
 
         />
@@ -36,8 +36,33 @@
         android:id="@+id/dashboard_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="photo"
+        android:text="photo FB"
         android:padding="30dp"
 
+        />
+
+    <TextView
+        android:id="@+id/dashboard_name_gmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="name GMAIL"
+        android:padding="30dp"
+        />
+
+    <TextView
+        android:id="@+id/dashboard_email_gmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="email GMAIL"
+        android:padding="30dp"
+
+        />
+
+    <TextView
+        android:id="@+id/dashboard_photo_gmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="photo GMAIL"
+        android:padding="30dp"
         />
 </LinearLayout>

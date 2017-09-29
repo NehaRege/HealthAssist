@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -22,7 +24,16 @@ import com.facebook.FacebookException;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -31,13 +42,17 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
 
-    static final int FACEBOOK_SIGNOUT_REQ = 1;
-    static final int SIGNOUT_REQ = 232;
+    private static final int FACEBOOK_SIGNOUT_REQ = 1;
+    private static final int GMAIL_SIGNOUT_REQ = 2;
+    private static final int SIGNOUT_REQ = 232;
+    private static final int GMAIL_RC_SIGN_IN = 9001;
+
     private static final String TAG = "MainActivity";
 
     private Button buttonLogin;
@@ -55,6 +70,11 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
 
+    private GoogleApiClient mGoogleApiClient;
+
+    private SignInButton gmailSignInButton;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +85,13 @@ public class MainActivity extends AppCompatActivity {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
         mAuth = FirebaseAuth.getInstance();
@@ -108,9 +135,22 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
 
-                    String name = user.getDisplayName();
-                    String email = user.getEmail();
-                    Uri photoUrl = user.getPhotoUrl();
+                    String name;
+                    String email;
+                    Uri photoUrl;
+
+                    if (user.getDisplayName() != null) {
+                        name = user.getDisplayName();
+                    } else {
+                        name = "Display Name not available";
+                    }
+
+                    if (user.getDisplayName() != null) {
+                        email = user.getEmail();
+                    } else {
+                        email = "Email not available";
+                    }
+
 
                     // Check if user's email is verified
                     boolean emailVerified = user.isEmailVerified();
@@ -118,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                     intent.putExtra("user_email", email);
                     intent.putExtra("user_name", name);
-                    intent.putExtra("user_photo", photoUrl);
+//                    intent.putExtra("user_photo", photoUrl);
                     startActivityForResult(intent, FACEBOOK_SIGNOUT_REQ);
 
                 } else {
@@ -164,6 +204,13 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        gmailSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gmailSignIn();
+            }
+        });
     }
 
     @Override
@@ -184,6 +231,12 @@ public class MainActivity extends AppCompatActivity {
         textViewSignupLink = (TextView) findViewById(R.id.link_signup);
 
         fbLoginButton = (LoginButton) findViewById(R.id.button_facebook_login);
+
+        gmailSignInButton = (SignInButton) findViewById(R.id.sign_in_button_gmail);
+        gmailSignInButton.setSize(SignInButton.SIZE_STANDARD);
+        gmailSignInButton.setColorScheme(SignInButton.COLOR_AUTO);
+//        gmailSignInButton.setColorScheme(SignInButton.COLOR_DARK);
+//        gmailSignInButton.setColorScheme(SignInButton.COLOR_LIGHT);
 
     }
 
@@ -238,6 +291,24 @@ public class MainActivity extends AppCompatActivity {
                 signOutFacebook();
             }
         }
+
+        if (requestCode == GMAIL_SIGNOUT_REQ) {
+            if (resultCode == RESULT_OK) {
+//                signOutGmail();
+                logoutGmail();
+            }
+        }
+
+        if (requestCode == GMAIL_RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleGmailSignInResult(result);
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed: Gmail" + connectionResult);
+
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
@@ -276,5 +347,109 @@ public class MainActivity extends AppCompatActivity {
     public void signOutFacebook() {
         mAuth.signOut();
         LoginManager.getInstance().logOut();
+    }
+
+    private void gmailSignIn() {
+        Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+        startActivityForResult(signInIntent, GMAIL_RC_SIGN_IN);
+    }
+
+    private void handleGmailSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            GoogleSignInAccount acct = result.getSignInAccount();
+
+            if (acct != null) {
+
+                String name;
+                String email;
+                Uri photoUrl;
+
+                if (acct.getDisplayName() != null) {
+                    name = acct.getDisplayName();
+                } else {
+                    name = "Display Name not available";
+                }
+
+                if (acct.getDisplayName() != null) {
+                    email = acct.getEmail();
+                } else {
+                    email = "Email not available";
+                }
+
+
+                Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                intent.putExtra("user_email_gmail", email);
+                intent.putExtra("user_name_gmail", name);
+//                intent.putExtra("user_photo_gmail", photoUrl);
+                startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
+
+            }
+
+            updateUIGmail(true);
+
+        } else {
+
+            updateUIGmail(false);
+
+            Log.i(TAG, "handleGoogleSignInResult: gmail login failed !");
+
+        }
+    }
+
+    private void updateUIGmail(boolean signedIn) {
+        if (signedIn) {
+//            findViewById(R.id.sign_in_button).setVisibility(View.GONE);
+//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.VISIBLE);
+        } else {
+//            mStatusTextView.setText(R.string.signed_out);
+//
+//            findViewById(R.id.sign_in_button).setVisibility(View.VISIBLE);
+//            findViewById(R.id.sign_out_and_disconnect).setVisibility(View.GONE);
+        }
+    }
+
+    private void signOutGmail() {
+
+        Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(
+                new ResultCallback<Status>() {
+                    @Override
+                    public void onResult(Status status) {
+
+                        Log.d(TAG, "onResult: Gmail Signout Successful ");
+                        Toast.makeText(MainActivity.this, "Gmail Signout", Toast.LENGTH_SHORT).show();
+//                        updateUIGmail(false);
+                    }
+                });
+    }
+
+    public void logoutGmail() {
+        mGoogleApiClient.connect();
+        mGoogleApiClient.registerConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
+            @Override
+            public void onConnected(@Nullable Bundle bundle) {
+
+                FirebaseAuth.getInstance().signOut();
+                if(mGoogleApiClient.isConnected()) {
+                    Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
+                        @Override
+                        public void onResult(@NonNull Status status) {
+                            if (status.isSuccess()) {
+                                Log.d(TAG, "User Gmail Logged out");
+                                Toast.makeText(MainActivity.this, "Gmail Signout", Toast.LENGTH_SHORT).show();
+
+                            }
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onConnectionSuspended(int i) {
+                Log.d(TAG, "Google API Client Connection Suspended");
+            }
+        });
     }
 }

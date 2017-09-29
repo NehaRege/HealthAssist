@@ -26,9 +26,17 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textViewPhoto;
 //    Button buttonSignOut;
 
+    TextView textViewName_G;
+    TextView textViewEmail_G;
+    TextView textViewPhoto_G;
+
     String name;
     String email;
-    String photo;
+//    String photo;
+
+    String name_gmail;
+    String email_gmail;
+//    String photo_gmail;
 
     private FirebaseAuth mAuth;
 
@@ -49,14 +57,48 @@ public class DashboardActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
-        Log.d(TAG, "onCreate: ");
-        name = intent.getStringExtra("user_name");
-        email = intent.getStringExtra("user_email");
-        photo = intent.getStringExtra("user_photo");
 
-        textViewName.setText(name);
-        textViewEmail.setText(email);
-        textViewPhoto.setText(photo);
+//        if(getIntent().hasExtra("firstvalue")) {
+//            String firstvalue = getIntent().getStringExtra("firstvalue");
+//        }
+
+        if(intent.hasExtra("user_name")) {
+            name = intent.getStringExtra("user_name");
+            textViewName.setText(name);
+        }
+
+        if(intent.hasExtra("user_email")) {
+            email = intent.getStringExtra("user_email");
+            textViewEmail.setText(email);
+        }
+
+//        if(intent.hasExtra("user_photo")) {
+//            photo = intent.getStringExtra("user_photo");
+//            textViewPhoto.setText(photo);
+//        }
+
+        if(intent.hasExtra("user_photo_gmail")) {
+            name_gmail = intent.getStringExtra("user_photo_gmail");
+            textViewName_G.setText(name_gmail);
+        }
+
+//        if(intent.hasExtra("user_photo_gmail")) {
+//            photo_gmail = intent.getStringExtra("user_photo_gmail");
+//            textViewPhoto_G.setText(photo_gmail);
+//        }
+
+        if(intent.hasExtra("user_email_gmail")) {
+            email_gmail = intent.getStringExtra("user_email_gmail");
+            textViewEmail_G.setText(email_gmail);
+        }
+
+
+
+
+
+
+
+
 
     }
 
@@ -90,6 +132,10 @@ public class DashboardActivity extends AppCompatActivity {
         textViewName = (TextView) findViewById(R.id.dashboard_name);
         textViewEmail = (TextView) findViewById(R.id.dashboard_email);
         textViewPhoto = (TextView) findViewById(R.id.dashboard_photo);
+
+        textViewName_G = (TextView) findViewById(R.id.dashboard_name_gmail);
+        textViewEmail_G = (TextView) findViewById(R.id.dashboard_email_gmail);
+        textViewPhoto_G = (TextView) findViewById(R.id.dashboard_photo_gmail);
 //        buttonSignOut = (Button) findViewById(R.id.button_facebook_signout_dashboard);
     }
 }
