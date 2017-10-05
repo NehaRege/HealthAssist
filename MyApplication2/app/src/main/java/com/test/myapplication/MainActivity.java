@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                     Toast.makeText(MainActivity.this, "Logged in via Facebook as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+//                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     intent.putExtra("user_email", email);
                     intent.putExtra("user_name", name);
                     intent.putExtra("user_photo", photoUrl);
@@ -155,7 +156,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     // Check if user's email is verified
                     boolean emailVerified = user.isEmailVerified();
 
-                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+//                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     intent.putExtra("user_email", email);
                     intent.putExtra("user_name", name);
 //                    intent.putExtra("user_photo", photoUrl);
@@ -258,7 +260,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     public void doLogin() {
-        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+//        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         setResult(SIGNOUT_REQ);
         startActivity(intent);
 
@@ -380,7 +383,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+//                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("user_email_gmail", email);
                 intent.putExtra("user_name_gmail", name);
 //                intent.putExtra("user_photo_gmail", photoUrl);
@@ -395,6 +399,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             updateUIGmail(false);
 
             Log.i(TAG, "handleGoogleSignInResult: gmail login failed !");
+
 
         }
     }
