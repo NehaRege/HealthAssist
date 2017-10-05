@@ -5,12 +5,18 @@
     <color name="colorAccentBlue">#FF4081</color>
 
 
-    <color name="colorPrimary">#f22c36</color>
-    <color name="colorPrimaryDark">#990005</color>
+    <color name="colorPrimaryRed">#e53935</color>
+    <color name="colorPrimaryDarkRed">#b71c1c</color>
+    <color name="colorAccentRed">#FF4081</color>
+
+    <color name="colorPrimary">#26a69a</color>
+    <color name="colorPrimaryDark">#187c71</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorAccentG">#26a69a</color>
 
 
-    <color name="colorRed">#d41b21</color>
+    <color name="colorRed">#c62828</color>
+    <color name="colorGreen">#26a69a</color>
 
     <color name="blue_grey_500">#607D8B</color>
     <color name="grey_300">#E0E0E0</color>

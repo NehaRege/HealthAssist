@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static final String TAG = "MainActivity";
 
     private Button buttonLogin;
-    private TextView textViewSignupLink;
+//    private TextView textViewSignupLink;
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
 
@@ -82,17 +82,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         initializeViews();
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
-                .requestEmail()
-                .build();
-
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
+        setUpGoogleApiClient();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -199,13 +189,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-        textViewSignupLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-                startActivity(intent);
-            }
-        });
+//        textViewSignupLink.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
         gmailSignInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -230,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         buttonLogin = (Button) findViewById(R.id.activity_main_login_button);
         usernameWrapper = (TextInputLayout) findViewById(R.id.usernameWrapper);
         passwordWrapper = (TextInputLayout) findViewById(R.id.passwordWrapper);
-        textViewSignupLink = (TextView) findViewById(R.id.link_signup);
+//        textViewSignupLink = (TextView) findViewById(R.id.link_signup);
 
         fbLoginButton = (LoginButton) findViewById(R.id.button_facebook_login);
 
@@ -240,6 +230,20 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 //        gmailSignInButton.setColorScheme(SignInButton.COLOR_DARK);
 //        gmailSignInButton.setColorScheme(SignInButton.COLOR_LIGHT);
 
+    }
+
+    private void setUpGoogleApiClient() {
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        // Build a GoogleApiClient with access to the Google Sign-In API and the
+        // options specified by gso.
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
     }
 
     private void hideKeyboard() {
@@ -444,7 +448,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                             if (status.isSuccess()) {
                                 Log.d(TAG, "User Gmail Logged out");
                                 Toast.makeText(MainActivity.this, "Gmail Signout", Toast.LENGTH_SHORT).show();
-
                             }
                         }
                     });

@@ -38,7 +38,7 @@ public class DashboardActivity extends AppCompatActivity {
     String email_gmail;
 //    String photo_gmail;
 
-    private FirebaseAuth mAuth;
+//    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,7 +54,7 @@ public class DashboardActivity extends AppCompatActivity {
 //            finish();
 //        }
 
-        mAuth = FirebaseAuth.getInstance();
+//        mAuth = FirebaseAuth.getInstance();
 
         Intent intent = getIntent();
 
@@ -77,8 +77,8 @@ public class DashboardActivity extends AppCompatActivity {
 //            textViewPhoto.setText(photo);
 //        }
 
-        if(intent.hasExtra("user_photo_gmail")) {
-            name_gmail = intent.getStringExtra("user_photo_gmail");
+        if(intent.hasExtra("user_name_gmail")) {
+            name_gmail = intent.getStringExtra("user_name_gmail");
             textViewName_G.setText(name_gmail);
         }
 
