@@ -30,17 +30,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.Scopes;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.iid.FirebaseInstanceIdService;
 
 
 import java.util.regex.Matcher;
@@ -56,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private static final String TAG = "MainActivity";
 
     private Button buttonLogin;
-//    private TextView textViewSignupLink;
+    //    private TextView textViewSignupLink;
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
 
@@ -73,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private GoogleApiClient mGoogleApiClient;
 
     private SignInButton gmailSignInButton;
+
+    private String idTokenString = "";
+
 
 
     @Override
@@ -94,29 +102,32 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
 
-                    String name = user.getDisplayName();
-                    String email = user.getEmail();
-                    Uri photoUrl = user.getPhotoUrl();
+                    Log.i(TAG, "onAuthStateChanged: signed_in");
 
-                    // Check if user's email is verified
-                    boolean emailVerified = user.isEmailVerified();
-
-                    Toast.makeText(MainActivity.this, "Logged in via Facebook as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-
-//                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                    intent.putExtra("user_email", email);
-                    intent.putExtra("user_name", name);
-                    intent.putExtra("user_photo", photoUrl);
-                    startActivityForResult(intent, FACEBOOK_SIGNOUT_REQ);
+//                    String name = user.getDisplayName();
+//                    String email = user.getEmail();
+//                    Uri photoUrl = user.getPhotoUrl();
+//
+//                    // Check if user's email is verified
+//                    boolean emailVerified = user.isEmailVerified();
+//
+//                    Toast.makeText(MainActivity.this, "Logged in via Facebook as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
+//
+////                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
+//                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                    intent.putExtra("user_email", email);
+//                    intent.putExtra("user_name", name);
+//                    intent.putExtra("user_photo", photoUrl);
+//                    startActivityForResult(intent, FACEBOOK_SIGNOUT_REQ);
 
                 } else {
-                    Log.i(TAG, "onAuthStateChanged: logged_out");
+                    Log.i(TAG, "onAuthStateChanged: signed_out");
                 }
             }
         };
 
         fbLoginButton.setReadPermissions("email", "public_profile");
+
         fbLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
@@ -133,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     if (user.getDisplayName() != null) {
                         name = user.getDisplayName();
                     } else {
-                        name = "Display Name not available";
+                        name = "Display name not available";
                     }
 
                     if (user.getDisplayName() != null) {
@@ -233,8 +244,12 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     private void setUpGoogleApiClient() {
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestScopes(new Scope(Scopes.PROFILE))
+                .requestServerAuthCode(getString(R.string.default_web_client_id),false)
                 .requestIdToken(getString(R.string.default_web_client_id))
+                .requestProfile()
                 .requestEmail()
                 .build();
 
@@ -307,6 +322,11 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         }
 
         if (requestCode == GMAIL_RC_SIGN_IN) {
+//            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+//            GoogleSignInAccount account = result.getSignInAccount();
+//
+//            firebaseAuthWithGoogle(account);
+
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleGmailSignInResult(result);
         }
@@ -361,12 +381,73 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         startActivityForResult(signInIntent, GMAIL_RC_SIGN_IN);
     }
 
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+        Log.d(TAG, "Google User Id :" + acct.getId());
+
+        // --------------------------------- //
+        // BELOW LINE GIVES YOU JSON WEB TOKEN, (USED TO GET ACCESS TOKEN) :
+        Log.d(TAG, "Google JWT : " + acct.getIdToken());
+
+
+        // --------------------------------- //
+
+        // Save this JWT in global String :
+        idTokenString = acct.getIdToken();
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+
+                        if(task.isSuccessful()){
+                            // --------------------------------- //
+                            // BELOW LINE GIVES YOU FIREBASE TOKEN ID :
+                            Log.d(TAG, "Firebase User Access Token : " + task.getResult().getUser().getToken(true));
+                            // --------------------------------- //
+                        }
+                        // If sign in fails, display a message to the user. If sign in succeeds
+                        // the auth state listener will be notified and logic to handle the
+                        // signed in user can be handled in the listener.
+                        else {
+                            Log.w(TAG, "Authentication failed: ", task.getException());
+                            Toast.makeText(MainActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+
+
+
     private void handleGmailSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
 
+
             if (acct != null) {
+                Log.d(TAG, "handleGmailSignInResult: Google User Id: " + acct.getId());
+
+                // BELOW LINE GIVES YOU JSON WEB TOKEN, (USED TO GET ACCESS TOKEN) :
+
+
+
+                Toast.makeText(MainActivity.this, "Server Auth Token = "+ acct.getServerAuthCode(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Server Auth Token = "+ acct.getIdToken(), Toast.LENGTH_SHORT).show();
+
+                Log.d(TAG, "handleGmailSignInResult: ********************************");
+                Log.d(TAG, "handleGmailSignInResult: Server auth token = "+acct.getServerAuthCode());
+                Log.d(TAG, "handleGmailSignInResult: Google Id token =  " + acct.getIdToken());
+
+                Log.d(TAG, "handleGmailSignInResult: Photo Url = "+acct.getPhotoUrl());
+
+                // Save this JWT in global String :
+                idTokenString = acct.getIdToken();
+
+                Toast.makeText(MainActivity.this, "Access token: "+idTokenString, Toast.LENGTH_SHORT).show();
 
                 String name;
                 String email;
@@ -441,7 +522,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             public void onConnected(@Nullable Bundle bundle) {
 
                 FirebaseAuth.getInstance().signOut();
-                if(mGoogleApiClient.isConnected()) {
+                if (mGoogleApiClient.isConnected()) {
                     Auth.GoogleSignInApi.signOut(mGoogleApiClient).setResultCallback(new ResultCallback<Status>() {
                         @Override
                         public void onResult(@NonNull Status status) {
