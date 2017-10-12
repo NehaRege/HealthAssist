@@ -16,7 +16,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Calendar;
 
@@ -25,10 +28,12 @@ public class HomeActivity extends AppCompatActivity
 
     private TextView textViewNavHeaderName;
     private TextView textViewNavHeaderEmail;
+    private ImageView imageViewPhoto;
     private FloatingActionButton fab;
 
     String name;
     String email;
+    String photoUrl;
 
     Intent intent;
 
@@ -139,6 +144,7 @@ public class HomeActivity extends AppCompatActivity
 
         textViewNavHeaderEmail = (TextView) header.findViewById(R.id.nav_header_email);
         textViewNavHeaderName = (TextView) header.findViewById(R.id.nav_header_name);
+        imageViewPhoto = (ImageView) header.findViewById(R.id.nav_header_photo);
 
         fab = (FloatingActionButton) findViewById(R.id.fab);
 
@@ -169,6 +175,24 @@ public class HomeActivity extends AppCompatActivity
             name = intent.getStringExtra("user_name_gmail");
             textViewNavHeaderName.setText(name);
         }
+
+        if (intent.hasExtra("user_photo_gmail")) {
+            photoUrl = intent.getStringExtra("user_photo_gmail");
+
+            if(photoUrl!=null) {
+
+
+                Glide.with(HomeActivity.this)
+                        .load(photoUrl)
+                        .into(imageViewPhoto);
+
+//                Glide.with(context)
+//                        .load("http://via.placeholder.com/300.png")
+//                        .into(ivImg);
+            }
+        }
+
+
 
     }
 }

@@ -451,7 +451,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 String name;
                 String email;
-                Uri photoUrl;
+                String photoUrl;
 
                 if (acct.getDisplayName() != null) {
                     name = acct.getDisplayName();
@@ -465,6 +465,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     email = "Email not available";
                 }
 
+                if(acct.getPhotoUrl() != null) {
+                    photoUrl = acct.getPhotoUrl().toString();
+                } else {
+                    photoUrl = null;
+                }
+
+
 
                 Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
 
@@ -472,7 +479,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("user_email_gmail", email);
                 intent.putExtra("user_name_gmail", name);
-//                intent.putExtra("user_photo_gmail", photoUrl);
+                intent.putExtra("user_photo_gmail", photoUrl);
                 startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
 
             }
