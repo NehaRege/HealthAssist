@@ -433,21 +433,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
                 // BELOW LINE GIVES YOU JSON WEB TOKEN, (USED TO GET ACCESS TOKEN) :
 
-
-
-                Toast.makeText(MainActivity.this, "Server Auth Token = "+ acct.getServerAuthCode(), Toast.LENGTH_SHORT).show();
-                Toast.makeText(MainActivity.this, "Server Auth Token = "+ acct.getIdToken(), Toast.LENGTH_SHORT).show();
-
                 Log.d(TAG, "handleGmailSignInResult: ********************************");
-                Log.d(TAG, "handleGmailSignInResult: Server auth token = "+acct.getServerAuthCode());
+                Log.d(TAG, "handleGmailSignInResult: Server auth code = "+acct.getServerAuthCode());
                 Log.d(TAG, "handleGmailSignInResult: Google Id token =  " + acct.getIdToken());
 
                 Log.d(TAG, "handleGmailSignInResult: Photo Url = "+acct.getPhotoUrl());
 
                 // Save this JWT in global String :
                 idTokenString = acct.getIdToken();
-
-                Toast.makeText(MainActivity.this, "Access token: "+idTokenString, Toast.LENGTH_SHORT).show();
 
                 String name;
                 String email;
@@ -471,11 +464,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     photoUrl = null;
                 }
 
-
-
                 Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
 
-//                Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("user_email_gmail", email);
                 intent.putExtra("user_name_gmail", name);

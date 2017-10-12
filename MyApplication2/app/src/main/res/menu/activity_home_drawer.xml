@@ -33,13 +33,18 @@
         </menu>
     </item>
 
-    <item android:title="">
+    <group >
+
         <menu>
             <item
                 android:id="@+id/logout_drawer"
                 android:icon="@drawable/ic_menu_logout"
                 android:title="LOGOUT" />
         </menu>
-    </item>
+
+
+    </group>
+
+
 
 </menu>

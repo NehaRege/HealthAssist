@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/side_nav_bar"
     android:gravity="bottom"
     android:orientation="vertical"
@@ -13,10 +14,10 @@
 
     <ImageView
         android:id="@+id/nav_header_photo"
-        android:layout_width="120sp"
-        android:layout_height="100sp"
+        android:layout_width="75dp"
+        android:layout_height="75sp"
         android:elevation="5dp"
-        android:layout_gravity="center"
+        android:layout_gravity="start"
         android:src="@android:drawable/sym_def_app_icon" />
 
     <TextView
@@ -25,14 +26,12 @@
         android:id="@+id/nav_header_name"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="Name not available"
-        android:gravity="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
         android:id="@+id/nav_header_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:text="Email not available"
         />
 

@@ -2,14 +2,11 @@ package com.test.myapplication;
 
 import android.content.ContentUris;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,18 +21,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.Calendar;
 
-import jp.wasabeef.glide.transformations.BlurTransformation;
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
-import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
-
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
     private TextView textViewNavHeaderName;
     private TextView textViewNavHeaderEmail;
@@ -48,6 +38,7 @@ public class HomeActivity extends AppCompatActivity
 
     Intent intent;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,13 +46,18 @@ public class HomeActivity extends AppCompatActivity
 
         setUpToolbarAndNavigationDrawer();
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        initializeViews();
+
+        setIntent();
+
+
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
     }
 
     @Override
@@ -82,12 +78,8 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
@@ -111,6 +103,8 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_calendar) {
+
+
             Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
             builder.appendPath("time");
             ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
@@ -123,6 +117,7 @@ public class HomeActivity extends AppCompatActivity
 //            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
 //            Intent intent = new Intent(Intent.ACTION_VIEW).setData(uri);
 //            startActivity(intent);
+
         } else if (id == R.id.logout_drawer) {
 
             Intent i = new Intent();
@@ -148,6 +143,10 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+    }
+
+    private void initializeViews() {
+
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
@@ -156,14 +155,12 @@ public class HomeActivity extends AppCompatActivity
         textViewNavHeaderEmail = (TextView) header.findViewById(R.id.nav_header_email);
         textViewNavHeaderName = (TextView) header.findViewById(R.id.nav_header_name);
         imageViewPhoto = (ImageView) header.findViewById(R.id.nav_header_photo);
-
         fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        setIntentNameEmail();
+        fab.setOnClickListener(this);
 
     }
 
-    private void setIntentNameEmail() {
+    private void setIntent() {
 
         intent = getIntent();
 
@@ -199,5 +196,18 @@ public class HomeActivity extends AppCompatActivity
 
             }
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        switch(view.getId()) {
+            case R.id.fab:
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                break;
+
+        }
+
     }
 }
