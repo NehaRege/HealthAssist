@@ -197,27 +197,7 @@ public class HomeActivity extends AppCompatActivity
                         .apply(RequestOptions.circleCropTransform())
                         .into(imageViewPhoto);
 
-
-//                Glide.with(HomeActivity.this).load(photoUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageViewPhoto) {
-//                    @Override
-//                    protected void setResource(Bitmap resource) {
-//                        RoundedBitmapDrawable circularBitmapDrawable =
-//                                RoundedBitmapDrawableFactory.create(HomeActivity.this.getResources(), resource);
-//                        circularBitmapDrawable.setCircular(true);
-//                        imageViewPhoto.setImageDrawable(circularBitmapDrawable);
-//                    }
-//                });
-
-//                Glide.with(HomeActivity.this)
-//                        .load(photoUrl)
-//                        .into(imageViewPhoto);
-
-//                Glide.with(context)
-//                        .load("http://via.placeholder.com/300.png")
-//                        .into(ivImg);
             }
         }
-
-
     }
 }
