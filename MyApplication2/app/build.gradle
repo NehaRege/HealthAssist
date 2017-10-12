@@ -33,6 +33,10 @@ dependencies {
 
     compile 'com.github.bumptech.glide:glide:3.8.0'
 
+    compile 'jp.wasabeef:glide-transformations:3.0.1'
+    // If you want to use the GPU Filters
+    compile 'jp.co.cyberagent.android.gpuimage:gpuimage-library:1.4.1'
+
 
     compile 'pub.devrel:easypermissions:0.3.0'
     compile('com.google.api-client:google-api-client-android:1.22.0') {

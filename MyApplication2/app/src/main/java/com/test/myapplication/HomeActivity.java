@@ -2,11 +2,14 @@ package com.test.myapplication;
 
 import android.content.ContentUris;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,8 +23,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 
 import java.util.Calendar;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
+import static com.bumptech.glide.request.RequestOptions.bitmapTransform;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -179,19 +190,33 @@ public class HomeActivity extends AppCompatActivity
         if (intent.hasExtra("user_photo_gmail")) {
             photoUrl = intent.getStringExtra("user_photo_gmail");
 
-            if(photoUrl!=null) {
-
+            if (photoUrl != null) {
 
                 Glide.with(HomeActivity.this)
                         .load(photoUrl)
+                        .apply(RequestOptions.circleCropTransform())
                         .into(imageViewPhoto);
+
+
+//                Glide.with(HomeActivity.this).load(photoUrl).asBitmap().centerCrop().into(new BitmapImageViewTarget(imageViewPhoto) {
+//                    @Override
+//                    protected void setResource(Bitmap resource) {
+//                        RoundedBitmapDrawable circularBitmapDrawable =
+//                                RoundedBitmapDrawableFactory.create(HomeActivity.this.getResources(), resource);
+//                        circularBitmapDrawable.setCircular(true);
+//                        imageViewPhoto.setImageDrawable(circularBitmapDrawable);
+//                    }
+//                });
+
+//                Glide.with(HomeActivity.this)
+//                        .load(photoUrl)
+//                        .into(imageViewPhoto);
 
 //                Glide.with(context)
 //                        .load("http://via.placeholder.com/300.png")
 //                        .into(ivImg);
             }
         }
-
 
 
     }
