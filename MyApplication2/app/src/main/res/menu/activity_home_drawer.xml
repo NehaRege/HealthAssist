@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:uber="http://schemas.android.com/apk/res-auto">
 
     <group android:checkableBehavior="single">
         <item
@@ -22,10 +23,12 @@
 
     <item android:title="Communicate">
         <menu>
+
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/nav_uber"
                 android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:title="Uber" />
+
             <item
                 android:id="@+id/nav_calendar"
                 android:icon="@drawable/ic_menu_calendar"

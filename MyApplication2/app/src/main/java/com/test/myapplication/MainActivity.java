@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -47,25 +46,25 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class MainActivity extends AppCompatActivity
+        implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
+
+    private static final String TAG = "MainActivity";
 
     private static final int FACEBOOK_SIGNOUT_REQ = 1;
     private static final int GMAIL_SIGNOUT_REQ = 2;
     private static final int SIGNOUT_REQ = 232;
     private static final int GMAIL_RC_SIGN_IN = 9001;
 
-    private static final String TAG = "MainActivity";
+    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
 
     private Button buttonLogin;
-    //    private TextView textViewSignupLink;
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
 
-    private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
 
@@ -80,8 +79,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     private SignInButton gmailSignInButton;
 
     private String idTokenString = "";
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,25 +98,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-
                     Log.i(TAG, "onAuthStateChanged: signed_in");
-
-//                    String name = user.getDisplayName();
-//                    String email = user.getEmail();
-//                    Uri photoUrl = user.getPhotoUrl();
-//
-//                    // Check if user's email is verified
-//                    boolean emailVerified = user.isEmailVerified();
-//
-//                    Toast.makeText(MainActivity.this, "Logged in via Facebook as: " + user.getEmail(), Toast.LENGTH_SHORT).show();
-//
-////                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
-//                    Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-//                    intent.putExtra("user_email", email);
-//                    intent.putExtra("user_name", name);
-//                    intent.putExtra("user_photo", photoUrl);
-//                    startActivityForResult(intent, FACEBOOK_SIGNOUT_REQ);
-
                 } else {
                     Log.i(TAG, "onAuthStateChanged: signed_out");
                 }
@@ -153,11 +132,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         email = "Email not available";
                     }
 
-
                     // Check if user's email is verified
                     boolean emailVerified = user.isEmailVerified();
 
-//                    Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     intent.putExtra("user_email", email);
                     intent.putExtra("user_name", name);
@@ -180,40 +157,32 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             }
         });
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hideKeyboard();
-
-                String username = usernameWrapper.getEditText().getText().toString();
-                String password = usernameWrapper.getEditText().getText().toString();
-
-                if (!validateEmail(username)) {
-                    usernameWrapper.setError("Not a valid email address!");
-                } else if (!validatePassword(password)) {
-                    passwordWrapper.setError("Not a valid password!");
-                } else {
-                    usernameWrapper.setErrorEnabled(false);
-                    passwordWrapper.setErrorEnabled(false);
-                    doLogin();
-                }
-            }
-        });
-
-//        textViewSignupLink.setOnClickListener(new View.OnClickListener() {
+//        buttonLogin.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
-//                Intent intent = new Intent(MainActivity.this, SignupActivity.class);
-//                startActivity(intent);
+//                hideKeyboard();
+//
+//                String username = usernameWrapper.getEditText().getText().toString();
+//                String password = usernameWrapper.getEditText().getText().toString();
+//
+//                if (!validateEmail(username)) {
+//                    usernameWrapper.setError("Not a valid email address!");
+//                } else if (!validatePassword(password)) {
+//                    passwordWrapper.setError("Not a valid password!");
+//                } else {
+//                    usernameWrapper.setErrorEnabled(false);
+//                    passwordWrapper.setErrorEnabled(false);
+//                    doLogin();
+//                }
 //            }
 //        });
 
-        gmailSignInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gmailSignIn();
-            }
-        });
+//        gmailSignInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                gmailSignIn();
+//            }
+//        });
     }
 
     @Override
@@ -231,15 +200,14 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         buttonLogin = (Button) findViewById(R.id.activity_main_login_button);
         usernameWrapper = (TextInputLayout) findViewById(R.id.usernameWrapper);
         passwordWrapper = (TextInputLayout) findViewById(R.id.passwordWrapper);
-//        textViewSignupLink = (TextView) findViewById(R.id.link_signup);
+        buttonLogin.setOnClickListener(this);
 
         fbLoginButton = (LoginButton) findViewById(R.id.button_facebook_login);
 
         gmailSignInButton = (SignInButton) findViewById(R.id.sign_in_button_gmail);
+        gmailSignInButton.setOnClickListener(this);
         gmailSignInButton.setSize(SignInButton.SIZE_STANDARD);
         gmailSignInButton.setColorScheme(SignInButton.COLOR_AUTO);
-//        gmailSignInButton.setColorScheme(SignInButton.COLOR_DARK);
-//        gmailSignInButton.setColorScheme(SignInButton.COLOR_LIGHT);
 
     }
 
@@ -247,7 +215,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestScopes(new Scope(Scopes.PROFILE))
-                .requestServerAuthCode(getString(R.string.default_web_client_id),false)
+                .requestServerAuthCode(getString(R.string.default_web_client_id), false)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestProfile()
                 .requestEmail()
@@ -279,11 +247,9 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
     public void doLogin() {
-//        Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         setResult(SIGNOUT_REQ);
         startActivity(intent);
-
     }
 
     @Override
@@ -401,7 +367,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
 
-                        if(task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             // --------------------------------- //
                             // BELOW LINE GIVES YOU FIREBASE TOKEN ID :
                             Log.d(TAG, "Firebase User Access Token : " + task.getResult().getUser().getToken(true));
@@ -420,7 +386,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
     }
 
 
-
     private void handleGmailSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
 
@@ -434,10 +399,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                 // BELOW LINE GIVES YOU JSON WEB TOKEN, (USED TO GET ACCESS TOKEN) :
 
                 Log.d(TAG, "handleGmailSignInResult: ********************************");
-                Log.d(TAG, "handleGmailSignInResult: Server auth code = "+acct.getServerAuthCode());
+                Log.d(TAG, "handleGmailSignInResult: Server auth code = " + acct.getServerAuthCode());
                 Log.d(TAG, "handleGmailSignInResult: Google Id token =  " + acct.getIdToken());
 
-                Log.d(TAG, "handleGmailSignInResult: Photo Url = "+acct.getPhotoUrl());
+                Log.d(TAG, "handleGmailSignInResult: Photo Url = " + acct.getPhotoUrl());
 
                 // Save this JWT in global String :
                 idTokenString = acct.getIdToken();
@@ -458,7 +423,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                     email = "Email not available";
                 }
 
-                if(acct.getPhotoUrl() != null) {
+                if (acct.getPhotoUrl() != null) {
                     photoUrl = acct.getPhotoUrl().toString();
                 } else {
                     photoUrl = null;
@@ -535,6 +500,60 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
             @Override
             public void onConnectionSuspended(int i) {
                 Log.d(TAG, "Google API Client Connection Suspended");
+            }
+        });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.activity_main_login_button: {
+
+                hideKeyboard();
+
+                String username = usernameWrapper.getEditText().getText().toString();
+                String password = usernameWrapper.getEditText().getText().toString();
+
+                if (!validateEmail(username)) {
+                    usernameWrapper.setError("Not a valid email address!");
+                } else if (!validatePassword(password)) {
+                    passwordWrapper.setError("Not a valid password!");
+                } else {
+                    usernameWrapper.setErrorEnabled(false);
+                    passwordWrapper.setErrorEnabled(false);
+                    doLogin();
+                }
+
+                break;
+
+            }
+
+            case R.id.sign_in_button_gmail: {
+
+                gmailSignIn();
+
+                break;
+            }
+
+        }
+
+        buttonLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideKeyboard();
+
+                String username = usernameWrapper.getEditText().getText().toString();
+                String password = usernameWrapper.getEditText().getText().toString();
+
+                if (!validateEmail(username)) {
+                    usernameWrapper.setError("Not a valid email address!");
+                } else if (!validatePassword(password)) {
+                    passwordWrapper.setError("Not a valid password!");
+                } else {
+                    usernameWrapper.setErrorEnabled(false);
+                    passwordWrapper.setErrorEnabled(false);
+                    doLogin();
+                }
             }
         });
     }

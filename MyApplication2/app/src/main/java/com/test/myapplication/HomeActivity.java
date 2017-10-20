@@ -1,8 +1,13 @@
 package com.test.myapplication;
 
+import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
@@ -18,10 +23,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.uber.sdk.android.core.UberSdk;
+import com.uber.sdk.android.rides.RideParameters;
+import com.uber.sdk.android.rides.RideRequestActivityBehavior;
+import com.uber.sdk.android.rides.RideRequestButton;
+import com.uber.sdk.core.auth.Scope;
+import com.uber.sdk.rides.client.SessionConfiguration;
 
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity
@@ -32,12 +45,19 @@ public class HomeActivity extends AppCompatActivity
     private ImageView imageViewPhoto;
     private FloatingActionButton fab;
 
+    private static final int PERMISSION_REQUEST_CODE_CALENDAR = 111;
+    private static final int PERMISSION_REQUEST_CODE_LOCATION = 112;
+
+    private static final String
+
+            CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
+
+
     String name;
     String email;
     String photoUrl;
 
     Intent intent;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +70,6 @@ public class HomeActivity extends AppCompatActivity
 
         setIntent();
 
-
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
     }
 
     @Override
@@ -100,17 +112,59 @@ public class HomeActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_uber) {
+
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                if (shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                } else {
+                    String[] permissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION};
+                    requestPermissions(permissions, PERMISSION_REQUEST_CODE_LOCATION);
+                }
+
+            } else if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                Intent intent = new Intent(HomeActivity.this, UberActivity.class);
+                startActivity(intent);
+
+
+            }
+
 
         } else if (id == R.id.nav_calendar) {
 
+            if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
 
-            Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
-            builder.appendPath("time");
-            ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
-            Intent intent = new Intent(Intent.ACTION_VIEW)
-                    .setData(builder.build());
-            startActivity(intent);
+                // Should we show an explanation?
+                if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)) {
+
+                    // Show an expanation to the user *asynchronously* -- don't block
+                    // this thread waiting for the user's response! After the user
+                    // sees the explanation, try again to request the permission.
+
+                } else {
+                    // No explanation needed, we can request the permission.
+                    String[] permissions = new String[]{Manifest.permission.WRITE_CALENDAR};
+                    requestPermissions(permissions, PERMISSION_REQUEST_CODE_CALENDAR);
+
+
+                    // PERMISSION_REQUEST_CODE is an
+                    // app-defined int constant. The callback method gets the
+                    // result of the request.
+                }
+            } else if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
+
+                // Permission is granted, execute code normally since you have the permission.
+                // For example, here we are granted the contacts permission so now we can actually access the contacts here.
+
+                Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+                builder.appendPath("time");
+                ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
+                Intent intent = new Intent(Intent.ACTION_VIEW)
+                        .setData(builder.build());
+                startActivity(intent);
+
+            }
 
 //            long eventID = 200;
 //
@@ -201,7 +255,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
 
-        switch(view.getId()) {
+        switch (view.getId()) {
             case R.id.fab:
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
@@ -210,4 +264,134 @@ public class HomeActivity extends AppCompatActivity
         }
 
     }
+
+    @TargetApi(23)
+    private boolean permissionExists() {
+        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentApiVersion < Build.VERSION_CODES.M) {
+
+            // Permissions are already granted during INSTALL TIME for older OS version
+            return true;
+        }
+
+        int granted = checkSelfPermission(CALENDAR_PERMISSION);
+        if (granted == PackageManager.PERMISSION_GRANTED) {
+            return true;
+        }
+        return false;
+    }
+
+    @TargetApi(23)
+    private void requestUserForPermission() {
+        int currentApiVersion = android.os.Build.VERSION.SDK_INT;
+        if (currentApiVersion < Build.VERSION_CODES.M) {
+            // This OS version is lower then Android M, therefore we have old permission model and should not ask for permission
+            return;
+        }
+        String[] permissions = new String[]{CALENDAR_PERMISSION};
+        requestPermissions(permissions, PERMISSION_REQUEST_CODE_CALENDAR);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSION_REQUEST_CODE_CALENDAR:
+                if (permissions.length < 0) {
+                    return;
+                }
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // contacts permission was granted! Let's populate the listview.
+                    showCalendar();
+                } else {
+                    // contactss permission was denied, lets warn the user that we need this permission!
+                    Toast.makeText(getApplicationContext(), "You need to grant calendar permission", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+    }
+
+    private void checkPermissions(String permissionString) {
+
+//        if (checkSelfPermission(permissionString) != PackageManager.PERMISSION_GRANTED) {
+//
+//            // Should we show an explanation?
+//            if (shouldShowRequestPermissionRationale(permissionString)) {
+//
+//                // Show an expanation to the user *asynchronously* -- don't block
+//                // this thread waiting for the user's response! After the user
+//                // sees the explanation, try again to request the permission.
+//
+//            } else {
+//                // No explanation needed, we can request the permission.
+//                String[] permissions = new String[]{permissionString};
+//                requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+//
+//
+//                // PERMISSION_REQUEST_CODE is an
+//                // app-defined int constant. The callback method gets the
+//                // result of the request.
+//            }
+//
+//        } else if (checkSelfPermission(permissionString) == PackageManager.PERMISSION_GRANTED) {
+//
+//            // Permission is granted, execute code normally since you have the permission.
+//            // For example, here we are granted the contacts permission so now we can actually access the contacts here.
+//
+//            Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+//            builder.appendPath("time");
+//            ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
+//            Intent intent = new Intent(Intent.ACTION_VIEW)
+//                    .setData(builder.build());
+//            startActivity(intent);
+//
+//        }
+
+    }
+
+//    private void uberSetup() {
+//        uberConfig();
+//
+//        RideRequestButton rideRequestButton = new RideRequestButton(HomeActivity.this);
+//        layout.addView(rideRequestButton);
+//        Activity activity = this; // If you're in a fragment you must get the containing Activity!
+//        int requestCode = 1234;
+//        rideRequestButton.setRequestBehavior(new RideRequestActivityBehavior(activity, requestCode));
+//
+//// Optional, default behavior is to use current location for pickup
+//        RideParameters rideParams = new RideParameters.Builder()
+//                .setProductId("a1111c8c-c720-46c3-8534-2fcdd730040d")
+//                .setPickupLocation(37.775304, -122.417522, "Uber HQ", "1455 Market Street, San Francisco")
+//                .setDropoffLocation(37.795079, -122.4397805, "Embarcadero", "One Embarcadero Center, San Francisco")
+//                .build();
+//        rideRequestButton.setRideParameters(rideParams);
+//
+//    }
+//
+//    private void uberConfig() {
+//        SessionConfiguration config = new SessionConfiguration.Builder()
+//                // mandatory
+//                .setClientId("yk6wfbTmXZiXndWmzASMX6MiYT-mI2CQ")
+//                // required for enhanced button features
+//                .setServerToken("9DSnlyJYB9XE0hW9JrySkjD7rhqLffE5jvgN2993")
+//                // required for implicit grant authentication
+//                .setRedirectUri("yk6wfbTmXZiXndWmzASMX6MiYT-mI2CQ://uberConnect")
+//                // required scope for Ride Request Widget features
+//                .setScopes(Arrays.asList(Scope.RIDE_WIDGETS))
+//                // optional: set sandbox as operating environment
+//                .setEnvironment(SessionConfiguration.Environment.SANDBOX)
+//                .build();
+//
+//        UberSdk.initialize(config);
+//    }
+
+    private void showCalendar() {
+        Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
+        builder.appendPath("time");
+        ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
+        Intent intent = new Intent(Intent.ACTION_VIEW)
+                .setData(builder.build());
+        startActivity(intent);
+
+    }
+
 }
