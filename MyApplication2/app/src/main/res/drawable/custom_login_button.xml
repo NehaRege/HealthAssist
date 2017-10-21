@@ -6,11 +6,20 @@
     <gradient
         android:angle="270"
         android:centerX="100%"
-        android:centerColor="#32A1AD"
-        android:startColor="#76DDE8"
+        android:centerColor="#e0f2f1"
+        android:startColor="#eceff1"
         android:endColor="#F7F6F0"
         android:type="linear"
         />
+
+    <!--<gradient-->
+        <!--android:angle="270"-->
+        <!--android:centerX="100%"-->
+        <!--android:centerColor="#32A1AD"-->
+        <!--android:startColor="#76DDE8"-->
+        <!--android:endColor="#F7F6F0"-->
+        <!--android:type="linear"-->
+        <!--/>-->
     <padding
         android:left="5dp"
         android:top="5dp"

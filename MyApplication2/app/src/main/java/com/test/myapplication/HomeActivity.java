@@ -2,7 +2,6 @@ package com.test.myapplication;
 
 import android.Manifest;
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -27,14 +26,7 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.uber.sdk.android.core.UberSdk;
-import com.uber.sdk.android.rides.RideParameters;
-import com.uber.sdk.android.rides.RideRequestActivityBehavior;
-import com.uber.sdk.android.rides.RideRequestButton;
-import com.uber.sdk.core.auth.Scope;
-import com.uber.sdk.rides.client.SessionConfiguration;
 
-import java.util.Arrays;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity
@@ -104,7 +96,12 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_user_profile) {
+            Intent intent = new Intent(this, UserProfileActivity.class);
+            if(photoUrl!=null) {
+                intent.putExtra("user_photo",photoUrl);
+            }
+            startActivity(intent);
 
         } else if (id == R.id.nav_gallery) {
 

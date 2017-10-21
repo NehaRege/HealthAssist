@@ -66,11 +66,20 @@
         </activity>
 
         <activity
-            android:name=".UberActivity"
+        android:name=".UberActivity"
+        android:label="@string/title_activity_home"
+        android:theme="@style/AppTheme.NoActionBar">
+
+    </activity>
+
+        <activity
+            android:name=".UserProfileActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppThemeActionBar">
 
         </activity>
+
+
     </application>
 
 </manifest>
