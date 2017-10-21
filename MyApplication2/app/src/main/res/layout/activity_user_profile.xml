@@ -67,6 +67,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -97,6 +98,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_gender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -135,6 +137,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_location"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -165,10 +168,11 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_dob"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:text="Asian"
+                        android:text="Feb 28, 1992"
                         android:textSize="15dp" />
 
                 </LinearLayout>
@@ -195,6 +199,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/profile_activity_ethnicity"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -225,6 +230,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_age"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -291,6 +297,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_user_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -321,6 +328,7 @@
                         android:textStyle="normal" />
 
                     <TextView
+                        android:id="@+id/user_profile_activity_email"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -391,41 +399,6 @@
 
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@android:color/darker_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="30dp"
-                        android:text="Age :"
-                        android:textSize="20dp"
-                        android:textStyle="normal" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:text="25"
-                        android:textSize="20dp" />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@android:color/darker_gray" />
-
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
@@ -477,6 +450,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_alcohol_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -490,6 +464,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_alcohol_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -527,6 +502,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_bleeding_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -540,6 +516,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_bleeding_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -577,6 +554,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_cancer_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -590,6 +568,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_cancer_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -627,6 +606,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_diabetes_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -640,6 +620,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_diabetes_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -677,6 +658,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_epilepsy_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -690,6 +672,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_epilepsy_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -727,6 +710,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_bp_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -740,6 +724,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_bp_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -777,6 +762,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_heart_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -790,6 +776,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_heart_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -827,6 +814,7 @@
                         android:textStyle="normal" />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_migraine_yes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         />
@@ -840,6 +828,7 @@
                         />
 
                     <RadioButton
+                        android:id="@+id/profile_activity_radio_migraine_no"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
@@ -854,72 +843,10 @@
                         />
 
                 </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@android:color/darker_gray" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="10dp"
-                        android:text="Alcoholism :"
-                        android:textSize="20dp"
-                        android:textStyle="normal" />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Yes"
-                        android:textSize="20dp"
-                        android:layout_marginTop="3dp"
-                        />
-
-                    <RadioButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="6dp"
-                        />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No"
-                        android:textSize="20dp"
-                        android:layout_marginTop="3dp"
-                        />
-
-                </LinearLayout>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@android:color/darker_gray" />
-
-
-
-
-
 
             </LinearLayout>
 
         </android.support.v7.widget.CardView>
-
 
     </LinearLayout>
 
