@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,20 +16,29 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
+
 /**
  * Created by NehaRege on 9/11/17.
  */
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity implements CustomRvAdapter.OnRecyclerViewItemClickListener {
 
     private static final String TAG = "Dashboard";
 
-    TextView textViewName;
-    TextView textViewEmail;
-    TextView textViewPhoto;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter rvAdapter;
+    private RecyclerView.LayoutManager rvLayoutManager;
 
-    TextView textViewName_G;
-    TextView textViewEmail_G;
-    TextView textViewPhoto_G;
+    private ArrayList<String> dataList = new ArrayList<>();
+
+
+    private TextView textViewName;
+    private TextView textViewEmail;
+    private TextView textViewPhoto;
+
+    private TextView textViewName_G;
+    private TextView textViewEmail_G;
+    private TextView textViewPhoto_G;
 
     String name;
     String email;
@@ -54,33 +65,15 @@ public class DashboardActivity extends AppCompatActivity {
             textViewEmail.setText(email);
         }
 
-//        if(intent.hasExtra("user_photo")) {
-//            photo = intent.getStringExtra("user_photo");
-//            textViewPhoto.setText(photo);
-//        }
-
         if(intent.hasExtra("user_name_gmail")) {
             name_gmail = intent.getStringExtra("user_name_gmail");
             textViewName_G.setText(name_gmail);
         }
 
-//        if(intent.hasExtra("user_photo_gmail")) {
-//            photo_gmail = intent.getStringExtra("user_photo_gmail");
-//            textViewPhoto_G.setText(photo_gmail);
-//        }
-
         if(intent.hasExtra("user_email_gmail")) {
             email_gmail = intent.getStringExtra("user_email_gmail");
             textViewEmail_G.setText(email_gmail);
         }
-
-
-
-
-
-
-
-
 
     }
 
@@ -118,6 +111,25 @@ public class DashboardActivity extends AppCompatActivity {
         textViewName_G = (TextView) findViewById(R.id.dashboard_name_gmail);
         textViewEmail_G = (TextView) findViewById(R.id.dashboard_email_gmail);
         textViewPhoto_G = (TextView) findViewById(R.id.dashboard_photo_gmail);
-//        buttonSignOut = (Button) findViewById(R.id.button_facebook_signout_dashboard);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
+        dataList.add("Arizona");
+        dataList.add("California");
+        dataList.add("New Mexico");
+        dataList.add("New York");
+
+        rvLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(rvLayoutManager);
+
+        rvAdapter = new CustomRvAdapter(dataList,this);
+
+        recyclerView.setAdapter(rvAdapter);
+
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(DashboardActivity.this, "Clicked on " + dataList.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
     }
 }
