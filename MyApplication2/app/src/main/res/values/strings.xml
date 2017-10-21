@@ -2,7 +2,9 @@
     <string name="app_name">Health Assist</string>
     <string name="facebook_app_id">1642397029143911</string>
     <string name="fb_login_protocol_scheme">fb1642397029143911</string>
-    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_home">Home</string>
+    <string name="title_activity_uber_activity">Call Uber</string>
+    <string name="title_activity_user_profile">User Profile</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

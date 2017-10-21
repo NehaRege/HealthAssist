@@ -24,7 +24,6 @@ public class DashboardActivity extends AppCompatActivity {
     TextView textViewName;
     TextView textViewEmail;
     TextView textViewPhoto;
-//    Button buttonSignOut;
 
     TextView textViewName_G;
     TextView textViewEmail_G;
@@ -32,13 +31,9 @@ public class DashboardActivity extends AppCompatActivity {
 
     String name;
     String email;
-//    String photo;
 
     String name_gmail;
     String email_gmail;
-//    String photo_gmail;
-
-//    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,20 +42,7 @@ public class DashboardActivity extends AppCompatActivity {
 
         initializeViews();
 
-//        if(getActionBar() != null) {
-//            Intent i = new Intent();
-//            getActionBar().setDisplayHomeAsUpEnabled(true);
-//            setResult(RESULT_OK, i);
-//            finish();
-//        }
-
-//        mAuth = FirebaseAuth.getInstance();
-
         Intent intent = getIntent();
-
-//        if(getIntent().hasExtra("firstvalue")) {
-//            String firstvalue = getIntent().getStringExtra("firstvalue");
-//        }
 
         if(intent.hasExtra("user_name")) {
             name = intent.getStringExtra("user_name");

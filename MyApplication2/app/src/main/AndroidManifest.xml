@@ -52,6 +52,7 @@
 
         <activity
             android:name=".DashboardActivity"
+            android:label="@string/title_activity_home"
             android:theme="@style/AppTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -66,16 +67,23 @@
         </activity>
 
         <activity
-        android:name=".UberActivity"
-        android:label="@string/title_activity_home"
-        android:theme="@style/AppTheme.NoActionBar">
+            android:name=".UberActivity"
+            android:label="@string/title_activity_uber_activity"
+            android:theme="@style/AppThemeActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.test.myapplication.DashboardActivity" />
 
-    </activity>
+        </activity>
 
         <activity
             android:name=".UserProfileActivity"
-            android:label="@string/title_activity_home"
+            android:label="@string/title_activity_user_profile"
             android:theme="@style/AppThemeActionBar">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.test.myapplication.DashboardActivity" />
 
         </activity>
 

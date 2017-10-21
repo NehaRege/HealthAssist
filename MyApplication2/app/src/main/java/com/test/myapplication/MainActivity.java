@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity
     private static final String EMAIL_PATTERN = "^[a-zA-Z0-9#_~!$&'()*+,;=:.\"(),:;<>@\\[\\]\\\\]+@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*$";
 
     private Button buttonLogin;
+
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
 
