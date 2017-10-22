@@ -2,6 +2,7 @@ package com.test.myapplication;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
  * Created by NehaRege on 10/21/17.
  */
 public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.SampleViewHolder> {
+    private static final String TAG = "CustomRvAdapter";
+
 
     private ArrayList<String> data;
 
@@ -25,8 +28,10 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
         if (inComingData != null) {
             this.data = inComingData;
+            Log.d(TAG, "CustomRvAdapter: data null ");
         } else {
             this.data = new ArrayList<String>();
+            Log.d(TAG, "CustomRvAdapter: data = "+data.get(0));
         }
     }
 

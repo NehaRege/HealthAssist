@@ -27,7 +27,8 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:text="Welcome to  Health Assist !"
-            android:textColor="@color/black"
+            android:elevation="3dp"
+            android:textColor="@color/blue_grey_500"
             android:textSize="38dp"
             android:typeface="serif" />
 
@@ -61,6 +62,7 @@
                 android:layout_marginTop="25dp"
                 android:drawableLeft="@drawable/user"
                 android:hint="Email"
+                android:elevation="2dp"
                 android:inputType="textEmailAddress" />
 
         </android.support.design.widget.TextInputLayout>
@@ -79,6 +81,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
                 android:hint="Password"
+                android:elevation="2dp"
                 android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
@@ -94,6 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:elevation="60dp"
         android:background="@drawable/custom_login_button"
         android:text="Login" />
 

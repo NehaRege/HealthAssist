@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,10 +29,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        View.OnClickListener,
+        CustomRvAdapter.OnRecyclerViewItemClickListener {
 
     private TextView textViewNavHeaderName;
     private TextView textViewNavHeaderEmail;
@@ -40,9 +45,13 @@ public class HomeActivity extends AppCompatActivity
     private static final int PERMISSION_REQUEST_CODE_CALENDAR = 111;
     private static final int PERMISSION_REQUEST_CODE_LOCATION = 112;
 
-    private static final String
+    private static final String CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
 
-            CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter rvAdapter;
+    private RecyclerView.LayoutManager rvLayoutManager;
+
+    private ArrayList<String> dataList = new ArrayList<>();
 
 
     String name;
@@ -61,6 +70,32 @@ public class HomeActivity extends AppCompatActivity
         initializeViews();
 
         setIntent();
+
+        dataList.add("Arizona");
+        dataList.add("California");
+        dataList.add("New Mexico");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+
+        rvLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(rvLayoutManager);
+
+        rvAdapter = new CustomRvAdapter(dataList,this);
+
+        recyclerView.setAdapter(rvAdapter);
 
     }
 
@@ -208,6 +243,9 @@ public class HomeActivity extends AppCompatActivity
         imageViewPhoto = (ImageView) header.findViewById(R.id.nav_header_photo);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
+
+        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+
 
     }
 
@@ -391,4 +429,9 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onItemClick(int position) {
+        Toast.makeText(HomeActivity.this, "Clicked on " + dataList.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
+
+    }
 }

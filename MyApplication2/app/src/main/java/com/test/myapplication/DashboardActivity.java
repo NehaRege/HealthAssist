@@ -75,6 +75,33 @@ public class DashboardActivity extends AppCompatActivity implements CustomRvAdap
             textViewEmail_G.setText(email_gmail);
         }
 
+        dataList.add("Arizona");
+        dataList.add("California");
+        dataList.add("New Mexico");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+        dataList.add("New York");
+
+        rvLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(rvLayoutManager);
+
+        rvAdapter = new CustomRvAdapter(dataList,this);
+
+        recyclerView.setAdapter(rvAdapter);
+
     }
 
     @Override
@@ -113,18 +140,6 @@ public class DashboardActivity extends AppCompatActivity implements CustomRvAdap
         textViewPhoto_G = (TextView) findViewById(R.id.dashboard_photo_gmail);
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
-        dataList.add("Arizona");
-        dataList.add("California");
-        dataList.add("New Mexico");
-        dataList.add("New York");
-
-        rvLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(rvLayoutManager);
-
-        rvAdapter = new CustomRvAdapter(dataList,this);
-
-        recyclerView.setAdapter(rvAdapter);
 
     }
 
