@@ -58,20 +58,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Name :"
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="Neha Rege"
                         android:textSize="15dp" />
 
@@ -89,20 +91,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Gender :"
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_gender"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="Female"
                         android:textSize="15dp" />
 
@@ -128,20 +132,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Location :"
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_location"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="San Jose, California"
                         android:textSize="15dp" />
 
@@ -159,20 +165,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="DOB :"
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_dob"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="Feb 28, 1992"
                         android:textSize="15dp" />
 
@@ -190,20 +198,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Ethnicity :"
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_ethnicity"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="Asian"
                         android:textSize="15dp" />
 
@@ -221,20 +231,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Age :"
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_age"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="25"
                         android:textSize="15dp" />
 
@@ -288,20 +300,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="User Type :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_user_type"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="Patient"
                         android:textSize="@dimen/profile_activity_text" />
 
@@ -319,20 +333,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Email :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_email"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:fitsSystemWindows="true"
                         android:text="neharege28@gmail.com"
                         android:textSize="@dimen/profile_activity_text" />
@@ -351,20 +367,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
-                        android:text="Phone Number :"
+                        android:layout_weight="0.25"
+                        android:text="Number :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_number"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:fitsSystemWindows="true"
                         android:text="6508675443"
                         android:textSize="@dimen/profile_activity_text" />
@@ -382,20 +400,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
+                        android:layout_weight="0.25"
                         android:text="Doctor :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <TextView
                         android:id="@+id/user_profile_activity_doctor"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
                         android:text="Doctor Name"
                         android:textSize="@dimen/profile_activity_text" />
                 </LinearLayout>
@@ -441,20 +461,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Alcoholism :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_alcohol"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_alcohol_yes"
@@ -467,8 +489,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
 
@@ -487,20 +508,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Bleeding Problems :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_bleeding"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_bleeding_yes"
@@ -513,8 +536,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -531,20 +553,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Cancer (what kind?) :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_cancer"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_cancer_yes"
@@ -557,8 +581,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -575,20 +598,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Diabetes :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_diabetes"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_diabetes_yes"
@@ -601,8 +626,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -619,20 +643,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Epilepsy :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_epilepsy"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_epilepsy_yes"
@@ -645,8 +671,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -663,20 +688,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="High Blood Pressure :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_bp"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_bp_yes"
@@ -689,8 +716,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -707,20 +733,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Heart Disease :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_heart"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_heart_yes"
@@ -733,8 +761,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -751,20 +778,22 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_weight="0.25"
                         android:text="Migraine Headaches :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
                     <RadioGroup
                         android:id="@+id/profile_activity_radio_group_migraine"
-                        android:orientation="horizontal"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.25"
+                        android:orientation="horizontal">
 
                         <RadioButton
                             android:id="@+id/profile_activity_radio_migraine_yes"
@@ -777,8 +806,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="6dp"
-                            android:text="No"
-                            />
+                            android:text="No" />
 
                     </RadioGroup>
                 </LinearLayout>
@@ -790,13 +818,13 @@
             android:id="@+id/activity_main_login_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:elevation="50dp"
             android:background="@drawable/custom_login_button"
+            android:elevation="50dp"
             android:text="Submit" />
 
     </LinearLayout>

@@ -87,6 +87,17 @@
 
         </activity>
 
+        <activity
+            android:name=".BookAppointmentActivity"
+            android:label="@string/title_activity_user_profile"
+            android:theme="@style/AppThemeActionBar">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.test.myapplication.DashboardActivity" />
+
+        </activity>
+
 
     </application>
 
