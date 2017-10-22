@@ -101,14 +101,36 @@
                         android:textSize="15dp"
                         android:textStyle="normal" />
 
-                    <TextView
-                        android:id="@+id/user_profile_activity_gender"
+                    <RadioGroup
+                        android:id="@+id/profile_activity_radio_group_gender"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="20dp"
                         android:layout_weight="0.75"
-                        android:text="Female"
-                        android:textSize="15dp" />
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/profile_activity_radio_male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Male" />
+
+                        <RadioButton
+                            android:id="@+id/profile_activity_radio_female"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="6dp"
+                            android:text="Female" />
+
+                    </RadioGroup>
+
+                    <!--<TextView-->
+                        <!--android:id="@+id/user_profile_activity_gender"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_marginBottom="20dp"-->
+                        <!--android:layout_weight="0.75"-->
+                        <!--android:text="Female"-->
+                        <!--android:textSize="15dp" />-->
 
                     <!--<ImageView-->
                     <!--android:layout_width="wrap_content"-->

@@ -8,14 +8,209 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="Want to book an appointment ?"
+                android:textSize="@dimen/profile_activity_header"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@color/black_dark" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
+                    android:text="Doctor :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/user_profile_activity_user_type"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:background="#CCCCCC"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:text="Doctor name"
+                    android:textSize="@dimen/profile_activity_text" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
+                    android:text="Date :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/user_profile_activity_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:background="#CCCCCC"
+                    android:fitsSystemWindows="true"
+                    android:inputType="date"
+                    android:padding="10dp"
+                    android:text="Aug 10"
+                    android:textSize="@dimen/profile_activity_text" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
+                    android:text="Time :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/user_profile_activity_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:background="#CCCCCC"
+                    android:fitsSystemWindows="true"
+                    android:inputType="time"
+                    android:padding="10dp"
+                    android:text="some time"
+                    android:textSize="@dimen/profile_activity_text" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
+                    android:text="Location :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/user_profile_activity_doctor"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:background="#CCCCCC"
+                    android:ems="10"
+                    android:padding="10dp"
+                    android:text=""
+                    android:inputType="textPostalAddress"
+                    android:textSize="@dimen/profile_activity_text" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:text="Please enter reason of appointment :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#CCCCCC"
+                    android:inputType="textMultiLine"
+                    android:padding="10dp"
+                    android:textSize="@dimen/profile_activity_text" />
+
+            </LinearLayout>
+
+        </LinearLayout>
 
 
     </LinearLayout>
-
-
-
 
 
 </ScrollView>
