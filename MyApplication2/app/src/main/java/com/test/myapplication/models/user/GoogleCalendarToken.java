@@ -1,4 +1,4 @@
-package com.test.myapplication.models;
+package com.test.myapplication.models.user;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -16,7 +16,7 @@ public class GoogleCalendarToken {
     private String tokenType;
     @SerializedName("expiry_date")
     @Expose
-    private Integer expiryDate;
+    private Long expiryDate;
 
     public String getAccessToken() {
         return accessToken;
@@ -42,11 +42,11 @@ public class GoogleCalendarToken {
         this.tokenType = tokenType;
     }
 
-    public Integer getExpiryDate() {
+    public Long getExpiryDate() {
         return expiryDate;
     }
 
-    public void setExpiryDate(Integer expiryDate) {
+    public void setExpiryDate(Long expiryDate) {
         this.expiryDate = expiryDate;
     }
 

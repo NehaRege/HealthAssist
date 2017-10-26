@@ -95,12 +95,12 @@ public class DashboardActivity extends AppCompatActivity implements CustomRvAdap
 //        dataList.add("New York");
 //        dataList.add("New York");
 
-        rvLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(rvLayoutManager);
+//        rvLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(rvLayoutManager);
 
-        rvAdapter = new CustomRvAdapter(dataList,this);
-
-        recyclerView.setAdapter(rvAdapter);
+//        rvAdapter = new CustomRvAdapter(dataList,this);
+//
+//        recyclerView.setAdapter(rvAdapter);
 
     }
 

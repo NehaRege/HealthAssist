@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.test.myapplication.models.appointments.Appointment;
+
 import java.util.ArrayList;
 
 /**
@@ -18,19 +20,19 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
     private static final String TAG = "CustomRvAdapter";
 
 
-    private ArrayList<String> data;
+    private ArrayList<Appointment> data;
 
     private static OnRecyclerViewItemClickListener onItemClickListener;
 
 
-    public CustomRvAdapter(ArrayList<String> inComingData, OnRecyclerViewItemClickListener listener) {
+    public CustomRvAdapter(ArrayList<Appointment> inComingData, OnRecyclerViewItemClickListener listener) {
         this.onItemClickListener = listener;
 
         if (inComingData != null) {
             this.data = inComingData;
             Log.d(TAG, "CustomRvAdapter: data null ");
         } else {
-            this.data = new ArrayList<String>();
+            this.data = new ArrayList<Appointment>();
             Log.d(TAG, "CustomRvAdapter: data = "+data.get(0));
         }
     }
@@ -51,12 +53,12 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
     @Override
     public void onBindViewHolder(SampleViewHolder holder, int position) {
 
-        String dataItem = data.get(position);
+        Appointment dataItem = data.get(position);
 
         TextView textView = holder.textView;
         ImageView imageView = holder.imageView;
 
-        textView.setText(dataItem);
+        textView.setText(dataItem.getPurpose());
         imageView.setImageResource(R.mipmap.ic_launcher);
 
     }

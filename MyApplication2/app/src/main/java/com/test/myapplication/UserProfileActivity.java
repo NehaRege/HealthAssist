@@ -1,10 +1,14 @@
 package com.test.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.RadioButton;
@@ -13,11 +17,26 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.test.myapplication.api.ApiService;
+import com.test.myapplication.models.user.User;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by NehaRege on 10/19/17.
  */
 public class UserProfileActivity extends AppCompatActivity {
+
+    private static final String TAG = "HomeActivity";
+    private static String BASE_URL_USER = "https://remote-health-api.herokuapp.com";
+//    private static String BASE_URL_USER = "https://remote-health-api.herokuapp.com/api";
+//    private static String BASE_URL_USER = "https://remote-health-api.herokuapp.com/api/users/";
+
+    String currentUserEmail;
 
     private ImageView imageViewPhoto;
 
@@ -59,17 +78,21 @@ public class UserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_profile);
 
-        if(getActionBar() != null) {
+        if (getActionBar() != null) {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         Intent intent = getIntent();
 
         photoUrl = intent.getStringExtra("user_photo");
+        currentUserEmail = intent.getStringExtra("user_profile_email");
 
         initializeViews();
 
         setUserPhoto();
+
+        getUserInfoApi("neharege28@gmail.com");
+        getUserInfoApi(currentUserEmail);
 
     }
 
@@ -113,13 +136,87 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private void setUserPhoto() {
         if (photoUrl != null) {
-
             Glide.with(this)
                     .load(photoUrl)
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageViewPhoto);
-
         }
 
     }
+
+    private void setUserDetails(User currentUserInfo) {
+        textViewName.setText(currentUserInfo.getName().getFirstName());
+        textViewLocation.setText(currentUserInfo.getAddress().getCity());
+        textViewEthnicity.setText(currentUserInfo.getMedicalRecord().getEthnicity());
+        String age = Integer.toString(currentUserInfo.getMedicalRecord().getAge());
+        textViewAge.setText(age);
+        textViewUserType.setText(currentUserInfo.getUserType());
+        textViewEmail.setText(currentUserInfo.getId());
+        textViewNumber.setText(currentUserInfo.getPhoneNumber());
+        textViewDoctor.setText(currentUserInfo.getDoctorId());
+
+    }
+
+    private void getUserInfoApi(String emailId) {
+
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_USER)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            ApiService service = retrofit.create(ApiService.class);
+
+            Call<User> call = service.getUser(emailId);
+
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+
+                    try {
+
+                        Log.d(TAG, "*********************** onResponse: Success *******************");
+
+                        Log.d(TAG, "onResponse: ethnicity = " + response.body().getMedicalRecord().getEthnicity());
+
+
+                        setUserDetails(response.body());
+
+
+//                        String userName = response.body().getName();
+//
+//                        String location = response.body().getLocation();
+//
+//                        String company = response.body().getCompany();
+//
+//                        nameView.setText("GitHub Name: " + userName);
+//                        locationView.setText("location: " + location);
+//                        companyView.setText("Company: " + company);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    t.printStackTrace();
+
+                    Log.d(TAG, "onFailure: Retrofit call failed: ");
+
+                }
+            });
+
+
+        } else {
+
+            Log.d(TAG, "getUserInfoApi: Failed : Network problem");
+        }
+
+    }
+
 }

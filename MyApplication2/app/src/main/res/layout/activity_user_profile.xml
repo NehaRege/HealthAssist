@@ -337,7 +337,7 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.35"
                         android:text="User Type :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
@@ -347,7 +347,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.75"
+                        android:layout_weight="0.65"
                         android:text="Patient"
                         android:textSize="@dimen/profile_activity_text" />
 
@@ -370,7 +370,7 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.35"
                         android:text="Email :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
@@ -380,7 +380,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.75"
+                        android:layout_weight="0.65"
                         android:fitsSystemWindows="true"
                         android:text="neharege28@gmail.com"
                         android:textSize="@dimen/profile_activity_text" />
@@ -404,7 +404,7 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.35"
                         android:text="Number :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
@@ -414,7 +414,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.75"
+                        android:layout_weight="0.65"
                         android:fitsSystemWindows="true"
                         android:text="6508675443"
                         android:textSize="@dimen/profile_activity_text" />
@@ -437,7 +437,7 @@
                         android:layout_marginBottom="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="30dp"
-                        android:layout_weight="0.25"
+                        android:layout_weight="0.35"
                         android:text="Doctor :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
@@ -447,7 +447,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.75"
+                        android:layout_weight="0.65"
                         android:text="Doctor Name"
                         android:textSize="@dimen/profile_activity_text" />
                 </LinearLayout>

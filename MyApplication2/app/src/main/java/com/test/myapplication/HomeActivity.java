@@ -16,6 +16,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -31,14 +32,31 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.test.myapplication.api.ApiService;
+import com.test.myapplication.models.appointments.Appointment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener,
         CustomRvAdapter.OnRecyclerViewItemClickListener {
+
+    private static final String TAG = "HomeActivity";
+    private static String BASE_URL_APPOINTMENT = "https://remote-health-api.herokuapp.com/api/appointments/";
+
+    private ArrayList<Appointment> dataListAppointment = new ArrayList<>();
+
+
+    String currentUserEmail;
+
 
     private TextView textViewNavHeaderName;
     private TextView textViewNavHeaderEmail;
@@ -47,8 +65,6 @@ public class HomeActivity extends AppCompatActivity
 
     private static final int PERMISSION_REQUEST_CODE_CALENDAR = 111;
     private static final int PERMISSION_REQUEST_CODE_LOCATION = 112;
-
-    private static String BASE_URL = "https://api.github.com/";
 
 
     private static final String CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
@@ -99,9 +115,12 @@ public class HomeActivity extends AppCompatActivity
         rvLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(rvLayoutManager);
 
-        rvAdapter = new CustomRvAdapter(dataList,this);
+        getAppointments(currentUserEmail);
 
-        recyclerView.setAdapter(rvAdapter);
+
+//        rvAdapter = new CustomRvAdapter(dataListAppointment, this);
+//
+//        recyclerView.setAdapter(rvAdapter);
 
     }
 
@@ -139,14 +158,18 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_user_profile) {
             Intent intent = new Intent(this, UserProfileActivity.class);
-            if(photoUrl!=null) {
-                intent.putExtra("user_photo",photoUrl);
+            if (photoUrl != null) {
+                intent.putExtra("user_photo", photoUrl);
             }
+            if (currentUserEmail != null) {
+                intent.putExtra("user_profile_email", currentUserEmail);
+            }
+
             startActivity(intent);
 
         } else if (id == R.id.nav_book_appointment) {
 
-            Intent intent = new Intent(this,BookAppointmentActivity.class);
+            Intent intent = new Intent(this, BookAppointmentActivity.class);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
@@ -274,6 +297,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (intent.hasExtra("user_email_gmail")) {
             email = intent.getStringExtra("user_email_gmail");
+            currentUserEmail = intent.getStringExtra("user_email_gmail");
             textViewNavHeaderEmail.setText(email);
         }
 
@@ -438,17 +462,53 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-    private void getDataFromApi() {
+    private void getAppointments(String emailId) {
 
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
+            Retrofit retrofit = new Retrofit.Builder()
+                    .baseUrl(BASE_URL_APPOINTMENT)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+
+            ApiService service = retrofit.create(ApiService.class);
+
+            Call<ArrayList<Appointment>> call = service.getAppointments(emailId);
+
+            call.enqueue(new Callback<ArrayList<Appointment>>() {
+                @Override
+                public void onResponse(Call<ArrayList<Appointment>> call, Response<ArrayList<Appointment>> response) {
+
+                    try {
+
+                        dataListAppointment = response.body();
+
+                        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
+
+                        recyclerView.setAdapter(rvAdapter);
+
+                        Log.d(TAG, "onResponse: data list body = " + dataListAppointment.size());
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<Appointment>> call, Throwable t) {
+                    t.printStackTrace();
+
+                    Log.d(TAG, "onFailure: Retrofit call failed: ");
+                }
+            });
+
 
         } else {
-
-
-
+            Log.d(TAG, "getUserInfoApi: Failed : Network problem");
         }
 
     }
