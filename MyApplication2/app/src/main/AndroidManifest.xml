@@ -66,6 +66,10 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar">
 
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.test.myapplication.MainActivity" />
+
         </activity>
 
         <activity
@@ -74,7 +78,7 @@
             android:theme="@style/AppThemeActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.test.myapplication.DashboardActivity" />
+                android:value="com.test.myapplication.HomeActivity" />
 
         </activity>
 
@@ -85,18 +89,18 @@
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.test.myapplication.DashboardActivity" />
+                android:value="com.test.myapplication.HomeActivity" />
 
         </activity>
 
         <activity
             android:name=".BookAppointmentActivity"
-            android:label="@string/title_activity_user_profile"
+            android:label="@string/title_activity_book_appointment"
             android:theme="@style/AppThemeActionBar">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.test.myapplication.DashboardActivity" />
+                android:value="com.test.myapplication.HomeActivity" />
 
         </activity>
 

@@ -3,8 +3,11 @@ package com.test.myapplication;
 import android.Manifest;
 import android.annotation.TargetApi;
 import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -44,6 +47,9 @@ public class HomeActivity extends AppCompatActivity
 
     private static final int PERMISSION_REQUEST_CODE_CALENDAR = 111;
     private static final int PERMISSION_REQUEST_CODE_LOCATION = 112;
+
+    private static String BASE_URL = "https://api.github.com/";
+
 
     private static final String CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
 
@@ -429,6 +435,21 @@ public class HomeActivity extends AppCompatActivity
         Intent intent = new Intent(Intent.ACTION_VIEW)
                 .setData(builder.build());
         startActivity(intent);
+
+    }
+
+    private void getDataFromApi() {
+
+        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+
+        } else {
+
+
+
+        }
 
     }
 

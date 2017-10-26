@@ -75,25 +75,25 @@ public class DashboardActivity extends AppCompatActivity implements CustomRvAdap
             textViewEmail_G.setText(email_gmail);
         }
 
-        dataList.add("Arizona");
-        dataList.add("California");
-        dataList.add("New Mexico");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
+//        dataList.add("Arizona");
+//        dataList.add("California");
+//        dataList.add("New Mexico");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
+//        dataList.add("New York");
 
         rvLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(rvLayoutManager);
