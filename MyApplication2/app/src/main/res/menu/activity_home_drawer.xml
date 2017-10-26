@@ -8,7 +8,7 @@
             android:icon="@drawable/ic_user_profile"
             android:title="User Profile" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/nav_book_appointment"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Gallery" />
         <item
@@ -36,7 +36,7 @@
         </menu>
     </item>
 
-    <group >
+    <group>
 
         <menu>
             <item
@@ -47,7 +47,6 @@
 
 
     </group>
-
 
 
 </menu>

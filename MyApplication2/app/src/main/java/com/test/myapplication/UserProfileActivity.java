@@ -40,6 +40,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private RadioGroup radioGroupBp;
     private RadioGroup radioGroupHeart;
     private RadioGroup radioGroupMigraine;
+    private RadioGroup radioGroupGender;
 
     private RadioButton radioButtonAlcohol;
     private RadioButton radioButtonBleeding;
@@ -49,6 +50,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private RadioButton radioButtonBp;
     private RadioButton radioButtonHeart;
     private RadioButton radioButtonMigraine;
+    private RadioButton radioButtonIsFemale;
 
     private String photoUrl;
 
@@ -87,7 +89,8 @@ public class UserProfileActivity extends AppCompatActivity {
         imageViewPhoto = (ImageView) findViewById(R.id.user_profile_activity_photo);
 
         textViewName = (TextView) findViewById(R.id.user_profile_activity_name);
-        textViewGender = (TextView) findViewById(R.id.user_profile_activity_gender);
+//        textViewGender = (TextView) findViewById(R.id.user_profile_activity_gender);
+        radioGroupGender = (RadioGroup) findViewById(R.id.profile_activity_radio_group_gender);
         textViewLocation = (TextView) findViewById(R.id.user_profile_activity_location);
         textViewDob = (TextView) findViewById(R.id.user_profile_activity_dob);
         textViewEthnicity = (TextView) findViewById(R.id.user_profile_activity_ethnicity);

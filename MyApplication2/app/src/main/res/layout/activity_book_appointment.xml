@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/light"
     android:orientation="vertical">
 
     <LinearLayout
@@ -45,15 +46,17 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/user_profile_activity_user_type"
+                    android:id="@+id/appointment_activity_doctor"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="0.75"
-                    android:background="#CCCCCC"
+                    android:background="@android:color/white"
                     android:inputType="textPersonName"
                     android:padding="10dp"
+                    android:fadingEdge="horizontal"
+                    android:alpha="0.8"
                     android:text="Doctor name"
                     android:textSize="@dimen/profile_activity_text" />
 
@@ -82,17 +85,19 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/user_profile_activity_email"
+                    android:id="@+id/appointment_activity_date"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="0.75"
-                    android:background="#CCCCCC"
+                    android:background="@android:color/white"
                     android:fitsSystemWindows="true"
                     android:inputType="date"
                     android:padding="10dp"
                     android:text="Aug 10"
+                    android:alpha="0.8"
+
                     android:textSize="@dimen/profile_activity_text" />
 
             </LinearLayout>
@@ -120,13 +125,15 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/user_profile_activity_number"
+                    android:id="@+id/appointment_activity_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="0.75"
-                    android:background="#CCCCCC"
+                    android:alpha="0.8"
+
+                    android:background="@android:color/white"
                     android:fitsSystemWindows="true"
                     android:inputType="time"
                     android:padding="10dp"
@@ -157,16 +164,18 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/user_profile_activity_doctor"
+                    android:id="@+id/appointment_activity_location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_weight="0.75"
-                    android:background="#CCCCCC"
+                    android:background="@android:color/white"
                     android:ems="10"
+                    android:alpha="0.8"
+
                     android:padding="10dp"
-                    android:text=""
+                    android:text="san jose"
                     android:inputType="textPostalAddress"
                     android:textSize="@dimen/profile_activity_text" />
 
@@ -195,17 +204,40 @@
                     android:textStyle="normal" />
 
                 <EditText
+                    android:id="@+id/appointment_activity_reason"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:background="#CCCCCC"
+                    android:background="@android:color/white"
                     android:inputType="textMultiLine"
                     android:padding="10dp"
+                    android:alpha="0.8"
+
                     android:textSize="@dimen/profile_activity_text" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+
+            <Button
+                android:id="@+id/appointment_activity_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_login_button"
+                android:elevation="50dp"
+                android:text="Submit" />
 
         </LinearLayout>
 
