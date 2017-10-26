@@ -19,7 +19,7 @@ public interface ApiService {
 
 //    https://remote-health-api.herokuapp.com/api/appointments/patient/neharege28@gmail.com
 
-    @GET("/api/patient/{emailId}")
+    @GET("/api/appointments/patient/{emailId}")
     Call<ArrayList<Appointment>> getAppointments(@Path("emailId") String emailId);
 
 //    @GET("/api/searchtypes/{Id}/filters")

@@ -37,7 +37,7 @@ public class Appointment {
     private String location;
     @SerializedName("start_time_timestamp")
     @Expose
-    private Integer startTimeTimestamp;
+    private Long startTimeTimestamp;
     @SerializedName("__v")
     @Expose
     private Integer v;
@@ -125,11 +125,11 @@ public class Appointment {
         this.location = location;
     }
 
-    public Integer getStartTimeTimestamp() {
+    public Long getStartTimeTimestamp() {
         return startTimeTimestamp;
     }
 
-    public void setStartTimeTimestamp(Integer startTimeTimestamp) {
+    public void setStartTimeTimestamp(Long startTimeTimestamp) {
         this.startTimeTimestamp = startTimeTimestamp;
     }
 

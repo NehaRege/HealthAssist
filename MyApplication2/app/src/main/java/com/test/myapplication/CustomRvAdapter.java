@@ -33,7 +33,7 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
             Log.d(TAG, "CustomRvAdapter: data null ");
         } else {
             this.data = new ArrayList<Appointment>();
-            Log.d(TAG, "CustomRvAdapter: data = "+data.get(0));
+            Log.d(TAG, "CustomRvAdapter: data = "+data.get(0).getPurpose());
         }
     }
 

@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity
         CustomRvAdapter.OnRecyclerViewItemClickListener {
 
     private static final String TAG = "HomeActivity";
-    private static String BASE_URL_APPOINTMENT = "https://remote-health-api.herokuapp.com/api/appointments/";
+    private static String BASE_URL_APPOINTMENT = "https://remote-health-api.herokuapp.com";
 
     private ArrayList<Appointment> dataListAppointment = new ArrayList<>();
 
@@ -115,7 +115,12 @@ public class HomeActivity extends AppCompatActivity
         rvLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(rvLayoutManager);
 
-        getAppointments(currentUserEmail);
+//        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
+//
+//        recyclerView.setAdapter(rvAdapter);
+
+//        getAppointments(currentUserEmail);
+        getAppointments("neharege28@gmail.com");
 
 
 //        rvAdapter = new CustomRvAdapter(dataListAppointment, this);
@@ -483,13 +488,16 @@ public class HomeActivity extends AppCompatActivity
 
                     try {
 
+                        Log.d(TAG, "----------------onResponse: Success - Appointments -------------------");
+
                         dataListAppointment = response.body();
+//                        rvAdapter.notifyDataSetChanged();
 
                         rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
 
                         recyclerView.setAdapter(rvAdapter);
 
-                        Log.d(TAG, "onResponse: data list body = " + dataListAppointment.size());
+                        Log.d(TAG, "onResponse: data list body = " + response.body().size());
 
 
                     } catch (Exception e) {
