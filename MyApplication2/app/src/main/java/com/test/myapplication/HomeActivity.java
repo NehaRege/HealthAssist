@@ -14,6 +14,11 @@ import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -33,10 +38,15 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.test.myapplication.api.ApiService;
+import com.test.myapplication.fragments.AppointmentsFragment;
+import com.test.myapplication.fragments.ApprovedFragment;
+import com.test.myapplication.fragments.PendingFragment;
+import com.test.myapplication.fragments.UpcomingFragment;
 import com.test.myapplication.models.appointments.Appointment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,12 +79,16 @@ public class HomeActivity extends AppCompatActivity
 
     private static final String CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter rvAdapter;
-    private RecyclerView.LayoutManager rvLayoutManager;
+//    private RecyclerView recyclerView;
+//    private RecyclerView.Adapter rvAdapter;
+//    private RecyclerView.LayoutManager rvLayoutManager;
+
 
     private ArrayList<String> dataList = new ArrayList<>();
 
+    private FragmentPagerAdapter adapterViewPager;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     String name;
     String email;
@@ -87,7 +101,13 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        if (getIntent().hasExtra("user_email_gmail")) {
+            currentUserEmail = getIntent().getStringExtra("user_email_gmail");
+        }
+
         setUpToolbarAndNavigationDrawer();
+
+        setupViewPagerAndTabs();
 
         initializeViews();
 
@@ -112,15 +132,16 @@ public class HomeActivity extends AppCompatActivity
         dataList.add("New York");
         dataList.add("New York");
 
-        rvLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(rvLayoutManager);
+//        rvLayoutManager = new LinearLayoutManager(this);
+//        recyclerView.setLayoutManager(rvLayoutManager);
 
 //        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
 //
 //        recyclerView.setAdapter(rvAdapter);
 
 //        getAppointments(currentUserEmail);
-        getAppointments("neharege28@gmail.com");
+
+//        getAppointments("neharege28@gmail.com");
 
 
 //        rvAdapter = new CustomRvAdapter(dataListAppointment, this);
@@ -266,6 +287,44 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+//        viewPager = (ViewPager) findViewById(R.id.viewpager);
+//        setupViewPager(viewPager);
+//
+//        tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        tabLayout.setupWithViewPager(viewPager);
+
+    }
+
+    private void setupViewPagerAndTabs() {
+
+        viewPager = (ViewPager) findViewById(R.id.viewpager);
+        adapterViewPager = new MyPagerAdapter(getSupportFragmentManager(), this);
+        viewPager.setAdapter(adapterViewPager);
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
+
+    }
+
+//    private void setupViewPagerAndTabs() {
+//
+//        viewPager = (ViewPager) findViewById(R.id.viewpager);
+////        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), this);
+//
+//        adapter = new MyPagerAdapter(getSupportFragmentManager(), HomeActivity.this);
+//        viewPager.setAdapter(adapterViewPager);
+//
+//        tabLayout = (TabLayout) findViewById(R.id.tabs);
+//        tabLayout.setupWithViewPager(viewPager);
+//
+//    }
+
+    private void setupViewPager(ViewPager viewPager) {
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        adapter.addFragment(new ApprovedFragment(), "Approved");
+        adapter.addFragment(new PendingFragment(), "Pending");
+        adapter.addFragment(new UpcomingFragment(), "Upcoming");
+        viewPager.setAdapter(adapter);
     }
 
     private void initializeViews() {
@@ -281,7 +340,7 @@ public class HomeActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
 
     }
@@ -493,9 +552,9 @@ public class HomeActivity extends AppCompatActivity
                         dataListAppointment = response.body();
 //                        rvAdapter.notifyDataSetChanged();
 
-                        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
-
-                        recyclerView.setAdapter(rvAdapter);
+//                        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
+//
+//                        recyclerView.setAdapter(rvAdapter);
 
                         Log.d(TAG, "onResponse: data list body = " + response.body().size());
 
@@ -525,5 +584,91 @@ public class HomeActivity extends AppCompatActivity
     public void onItemClick(int position) {
         Toast.makeText(HomeActivity.this, "Clicked on " + dataList.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
 
+    }
+
+    class ViewPagerAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragmentList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
+        private Context context;
+
+
+        public ViewPagerAdapter(FragmentManager manager, Context context) {
+            super(manager);
+            this.context = context;
+
+        }
+
+        public ViewPagerAdapter(FragmentManager manager) {
+            super(manager);
+
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragmentList.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragmentList.size();
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragmentList.add(fragment);
+            mFragmentTitleList.add(title);
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitleList.get(position);
+        }
+    }
+
+    private class MyPagerAdapter extends FragmentPagerAdapter {
+
+        // region pager setup
+        private int TAB_COUNT = 3;
+
+        private String tabTitles[] = new String[]{
+                getString(R.string.appointment_type_approved),
+                getString(R.string.appointment_type_pending),
+                getString(R.string.appointment_type_upcoming)
+        };
+
+        private Context context;
+
+        public MyPagerAdapter(FragmentManager fm, Context context) {
+            super(fm);
+            this.context = context;
+        }
+
+        @Override
+        public int getCount() {
+            return TAB_COUNT;
+        }
+        //endregion
+
+        @Override
+        public Fragment getItem(int position) {
+
+            switch (position) {
+                case 0:
+                    return AppointmentsFragment.newInstance(position, getString(R.string.appointment_type_approved), currentUserEmail);
+
+                case 1:
+                    return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_pending), currentUserEmail);
+
+                case 2:
+                    return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_upcoming), currentUserEmail);
+            }
+
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles[position];
+        }
     }
 }

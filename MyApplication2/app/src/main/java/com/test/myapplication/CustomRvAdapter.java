@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import com.test.myapplication.models.appointments.Appointment;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by NehaRege on 10/21/17.
@@ -55,11 +59,29 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
         Appointment dataItem = data.get(position);
 
-        TextView textView = holder.textView;
+        TextView textViewPurpose = holder.textViewPurpose;
+        TextView textViewDate = holder.textViewDate;
+        TextView textViewLocation = holder.textViewLocation;
+        View viewLine = holder.viewLine;
         ImageView imageView = holder.imageView;
 
-        textView.setText(dataItem.getPurpose());
-        imageView.setImageResource(R.mipmap.ic_launcher);
+
+        textViewPurpose.setText(dataItem.getPurpose());
+//        textViewLocation.setText("location");
+
+//        2017-10-26T10:00:00.000Z
+
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+//        try {
+//            Date date = format.parse(dataItem.getDate().replaceAll("Z$", "+0000"));
+//            textViewDate.setText(date.toString());
+//
+//        } catch (ParseException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        textViewDate.setText(dataItem.getDate());
+        imageView.setImageResource(R.drawable.ic_menu_calendar);
 
     }
 
@@ -71,12 +93,18 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
     public static class SampleViewHolder extends RecyclerView.ViewHolder {
 
         public ImageView imageView;
-        public TextView textView;
+        public TextView textViewPurpose;
+        public TextView textViewDate;
+        public TextView textViewLocation;
+        public View viewLine;
 
         public SampleViewHolder(View itemView) {
             super(itemView);
 
-            textView = (TextView) itemView.findViewById(R.id.list_item_text_view);
+            textViewPurpose = (TextView) itemView.findViewById(R.id.list_item_text_purpose);
+            textViewDate = (TextView) itemView.findViewById(R.id.list_item_text_date);
+            textViewLocation = (TextView) itemView.findViewById(R.id.list_item_text_location_rv);
+            viewLine = itemView.findViewById(R.id.list_item_line);
             imageView = (ImageView) itemView.findViewById(R.id.list_item_image_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {

@@ -107,7 +107,7 @@ public class SignupActivity extends AppCompatActivity {
                 FirebaseUser user = mAuth.getCurrentUser();
 
 
-                Intent intent = new Intent(SignupActivity.this, DashboardActivity.class);
+                Intent intent = new Intent(SignupActivity.this, HomeActivity.class);
                 intent.putExtra("user_email", user.getEmail());
                 intent.putExtra("user_name", user.getDisplayName());
                 intent.putExtra("user_photo", user.getPhotoUrl());

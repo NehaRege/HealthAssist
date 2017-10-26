@@ -182,19 +182,7 @@ public class UserProfileActivity extends AppCompatActivity {
 
                         Log.d(TAG, "onResponse: ethnicity = " + response.body().getMedicalRecord().getEthnicity());
 
-
                         setUserDetails(response.body());
-
-
-//                        String userName = response.body().getName();
-//
-//                        String location = response.body().getLocation();
-//
-//                        String company = response.body().getCompany();
-//
-//                        nameView.setText("GitHub Name: " + userName);
-//                        locationView.setText("location: " + location);
-//                        companyView.setText("Company: " + company);
 
                     } catch (Exception e) {
                         e.printStackTrace();

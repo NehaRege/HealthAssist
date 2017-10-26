@@ -53,15 +53,6 @@
         </activity>
 
         <activity
-            android:name=".DashboardActivity"
-            android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.test.myapplication.MainActivity" />
-        </activity>
-
-        <activity
             android:name=".HomeActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar">

@@ -11,4 +11,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+
+
+    <string name="appointment_type_approved">Approved</string>
+    <string name="appointment_type_pending">Pending</string>
+    <string name="appointment_type_upcoming">Upcoming</string>
+
+
 </resources>
