@@ -2,6 +2,8 @@ package com.test.myapplication;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +25,6 @@ import java.util.Date;
 public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.SampleViewHolder> {
     private static final String TAG = "CustomRvAdapter";
 
-
     private ArrayList<Appointment> data;
 
     private static OnRecyclerViewItemClickListener onItemClickListener;
@@ -36,8 +37,8 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
             this.data = inComingData;
             Log.d(TAG, "CustomRvAdapter: data null ");
         } else {
-            this.data = new ArrayList<Appointment>();
-            Log.d(TAG, "CustomRvAdapter: data = "+data.get(0).getPurpose());
+            this.data = new ArrayList<>();
+            Log.d(TAG, "CustomRvAdapter: data = " + data.get(0).getPurpose());
         }
     }
 
@@ -48,10 +49,7 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
         View listItemLayout = inflater.inflate(R.layout.rv_list_item, parent, false);
 
-        SampleViewHolder viewHolder = new SampleViewHolder(listItemLayout);
-        return viewHolder;
-
-
+        return new SampleViewHolder(listItemLayout);
     }
 
     @Override
@@ -61,27 +59,28 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
         TextView textViewPurpose = holder.textViewPurpose;
         TextView textViewDate = holder.textViewDate;
+        TextView textViewClickMe = holder.textViewClickMe;
         TextView textViewLocation = holder.textViewLocation;
         View viewLine = holder.viewLine;
         ImageView imageView = holder.imageView;
 
-
+        imageView.setImageResource(R.drawable.ic_menu_calendar);
         textViewPurpose.setText(dataItem.getPurpose());
-//        textViewLocation.setText("location");
-
-//        2017-10-26T10:00:00.000Z
+//        textViewLocation.setText(dataItem.getLocation());
+        textViewLocation.setText("");
+        textViewClickMe.setText(Html.fromHtml("<a href=" + dataItem.getGoogleEventLink() + "> CLICK ME "));
+        textViewClickMe.setMovementMethod(LinkMovementMethod.getInstance());
 
 //        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 //        try {
 //            Date date = format.parse(dataItem.getDate().replaceAll("Z$", "+0000"));
 //            textViewDate.setText(date.toString());
-//
 //        } catch (ParseException e) {
 //            // TODO Auto-generated catch block
 //            e.printStackTrace();
 //        }
-//        textViewDate.setText(dataItem.getDate());
-        imageView.setImageResource(R.drawable.ic_menu_calendar);
+
+        textViewDate.setText("");
 
     }
 
@@ -96,6 +95,7 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
         public TextView textViewPurpose;
         public TextView textViewDate;
         public TextView textViewLocation;
+        public TextView textViewClickMe;
         public View viewLine;
 
         public SampleViewHolder(View itemView) {
@@ -103,6 +103,7 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
             textViewPurpose = (TextView) itemView.findViewById(R.id.list_item_text_purpose);
             textViewDate = (TextView) itemView.findViewById(R.id.list_item_text_date);
+            textViewClickMe = (TextView) itemView.findViewById(R.id.list_item_text_click_me);
             textViewLocation = (TextView) itemView.findViewById(R.id.list_item_text_location_rv);
             viewLine = itemView.findViewById(R.id.list_item_line);
             imageView = (ImageView) itemView.findViewById(R.id.list_item_image_view);

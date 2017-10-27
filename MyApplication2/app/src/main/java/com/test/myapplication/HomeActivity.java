@@ -5,9 +5,8 @@ import android.annotation.TargetApi;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,8 +18,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -37,7 +34,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.test.myapplication.api.ApiService;
 import com.test.myapplication.fragments.AppointmentsFragment;
 import com.test.myapplication.fragments.ApprovedFragment;
 import com.test.myapplication.fragments.PendingFragment;
@@ -48,24 +44,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         View.OnClickListener,
         CustomRvAdapter.OnRecyclerViewItemClickListener {
 
     private static final String TAG = "HomeActivity";
-    private static String BASE_URL_APPOINTMENT = "https://remote-health-api.herokuapp.com";
-
     private ArrayList<Appointment> dataListAppointment = new ArrayList<>();
 
-
-    String currentUserEmail;
+    private String currentUserEmail;
 
 
     private TextView textViewNavHeaderName;
@@ -76,15 +63,7 @@ public class HomeActivity extends AppCompatActivity
     private static final int PERMISSION_REQUEST_CODE_CALENDAR = 111;
     private static final int PERMISSION_REQUEST_CODE_LOCATION = 112;
 
-
     private static final String CALENDAR_PERMISSION = Manifest.permission.WRITE_CALENDAR;
-
-//    private RecyclerView recyclerView;
-//    private RecyclerView.Adapter rvAdapter;
-//    private RecyclerView.LayoutManager rvLayoutManager;
-
-
-    private ArrayList<String> dataList = new ArrayList<>();
 
     private FragmentPagerAdapter adapterViewPager;
     private TabLayout tabLayout;
@@ -105,6 +84,13 @@ public class HomeActivity extends AppCompatActivity
             currentUserEmail = getIntent().getStringExtra("user_email_gmail");
         }
 
+        SharedPreferences prefs = getSharedPreferences(MainActivity.KEY_SHARED_PREFS_USER_GMAIL, MODE_PRIVATE);
+        currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+        if (currentUserEmail != null) {
+            Log.d(TAG, "onCreate: shared prefs = null");
+//            String name = prefs.getString(getString(R.string.shared_pref_gmail), "No email available");
+        }
+
         setUpToolbarAndNavigationDrawer();
 
         setupViewPagerAndTabs();
@@ -113,41 +99,11 @@ public class HomeActivity extends AppCompatActivity
 
         setIntent();
 
-        dataList.add("Arizona");
-        dataList.add("California");
-        dataList.add("New Mexico");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
-        dataList.add("New York");
+    }
 
-//        rvLayoutManager = new LinearLayoutManager(this);
-//        recyclerView.setLayoutManager(rvLayoutManager);
-
-//        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
-//
-//        recyclerView.setAdapter(rvAdapter);
-
-//        getAppointments(currentUserEmail);
-
-//        getAppointments("neharege28@gmail.com");
-
-
-//        rvAdapter = new CustomRvAdapter(dataListAppointment, this);
-//
-//        recyclerView.setAdapter(rvAdapter);
-
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -169,11 +125,9 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -196,6 +150,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_book_appointment) {
 
             Intent intent = new Intent(this, BookAppointmentActivity.class);
+            intent.putExtra("book_app_email_id", currentUserEmail);
             startActivity(intent);
 
         } else if (id == R.id.nav_slideshow) {
@@ -244,8 +199,7 @@ public class HomeActivity extends AppCompatActivity
                 }
             } else if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
 
-                // Permission is granted, execute code normally since you have the permission.
-                // For example, here we are granted the contacts permission so now we can actually access the contacts here.
+                // Permission is granted
 
                 Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
                 builder.appendPath("time");
@@ -255,12 +209,6 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(intent);
 
             }
-
-//            long eventID = 200;
-//
-//            Uri uri = ContentUris.withAppendedId(CalendarContract.Events.CONTENT_URI, eventID);
-//            Intent intent = new Intent(Intent.ACTION_VIEW).setData(uri);
-//            startActivity(intent);
 
         } else if (id == R.id.logout_drawer) {
 
@@ -309,7 +257,7 @@ public class HomeActivity extends AppCompatActivity
 //    private void setupViewPagerAndTabs() {
 //
 //        viewPager = (ViewPager) findViewById(R.id.viewpager);
-////        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), this);
+//        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), this);
 //
 //        adapter = new MyPagerAdapter(getSupportFragmentManager(), HomeActivity.this);
 //        viewPager.setAdapter(adapterViewPager);
@@ -339,9 +287,6 @@ public class HomeActivity extends AppCompatActivity
         imageViewPhoto = (ImageView) header.findViewById(R.id.nav_header_photo);
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
-
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
-
 
     }
 
@@ -523,67 +468,11 @@ public class HomeActivity extends AppCompatActivity
         Intent intent = new Intent(Intent.ACTION_VIEW)
                 .setData(builder.build());
         startActivity(intent);
-
-    }
-
-    private void getAppointments(String emailId) {
-
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        if (networkInfo != null && networkInfo.isConnected()) {
-
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL_APPOINTMENT)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            ApiService service = retrofit.create(ApiService.class);
-
-            Call<ArrayList<Appointment>> call = service.getAppointments(emailId);
-
-            call.enqueue(new Callback<ArrayList<Appointment>>() {
-                @Override
-                public void onResponse(Call<ArrayList<Appointment>> call, Response<ArrayList<Appointment>> response) {
-
-                    try {
-
-                        Log.d(TAG, "----------------onResponse: Success - Appointments -------------------");
-
-                        dataListAppointment = response.body();
-//                        rvAdapter.notifyDataSetChanged();
-
-//                        rvAdapter = new CustomRvAdapter(dataListAppointment, HomeActivity.this);
-//
-//                        recyclerView.setAdapter(rvAdapter);
-
-                        Log.d(TAG, "onResponse: data list body = " + response.body().size());
-
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<Appointment>> call, Throwable t) {
-                    t.printStackTrace();
-
-                    Log.d(TAG, "onFailure: Retrofit call failed: ");
-                }
-            });
-
-
-        } else {
-            Log.d(TAG, "getUserInfoApi: Failed : Network problem");
-        }
-
     }
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(HomeActivity.this, "Clicked on " + dataList.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
-
+        Toast.makeText(HomeActivity.this, "Clicked on " + dataListAppointment.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

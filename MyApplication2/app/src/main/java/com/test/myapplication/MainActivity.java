@@ -2,6 +2,7 @@ package com.test.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -37,14 +38,12 @@ import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.api.client.googleapis.auth.oauth2.GoogleRefreshTokenRequest;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
-import com.google.firebase.iid.FirebaseInstanceIdService;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,6 +52,7 @@ public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
 
     private static final String TAG = "MainActivity";
+    public static final String KEY_SHARED_PREFS_USER_GMAIL = "KEY_SHARED_PREFS_USER_GMAIL";
 
     private static final int FACEBOOK_SIGNOUT_REQ = 1;
     private static final int GMAIL_SIGNOUT_REQ = 2;
@@ -431,6 +431,10 @@ public class MainActivity extends AppCompatActivity
                 }
 
                 Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
+
+                SharedPreferences.Editor editor = getSharedPreferences(KEY_SHARED_PREFS_USER_GMAIL, MODE_PRIVATE).edit();
+                editor.putString(getString(R.string.shared_pref_gmail), email);
+                editor.apply();
 
                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                 intent.putExtra("user_email_gmail", email);

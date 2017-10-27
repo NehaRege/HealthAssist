@@ -1,5 +1,7 @@
 package com.test.myapplication.fragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,8 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.test.myapplication.CustomRvAdapter;
+import com.test.myapplication.MainActivity;
 import com.test.myapplication.R;
 import com.test.myapplication.api.ApiService;
 import com.test.myapplication.models.appointments.Appointment;
@@ -34,11 +38,9 @@ public class AppointmentsFragment extends Fragment
     public static final String KEY_EMAIL = "KEY_EMAIL";
     private static final String TAG = "AppointmentsFragment";
 
-    private static String BASE_URL_APPOINTMENT = "https://remote-health-api.herokuapp.com";
+    private ArrayList<Appointment> dataListAppointment;
 
-    private ArrayList<Appointment> dataListAppointment = new ArrayList<>();
-
-    String currentUserEmail;
+    private String currentUserEmail;
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rvAdapter;
@@ -47,9 +49,7 @@ public class AppointmentsFragment extends Fragment
     private int page;
     private String appType;
 
-    private Retrofit retrofit;
     private ApiService service;
-
 
     public static AppointmentsFragment newInstance(int page, String eventType, String email) {
 
@@ -66,18 +66,35 @@ public class AppointmentsFragment extends Fragment
 
     }
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initializeRetrofit();
 
+        getSharedPrefs();
+
+
         page = getArguments().getInt(KEY_ARG_PAGE);
         appType = getArguments().getString(KEY_APP_TYPE);
-        currentUserEmail = getArguments().getString(KEY_EMAIL);
+//        currentUserEmail = getArguments().getString(KEY_EMAIL);
 
         dataListAppointment = new ArrayList<>();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 
     @Nullable
@@ -95,7 +112,6 @@ public class AppointmentsFragment extends Fragment
             loadAppointments(currentUserEmail, getString(R.string.appointment_type_approved));
 
         } else if (appType.equals(getString(R.string.appointment_type_pending))) {
-
             loadAppointments(currentUserEmail, getString(R.string.appointment_type_pending));
 
         } else if (appType.equals(getString(R.string.appointment_type_upcoming))) {
@@ -105,7 +121,6 @@ public class AppointmentsFragment extends Fragment
         }
 
         rvAdapter = new CustomRvAdapter(dataListAppointment, this);
-
         recyclerView.setAdapter(rvAdapter);
 
         return rootView;
@@ -113,24 +128,26 @@ public class AppointmentsFragment extends Fragment
 
     @Override
     public void onItemClick(int position) {
-
+        Toast.makeText(this.getActivity(), "Clicked on " + dataListAppointment.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
     }
 
     private void initializeRetrofit() {
-
-        retrofit = new Retrofit.Builder()
+        String BASE_URL_APPOINTMENT = "https://remote-health-api.herokuapp.com";
+        Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL_APPOINTMENT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-
         service = retrofit.create(ApiService.class);
+    }
 
+    private void getSharedPrefs() {
+        SharedPreferences prefs = this.getActivity().getSharedPreferences(MainActivity.KEY_SHARED_PREFS_USER_GMAIL, Context.MODE_PRIVATE);
+        currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
     }
 
     private void loadAppointments(String emailId, final String type) {
 
         Call<ArrayList<Appointment>> call = service.getAppointments(emailId);
-
         call.enqueue(new Callback<ArrayList<Appointment>>() {
             @Override
             public void onResponse(Call<ArrayList<Appointment>> call, Response<ArrayList<Appointment>> response) {
@@ -172,20 +189,17 @@ public class AppointmentsFragment extends Fragment
                         rvAdapter.notifyDataSetChanged();
 
                     }
-                    
-                    Log.d(TAG, "onResponse: data list body = " + response.body().size());
 
+                    Log.d(TAG, "onResponse: data list body = " + response.body().size());
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
 
             @Override
             public void onFailure(Call<ArrayList<Appointment>> call, Throwable t) {
                 t.printStackTrace();
-
                 Log.d(TAG, "onFailure: Retrofit call failed: ");
             }
         });

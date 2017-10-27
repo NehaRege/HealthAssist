@@ -2,6 +2,7 @@ package com.test.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -31,12 +32,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class UserProfileActivity extends AppCompatActivity {
 
-    private static final String TAG = "HomeActivity";
-    private static String BASE_URL_USER = "https://remote-health-api.herokuapp.com";
-//    private static String BASE_URL_USER = "https://remote-health-api.herokuapp.com/api";
-//    private static String BASE_URL_USER = "https://remote-health-api.herokuapp.com/api/users/";
+    private static final String TAG = "UserProfileActivity";
 
-    String currentUserEmail;
+    private String currentUserEmail;
 
     private ImageView imageViewPhoto;
 
@@ -59,7 +57,7 @@ public class UserProfileActivity extends AppCompatActivity {
     private RadioGroup radioGroupBp;
     private RadioGroup radioGroupHeart;
     private RadioGroup radioGroupMigraine;
-    private RadioGroup radioGroupGender;
+//    private RadioGroup radioGroupGender;
 
     private RadioButton radioButtonAlcohol;
     private RadioButton radioButtonBleeding;
@@ -73,6 +71,9 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private String photoUrl;
 
+    private ApiService service;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,16 +83,18 @@ public class UserProfileActivity extends AppCompatActivity {
             getActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        Intent intent = getIntent();
+        getSharedPrefs();
 
+        Intent intent = getIntent();
         photoUrl = intent.getStringExtra("user_photo");
-        currentUserEmail = intent.getStringExtra("user_profile_email");
+//        currentUserEmail = intent.getStringExtra("user_profile_email");
 
         initializeViews();
 
+        initializeRetrofit();
+
         setUserPhoto();
 
-        getUserInfoApi("neharege28@gmail.com");
         getUserInfoApi(currentUserEmail);
 
     }
@@ -99,7 +102,6 @@ public class UserProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
                 return true;
@@ -107,13 +109,18 @@ public class UserProfileActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void getSharedPrefs() {
+        SharedPreferences prefs = getSharedPreferences(MainActivity.KEY_SHARED_PREFS_USER_GMAIL, Context.MODE_PRIVATE);
+        currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+    }
+
     private void initializeViews() {
 
         imageViewPhoto = (ImageView) findViewById(R.id.user_profile_activity_photo);
 
         textViewName = (TextView) findViewById(R.id.user_profile_activity_name);
-//        textViewGender = (TextView) findViewById(R.id.user_profile_activity_gender);
-        radioGroupGender = (RadioGroup) findViewById(R.id.profile_activity_radio_group_gender);
+        textViewGender = (TextView) findViewById(R.id.user_profile_activity_gender);
+//        radioGroupGender = (RadioGroup) findViewById(R.id.profile_activity_radio_group_gender);
         textViewLocation = (TextView) findViewById(R.id.user_profile_activity_location);
         textViewDob = (TextView) findViewById(R.id.user_profile_activity_dob);
         textViewEthnicity = (TextView) findViewById(R.id.user_profile_activity_ethnicity);
@@ -141,7 +148,6 @@ public class UserProfileActivity extends AppCompatActivity {
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageViewPhoto);
         }
-
     }
 
     private void setUserDetails(User currentUserInfo) {
@@ -154,7 +160,18 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewEmail.setText(currentUserInfo.getId());
         textViewNumber.setText(currentUserInfo.getPhoneNumber());
         textViewDoctor.setText(currentUserInfo.getDoctorId());
+        textViewGender.setText(currentUserInfo.getMedicalRecord().getGender());
 
+    }
+
+    private void initializeRetrofit() {
+        String BASE_URL = "https://remote-health-api.herokuapp.com";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        service = retrofit.create(ApiService.class);
     }
 
     private void getUserInfoApi(String emailId) {
@@ -163,23 +180,13 @@ public class UserProfileActivity extends AppCompatActivity {
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
-            Retrofit retrofit = new Retrofit.Builder()
-                    .baseUrl(BASE_URL_USER)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build();
-
-            ApiService service = retrofit.create(ApiService.class);
-
             Call<User> call = service.getUser(emailId);
-
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
 
                     try {
-
                         Log.d(TAG, "*********************** onResponse: Success *******************");
-
                         Log.d(TAG, "onResponse: ethnicity = " + response.body().getMedicalRecord().getEthnicity());
 
                         setUserDetails(response.body());
@@ -187,24 +194,16 @@ public class UserProfileActivity extends AppCompatActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
-
                 }
 
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     t.printStackTrace();
-
                     Log.d(TAG, "onFailure: Retrofit call failed: ");
-
                 }
             });
-
-
         } else {
-
             Log.d(TAG, "getUserInfoApi: Failed : Network problem");
         }
-
     }
-
 }

@@ -46,7 +46,7 @@
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/appointment_activity_doctor"
+                    android:id="@+id/appointment_activity_doctor_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -57,7 +57,46 @@
                     android:padding="10dp"
                     android:fadingEdge="horizontal"
                     android:alpha="0.8"
-                    android:text="Doctor name"
+                    android:hint="Doctor name"
+                    android:textSize="@dimen/profile_activity_text" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
+                    android:text="Doctor ID :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/appointment_activity_doctor_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:background="@android:color/white"
+                    android:inputType="textPersonName"
+                    android:padding="10dp"
+                    android:fadingEdge="horizontal"
+                    android:alpha="0.8"
+                    android:hint="doctor@gmail.com"
                     android:textSize="@dimen/profile_activity_text" />
 
             </LinearLayout>
@@ -95,7 +134,7 @@
                     android:fitsSystemWindows="true"
                     android:inputType="date"
                     android:padding="10dp"
-                    android:text="Aug 10"
+                    android:hint="2017-10-25"
                     android:alpha="0.8"
 
                     android:textSize="@dimen/profile_activity_text" />
@@ -120,12 +159,12 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="0.25"
-                    android:text="Time :"
+                    android:text="Start Time :"
                     android:textSize="@dimen/profile_activity_text"
                     android:textStyle="normal" />
 
                 <EditText
-                    android:id="@+id/appointment_activity_time"
+                    android:id="@+id/appointment_activity_start_time"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -137,7 +176,46 @@
                     android:fitsSystemWindows="true"
                     android:inputType="time"
                     android:padding="10dp"
-                    android:text="some time"
+                    android:hint="10:00"
+                    android:textSize="@dimen/profile_activity_text" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
+                    android:text="End Time :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/appointment_activity_end_time"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:alpha="0.8"
+
+                    android:background="@android:color/white"
+                    android:fitsSystemWindows="true"
+                    android:inputType="time"
+                    android:padding="10dp"
+                    android:hint="11:00"
                     android:textSize="@dimen/profile_activity_text" />
             </LinearLayout>
 
@@ -173,9 +251,8 @@
                     android:background="@android:color/white"
                     android:ems="10"
                     android:alpha="0.8"
-
                     android:padding="10dp"
-                    android:text="san jose"
+                    android:hint="San Jose Hospital Way"
                     android:inputType="textPostalAddress"
                     android:textSize="@dimen/profile_activity_text" />
 
