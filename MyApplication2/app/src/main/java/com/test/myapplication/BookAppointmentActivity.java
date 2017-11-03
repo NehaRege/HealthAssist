@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.test.myapplication.api.ApiService;
@@ -34,8 +35,8 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private EditText editTextDoctorName;
     private EditText editTextDoctorEmail;
     private EditText editTextDate;
-    private EditText editTextStartTime;
-    private EditText editTextEndTime;
+    //    private EditText editTextStartTime;
+//    private EditText editTextEndTime;
     private EditText editTextPurpose;
     private EditText editTextLocation;
 
@@ -53,6 +54,13 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private String status;
 
     private ApiService service;
+
+    private TimePicker timePickerStartTime;
+    private TimePicker timePickerEndTime;
+
+
+//    private Spinner spinnerHr;
+//    private Spinner spinnerMin;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -75,9 +83,15 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
         switch (view.getId()) {
             case R.id.appointment_activity_submit:
 
+                Toast.makeText(getApplicationContext(), "Button clicked: start time is: " + startTime, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Button clicked: end time is: " + endTime, Toast.LENGTH_SHORT).show();
+
                 getAppointmentInfoFromEditText();
 
                 createNewAppointmentObj();
+
+                Log.d(TAG, "onClick: making post req");
+
 
                 postReq();
 
@@ -95,11 +109,31 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private void initializeViews() {
         editTextDoctorName = (EditText) findViewById(R.id.appointment_activity_doctor_name);
         editTextDoctorEmail = (EditText) findViewById(R.id.appointment_activity_doctor_email);
-        editTextStartTime = (EditText) findViewById(R.id.appointment_activity_start_time);
-        editTextEndTime = (EditText) findViewById(R.id.appointment_activity_end_time);
+//        editTextStartTime = (EditText) findViewById(R.id.appointment_activity_start_time);
+//        editTextEndTime = (EditText) findViewById(R.id.appointment_activity_end_time);
         editTextLocation = (EditText) findViewById(R.id.appointment_activity_location);
         editTextPurpose = (EditText) findViewById(R.id.appointment_activity_reason);
         editTextDate = (EditText) findViewById(R.id.appointment_activity_date);
+
+        timePickerStartTime = (TimePicker) findViewById(R.id.appointment_activity_start_time_picker);
+        timePickerEndTime = (TimePicker) findViewById(R.id.appointment_activity_end_time_picker);
+        timePickerStartTime.setIs24HourView(true);
+        timePickerEndTime.setIs24HourView(true);
+
+        timePickerStartTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                startTime = hourOfDay + ":" + minute;
+            }
+        });
+
+        timePickerEndTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
+                endTime = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+            }
+        });
+
 
         Button buttonSubmit = (Button) findViewById(R.id.appointment_activity_submit);
         buttonSubmit.setOnClickListener(this);
@@ -118,13 +152,15 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private void getAppointmentInfoFromEditText() {
         doctorName = editTextDoctorName.getText().toString();
         doctorId = editTextDoctorEmail.getText().toString();
-        startTime = editTextStartTime.getText().toString();
-        endTime = editTextEndTime.getText().toString();
+//        startTime = editTextStartTime.getText().toString();
+//        endTime = editTextEndTime.getText().toString();
         location = editTextLocation.getText().toString();
         purpose = editTextPurpose.getText().toString();
         date = editTextDate.getText().toString();
         status = "pending";
+
         patientId = currentUserEmail;
+//        patientId = "neharege28@gmail.com";
     }
 
     private void createNewAppointmentObj() {
@@ -138,6 +174,9 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
         newAppointment.setStartTime(startTime);
         newAppointment.setPatientId(patientId);
         newAppointment.setStatus(status);
+
+        Log.d(TAG, "createNewAppointmentObj: obj = " + newAppointment.toString());
+
     }
 
     private void postReq() {
@@ -148,16 +187,21 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
 
             Call<BookAppointment> call = service.createNewAppointment(newAppointment);
 
+            Log.d(TAG, "postReq: appointment obj = "+newAppointment.toString());
+
             call.enqueue(new Callback<BookAppointment>() {
                 @Override
                 public void onResponse(Call<BookAppointment> call, Response<BookAppointment> response) {
 
                     try {
-                        Log.d(TAG, "*********************** onResponse: Post Success *******************");
+                        Log.d(TAG, "*********************** onResponse: Post Appointment Success *******************");
 
-                        Toast.makeText(BookAppointmentActivity.this, "Appointment Added Successfully!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(BookAppointmentActivity.this, "Appointment added successfully! ", Toast.LENGTH_SHORT).show();
+
+                        Log.d(TAG, "onResponse: purpose = "+ response.message());
 
                     } catch (Exception e) {
+                        Log.d(TAG, "onResponse: exception");
                         e.printStackTrace();
                     }
                 }

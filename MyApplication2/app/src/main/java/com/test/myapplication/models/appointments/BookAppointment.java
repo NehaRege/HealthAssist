@@ -105,4 +105,18 @@ public class BookAppointment {
         this.location = location;
     }
 
+    @Override
+    public String toString() {
+        return "BookAppointment{" +
+                "patientId='" + patientId + '\'' +
+                ", doctorId='" + doctorId + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", status='" + status + '\'' +
+                ", date='" + date + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", location='" + location + '\'' +
+                '}';
+    }
 }
