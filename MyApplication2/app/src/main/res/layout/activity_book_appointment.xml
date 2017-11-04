@@ -123,8 +123,14 @@
                     android:textSize="@dimen/profile_activity_text"
                     android:textStyle="normal" />
 
-                <EditText
-                    android:id="@+id/appointment_activity_date"
+                <!--<Button-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Pick Date"-->
+                    <!--android:onClick="showDatePickerDialog" />-->
+
+                <TextView
+                    android:id="@+id/appointment_activity_date_button"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
@@ -136,8 +142,24 @@
                     android:padding="10dp"
                     android:hint="2017-10-25"
                     android:alpha="0.8"
-
+                    android:text="Pick Date"
+                    android:onClick="showDatePickerDialog"
                     android:textSize="@dimen/profile_activity_text" />
+
+                <!--<EditText-->
+                    <!--android:id="@+id/appointment_activity_date"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="20dp"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:layout_weight="0.75"-->
+                    <!--android:background="@android:color/white"-->
+                    <!--android:fitsSystemWindows="true"-->
+                    <!--android:inputType="date"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:hint="2017-10-25"-->
+                    <!--android:alpha="0.8"-->
+                    <!--android:textSize="@dimen/profile_activity_text" />-->
 
                 <!--<EditText-->
                     <!--android:id="@+id/appointment_activity_date"-->
