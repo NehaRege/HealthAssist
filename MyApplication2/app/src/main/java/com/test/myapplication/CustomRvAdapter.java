@@ -68,17 +68,15 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
         textViewPurpose.setText(dataItem.getPurpose());
 //        textViewLocation.setText(dataItem.getLocation());
         textViewLocation.setText("");
-        textViewClickMe.setText(Html.fromHtml("<a href=" + dataItem.getGoogleEventLink() + "> CLICK ME "));
-        textViewClickMe.setMovementMethod(LinkMovementMethod.getInstance());
 
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-//        try {
-//            Date date = format.parse(dataItem.getDate().replaceAll("Z$", "+0000"));
-//            textViewDate.setText(date.toString());
-//        } catch (ParseException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
+        String googleEventLink = dataItem.getGoogleEventLink();
+        if (googleEventLink != null) {
+            textViewClickMe.setText(Html.fromHtml("<a href=" + dataItem.getGoogleEventLink() + "> CLICK ME "));
+            textViewClickMe.setMovementMethod(LinkMovementMethod.getInstance());
+
+        } else {
+            textViewClickMe.setText("");
+        }
 
         textViewDate.setText("");
 

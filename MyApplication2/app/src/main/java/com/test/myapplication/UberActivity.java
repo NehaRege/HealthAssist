@@ -31,10 +31,6 @@ public class UberActivity extends AppCompatActivity {
 
         uberSetup();
 
-
-
-
-
     }
 
     private void uberSetup() {

@@ -119,6 +119,46 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="30dp"
                     android:layout_weight="0.25"
+                    android:text="Location :"
+                    android:textSize="@dimen/profile_activity_text"
+                    android:textStyle="normal" />
+
+                <EditText
+                    android:id="@+id/appointment_activity_location"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_weight="0.75"
+                    android:background="@android:color/white"
+                    android:ems="10"
+                    android:alpha="0.8"
+                    android:padding="10dp"
+                    android:hint="San Jose Hospital Way"
+                    android:inputType="textPostalAddress"
+                    android:textSize="@dimen/profile_activity_text" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="20dp"
+                android:background="@android:color/darker_gray" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="30dp"
+                    android:layout_weight="0.25"
                     android:text="Date :"
                     android:textSize="@dimen/profile_activity_text"
                     android:textStyle="normal" />
@@ -138,10 +178,9 @@
                     android:layout_weight="0.75"
                     android:background="@android:color/white"
                     android:fitsSystemWindows="true"
-                    android:inputType="date"
                     android:padding="10dp"
-                    android:hint="2017-10-25"
                     android:alpha="0.8"
+                    android:gravity="center"
                     android:text="Pick Date"
                     android:onClick="showDatePickerDialog"
                     android:textSize="@dimen/profile_activity_text" />
@@ -193,9 +232,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="30dp"
                     android:text="Start Time :"
+                    android:layout_marginLeft="20dp"
+                    android:onClick="showTimePickerDialog"
                     android:textSize="@dimen/profile_activity_text"
                     android:textStyle="normal" />
 
@@ -217,7 +258,7 @@
                     android:textSize="@dimen/profile_activity_text" />
 
                 <!--<EditText-->
-                    <!--android:id="@+id/appointment_activity_start_time"-->
+                    <!--android:id="@+id/appointment_activity_strt_time"-->
                     <!--android:layout_width="0dp"-->
                     <!--android:layout_height="wrap_content"-->
                     <!--android:layout_marginBottom="20dp"-->
@@ -229,6 +270,22 @@
                     <!--android:inputType="time"-->
                     <!--android:padding="10dp"-->
                     <!--android:hint="10:00"-->
+                    <!--android:textSize="@dimen/profile_activity_text" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/appointment_activity_start_time"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="20dp"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:layout_weight="0.75"-->
+                    <!--android:background="@android:color/white"-->
+                    <!--android:fitsSystemWindows="true"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:alpha="0.8"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="Pick Time"-->
+                    <!--android:onClick="showTimePickerDialog"-->
                     <!--android:textSize="@dimen/profile_activity_text" />-->
             </LinearLayout>
 
@@ -246,11 +303,30 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginRight="30dp"
                     android:text="End Time :"
+                    android:layout_weight="0.25"
+                    android:layout_marginLeft="20dp"
+                    android:onClick="showTimePickerDialog"
                     android:textSize="@dimen/profile_activity_text"
                     android:textStyle="normal" />
+
+                <!--<TextView-->
+                    <!--android:id="@+id/appointment_activity_end_time"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginBottom="20dp"-->
+                    <!--android:layout_marginRight="20dp"-->
+                    <!--android:layout_weight="0.75"-->
+                    <!--android:background="@android:color/white"-->
+                    <!--android:fitsSystemWindows="true"-->
+                    <!--android:padding="10dp"-->
+                    <!--android:alpha="0.8"-->
+                    <!--android:gravity="center"-->
+                    <!--android:text="Pick Time"-->
+                    <!--android:onClick="showTimePickerDialog"-->
+                    <!--android:textSize="@dimen/profile_activity_text" />-->
 
                 <TimePicker
                     android:id="@+id/appointment_activity_end_time_picker"
@@ -303,44 +379,6 @@
                 android:layout_marginBottom="20dp"
                 android:background="@android:color/darker_gray" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_weight="0.25"
-                    android:text="Location :"
-                    android:textSize="@dimen/profile_activity_text"
-                    android:textStyle="normal" />
-
-                <EditText
-                    android:id="@+id/appointment_activity_location"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_weight="0.75"
-                    android:background="@android:color/white"
-                    android:ems="10"
-                    android:alpha="0.8"
-                    android:padding="10dp"
-                    android:hint="San Jose Hospital Way"
-                    android:inputType="textPostalAddress"
-                    android:textSize="@dimen/profile_activity_text" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginBottom="20dp"
-                android:background="@android:color/darker_gray" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -369,7 +407,6 @@
                     android:inputType="textMultiLine"
                     android:padding="10dp"
                     android:alpha="0.8"
-
                     android:textSize="@dimen/profile_activity_text" />
 
             </LinearLayout>

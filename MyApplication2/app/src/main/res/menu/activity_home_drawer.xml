@@ -7,18 +7,22 @@
             android:id="@+id/nav_user_profile"
             android:icon="@drawable/ic_user_profile"
             android:title="User Profile" />
+
         <item
             android:id="@+id/nav_book_appointment"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_add_circle"
             android:title="Book an Appointment" />
+
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_calendar"
+            android:icon="@drawable/ic_menu_calendar"
+            android:title="Calendar" />
+
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
+
     </group>
 
     <item android:title="Communicate">
@@ -29,10 +33,6 @@
                 android:icon="@drawable/ic_local_taxi_black_24dp"
                 android:title="Uber" />
 
-            <item
-                android:id="@+id/nav_calendar"
-                android:icon="@drawable/ic_menu_calendar"
-                android:title="Calendar" />
         </menu>
     </item>
 

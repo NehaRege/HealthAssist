@@ -2,6 +2,7 @@ package com.test.myapplication;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -19,10 +20,16 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.test.myapplication.api.ApiService;
+import com.test.myapplication.fragments.AppointmentsFragment;
 import com.test.myapplication.fragments.DatePickerFragment;
+import com.test.myapplication.fragments.TimePickerFragment;
 import com.test.myapplication.models.appointments.BookAppointment;
 
+import org.w3c.dom.Text;
+
+import java.sql.Time;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -35,7 +42,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by NehaRege on 10/22/17.
  */
-public class BookAppointmentActivity extends AppCompatActivity implements View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class BookAppointmentActivity extends AppCompatActivity implements View.OnClickListener,
+        DatePickerDialog.OnDateSetListener {
 
     private static final String TAG = "BookAppointmentActivity";
 
@@ -43,7 +51,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
 
     private EditText editTextDoctorName;
     private EditText editTextDoctorEmail;
-//    private EditText editTextDate;
+    //    private EditText editTextDate;
     //    private EditText editTextStartTime;
 //    private EditText editTextEndTime;
     private EditText editTextPurpose;
@@ -54,7 +62,8 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private String doctorId;
     private String doctorName;
     private String purpose;
-    private String date;
+    //    private String date;
+    private String simpleDateFormatDate;
     private String startTime;
     private String endTime;
     private String location;
@@ -68,6 +77,9 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private TimePicker timePickerEndTime;
 
     private TextView buttonDate;
+
+//    private TextView textViewStartTime;
+//    private TextView textViewEndTime;
 
 
 //    private Spinner spinnerHr;
@@ -115,7 +127,29 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
                 showDatePickerDialog(view);
 
                 break;
+
+//            case R.id.appointment_activity_start_time:
+//                Log.d(TAG, "onClick: start");
+//
+//
+//                showTimePickerDialog(view);
+//
+//                break;
+//
+//            case R.id.appointment_activity_end_time:
+//                Log.d(TAG, "onClick: end");
+//
+//                showTimePickerDialog(view);
+//
+//                break;
         }
+    }
+
+    public void showTimePickerDialog(View v) {
+        Log.d(TAG, "showTimePickerDialog: ");
+        DialogFragment newFragment = new TimePickerFragment();
+
+        newFragment.show(getFragmentManager(), "timePicker");
     }
 
     public void showDatePickerDialog(View v) {
@@ -144,10 +178,14 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
         timePickerStartTime.setIs24HourView(true);
         timePickerEndTime.setIs24HourView(true);
 
+
+//        textViewStartTime = (TextView) findViewById(R.id.appointment_activity_start_time);
+//        textViewEndTime = (TextView) findViewById(R.id.appointment_activity_end_time);
+
         timePickerStartTime.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-                startTime = hourOfDay + ":" + minute;
+                startTime = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
             }
         });
 
@@ -189,7 +227,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
 
     private void createNewAppointmentObj() {
         newAppointment = new BookAppointment();
-        newAppointment.setDate(date);
+        newAppointment.setDate(simpleDateFormatDate);
         newAppointment.setDoctorId(doctorId);
         newAppointment.setDoctorName(doctorName);
         newAppointment.setEndTime(endTime);
@@ -198,6 +236,16 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
         newAppointment.setStartTime(startTime);
         newAppointment.setPatientId(patientId);
         newAppointment.setStatus(status);
+
+//        newAppointment.setDate("2017-11-10");
+//        newAppointment.setDoctorId("jesantos0527@gmail.com");
+//        newAppointment.setDoctorName("John Kim");
+//        newAppointment.setEndTime("12:00");
+//        newAppointment.setLocation("San Francisco");
+//        newAppointment.setPurpose("Full body checkup");
+//        newAppointment.setStartTime("11:00");
+//        newAppointment.setPatientId("neharege28@gmail.com");
+//        newAppointment.setStatus("approved");
 
         Log.d(TAG, "createNewAppointmentObj: obj = " + newAppointment.toString());
 
@@ -244,17 +292,43 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int day) {
+//        simpleDateFormatDate = String.valueOf(year)+"-"+String.valueOf(month)+"-"+String.valueOf(day);
+//        buttonDate.setText(simpleDateFormatDate);
         Calendar cal = new GregorianCalendar(year, month, day);
         setDate(cal);
 
     }
 
     private void setDate(final Calendar calendar) {
+
         final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
 
-        date = dateFormat.format(calendar.getTime());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        simpleDateFormatDate = simpleDateFormat.format(calendar.getTime());
+
+        dateFormat.format(calendar.getTime());
+        String date = dateFormat.format(calendar.getTime());
 
         buttonDate.setText(date);
 
     }
+
+//    @Override
+//    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//
+//        Log.d(TAG, "onTimeSet: ");
+//        Log.d(TAG, "onTimeSet: start id = " + R.id.appointment_activity_start_time);
+//        if (view.getId() == R.id.appointment_activity_start_time) {
+//            Log.d(TAG, "onTimeSet: start");
+//            startTime = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+//            Log.d(TAG, "onTimeSet: start = " + startTime);
+//            textViewStartTime.setText(startTime);
+//        } else if (view.getId() == R.id.appointment_activity_end_time) {
+//            Log.d(TAG, "onTimeSet: end");
+//            endTime = String.valueOf(hourOfDay) + ":" + String.valueOf(minute);
+//            Log.d(TAG, "onTimeSet: end = " + endTime);
+//            textViewEndTime.setText(endTime);
+//        }
+//    }
 }

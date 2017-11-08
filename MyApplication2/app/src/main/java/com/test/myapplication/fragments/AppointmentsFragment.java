@@ -178,10 +178,10 @@ public class AppointmentsFragment extends Fragment
 
                         rvAdapter.notifyDataSetChanged();
 
-                    } else if (type.equals(getString(R.string.appointment_type_upcoming))) {
+                    } else if (type.equals(getString(R.string.appointment_type_past))) {
 
                         for (int i = 0; i < response.body().size(); i++) {
-                            if ((response.body().get(i).getStatus()).equals("upcoming")) {
+                            if ((response.body().get(i).getStatus()).equals("past")) {
                                 dataListAppointment.add(response.body().get(i));
                             }
                         }

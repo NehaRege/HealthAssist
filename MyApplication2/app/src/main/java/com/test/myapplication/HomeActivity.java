@@ -35,9 +35,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.test.myapplication.fragments.AppointmentsFragment;
-import com.test.myapplication.fragments.ApprovedFragment;
-import com.test.myapplication.fragments.PendingFragment;
-import com.test.myapplication.fragments.UpcomingFragment;
 import com.test.myapplication.models.appointments.Appointment;
 
 import java.util.ArrayList;
@@ -153,8 +150,6 @@ public class HomeActivity extends AppCompatActivity
             intent.putExtra("book_app_email_id", currentUserEmail);
             startActivity(intent);
 
-        } else if (id == R.id.nav_slideshow) {
-
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_uber) {
@@ -235,12 +230,6 @@ public class HomeActivity extends AppCompatActivity
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-//        viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        setupViewPager(viewPager);
-//
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-
     }
 
     private void setupViewPagerAndTabs() {
@@ -252,27 +241,6 @@ public class HomeActivity extends AppCompatActivity
         tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-    }
-
-//    private void setupViewPagerAndTabs() {
-//
-//        viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        MyPagerAdapter adapter = new MyPagerAdapter(getSupportFragmentManager(), this);
-//
-//        adapter = new MyPagerAdapter(getSupportFragmentManager(), HomeActivity.this);
-//        viewPager.setAdapter(adapterViewPager);
-//
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-//
-//    }
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ApprovedFragment(), "Approved");
-        adapter.addFragment(new PendingFragment(), "Pending");
-        adapter.addFragment(new UpcomingFragment(), "Upcoming");
-        viewPager.setAdapter(adapter);
     }
 
     private void initializeViews() {
@@ -425,42 +393,6 @@ public class HomeActivity extends AppCompatActivity
 
     }
 
-//    private void uberSetup() {
-//        uberConfig();
-//
-//        RideRequestButton rideRequestButton = new RideRequestButton(HomeActivity.this);
-//        layout.addView(rideRequestButton);
-//        Activity activity = this; // If you're in a fragment you must get the containing Activity!
-//        int requestCode = 1234;
-//        rideRequestButton.setRequestBehavior(new RideRequestActivityBehavior(activity, requestCode));
-//
-//// Optional, default behavior is to use current location for pickup
-//        RideParameters rideParams = new RideParameters.Builder()
-//                .setProductId("a1111c8c-c720-46c3-8534-2fcdd730040d")
-//                .setPickupLocation(37.775304, -122.417522, "Uber HQ", "1455 Market Street, San Francisco")
-//                .setDropoffLocation(37.795079, -122.4397805, "Embarcadero", "One Embarcadero Center, San Francisco")
-//                .build();
-//        rideRequestButton.setRideParameters(rideParams);
-//
-//    }
-//
-//    private void uberConfig() {
-//        SessionConfiguration config = new SessionConfiguration.Builder()
-//                // mandatory
-//                .setClientId("yk6wfbTmXZiXndWmzASMX6MiYT-mI2CQ")
-//                // required for enhanced button features
-//                .setServerToken("9DSnlyJYB9XE0hW9JrySkjD7rhqLffE5jvgN2993")
-//                // required for implicit grant authentication
-//                .setRedirectUri("yk6wfbTmXZiXndWmzASMX6MiYT-mI2CQ://uberConnect")
-//                // required scope for Ride Request Widget features
-//                .setScopes(Arrays.asList(Scope.RIDE_WIDGETS))
-//                // optional: set sandbox as operating environment
-//                .setEnvironment(SessionConfiguration.Environment.SANDBOX)
-//                .build();
-//
-//        UberSdk.initialize(config);
-//    }
-
     private void showCalendar() {
         Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
         builder.appendPath("time");
@@ -549,7 +481,7 @@ public class HomeActivity extends AppCompatActivity
                     return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_pending), currentUserEmail);
 
                 case 2:
-                    return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_upcoming), currentUserEmail);
+                    return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_past), currentUserEmail);
             }
 
             return null;
