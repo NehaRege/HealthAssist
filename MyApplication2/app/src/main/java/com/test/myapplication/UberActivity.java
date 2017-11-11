@@ -39,11 +39,10 @@ public class UberActivity extends AppCompatActivity {
         RideRequestButton rideRequestButton = new RideRequestButton(UberActivity.this);
         LinearLayout layout = (LinearLayout) findViewById(R.id.uber_linear);
         layout.addView(rideRequestButton);
-        Activity activity = this; // If you're in a fragment you must get the containing Activity!
+        Activity activity = this;
         int requestCode = 1234;
         rideRequestButton.setRequestBehavior(new RideRequestActivityBehavior(activity, requestCode));
 
-// Optional, default behavior is to use current location for pickup
         RideParameters rideParams = new RideParameters.Builder()
                 .setProductId("a1111c8c-c720-46c3-8534-2fcdd730040d")
                 .setPickupLocation(37.775304, -122.417522, "Uber HQ", "1455 Market Street, San Francisco")

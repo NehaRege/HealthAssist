@@ -107,39 +107,36 @@ public class MainActivity extends AppCompatActivity
         };
 
         fbLoginButton.setReadPermissions("email", "public_profile");
-
         fbLoginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
 
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 if (user != null) {
-
                     String name;
                     String email;
-                    Uri photoUrl;
-
+                    String photoUrl;
                     if (user.getDisplayName() != null) {
                         name = user.getDisplayName();
                     } else {
                         name = "Display name not available";
                     }
-
                     if (user.getDisplayName() != null) {
                         email = user.getEmail();
                     } else {
                         email = "Email not available";
                     }
-
-                    // Check if user's email is verified
+                    if (user.getPhotoUrl() != null) {
+                        photoUrl = user.getPhotoUrl().toString();
+                    } else {
+                        photoUrl = null;
+                    }
                     boolean emailVerified = user.isEmailVerified();
-
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                     intent.putExtra("user_email", email);
                     intent.putExtra("user_name", name);
-//                    intent.putExtra("user_photo", photoUrl);
+                    intent.putExtra("user_photo", photoUrl);
                     startActivityForResult(intent, FACEBOOK_SIGNOUT_REQ);
 
                 } else {
@@ -222,8 +219,8 @@ public class MainActivity extends AppCompatActivity
                 .requestEmail()
                 .build();
 
-        // Build a GoogleApiClient with access to the Google Sign-In API and the
-        // options specified by gso.
+        // Build a GoogleApiClient with access to the Google Sign-In API and the options specified by gso.
+
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .enableAutoManage(this /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
@@ -283,7 +280,6 @@ public class MainActivity extends AppCompatActivity
 
         if (requestCode == GMAIL_SIGNOUT_REQ) {
             if (resultCode == RESULT_OK) {
-//                signOutGmail();
                 logoutGmail();
             }
         }
@@ -306,8 +302,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d(TAG, "handleFacebookAccessToken:" + token);
-
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -315,9 +309,7 @@ public class MainActivity extends AppCompatActivity
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Log.d(TAG, "onComplete: user = " + user.getEmail());
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -388,26 +380,16 @@ public class MainActivity extends AppCompatActivity
 
 
     private void handleGmailSignInResult(GoogleSignInResult result) {
-        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
-
         if (result.isSuccess()) {
             GoogleSignInAccount acct = result.getSignInAccount();
-
-
             if (acct != null) {
-                Log.d(TAG, "handleGmailSignInResult: Google User Id: " + acct.getId());
-
-                // BELOW LINE GIVES YOU JSON WEB TOKEN, (USED TO GET ACCESS TOKEN) :
-
-                Log.d(TAG, "handleGmailSignInResult: ********************************");
-                Log.d(TAG, "handleGmailSignInResult: Server auth code = " + acct.getServerAuthCode());
-                Log.d(TAG, "handleGmailSignInResult: Google Id token =  " + acct.getIdToken());
-
-                Log.d(TAG, "handleGmailSignInResult: Photo Url = " + acct.getPhotoUrl());
-
-                // Save this JWT in global String :
+//                Log.d(TAG, "handleGmailSignInResult: Google User Id: " + acct.getId());
+//                Log.d(TAG, "handleGmailSignInResult: ********************************");
+//                Log.d(TAG, "handleGmailSignInResult: Server auth code = " + acct.getServerAuthCode());
+//                Log.d(TAG, "handleGmailSignInResult: Google Id token =  " + acct.getIdToken());
+//                Log.d(TAG, "handleGmailSignInResult: Photo Url = " + acct.getPhotoUrl());
+//                // Save this JWT in global String
                 idTokenString = acct.getIdToken();
-
                 String name;
                 String email;
                 String photoUrl;
@@ -417,13 +399,11 @@ public class MainActivity extends AppCompatActivity
                 } else {
                     name = "Display Name not available";
                 }
-
                 if (acct.getDisplayName() != null) {
                     email = acct.getEmail();
                 } else {
                     email = "Email not available";
                 }
-
                 if (acct.getPhotoUrl() != null) {
                     photoUrl = acct.getPhotoUrl().toString();
                 } else {
@@ -432,7 +412,9 @@ public class MainActivity extends AppCompatActivity
 
                 Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
 
-                SharedPreferences.Editor editor = getSharedPreferences(KEY_SHARED_PREFS_USER_GMAIL, MODE_PRIVATE).edit();
+                SharedPreferences.Editor editor = getSharedPreferences(
+                        KEY_SHARED_PREFS_USER_GMAIL,
+                        MODE_PRIVATE).edit();
                 editor.putString(getString(R.string.shared_pref_gmail), email);
                 editor.apply();
 
@@ -441,18 +423,11 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("user_name_gmail", name);
                 intent.putExtra("user_photo_gmail", photoUrl);
                 startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
-
             }
-
             updateUIGmail(true);
-
         } else {
-
             updateUIGmail(false);
-
             Log.i(TAG, "handleGoogleSignInResult: gmail login failed !");
-
-
         }
     }
 

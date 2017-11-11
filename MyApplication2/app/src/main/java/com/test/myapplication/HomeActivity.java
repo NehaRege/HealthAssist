@@ -81,8 +81,11 @@ public class HomeActivity extends AppCompatActivity
             currentUserEmail = getIntent().getStringExtra("user_email_gmail");
         }
 
-        SharedPreferences prefs = getSharedPreferences(MainActivity.KEY_SHARED_PREFS_USER_GMAIL, MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences(
+                MainActivity.KEY_SHARED_PREFS_USER_GMAIL,
+                MODE_PRIVATE);
         currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+
         if (currentUserEmail != null) {
             Log.d(TAG, "onCreate: shared prefs = null");
 //            String name = prefs.getString(getString(R.string.shared_pref_gmail), "No email available");
@@ -172,37 +175,30 @@ public class HomeActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_calendar) {
-
-            if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-
-                // Should we show an explanation?
+            if (checkSelfPermission(
+                    Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
                 if (shouldShowRequestPermissionRationale(Manifest.permission.WRITE_CALENDAR)) {
-
                     // Show an expanation to the user *asynchronously* -- don't block
                     // this thread waiting for the user's response! After the user
                     // sees the explanation, try again to request the permission.
-
                 } else {
                     // No explanation needed, we can request the permission.
                     String[] permissions = new String[]{Manifest.permission.WRITE_CALENDAR};
                     requestPermissions(permissions, PERMISSION_REQUEST_CODE_CALENDAR);
 
-
                     // PERMISSION_REQUEST_CODE is an
                     // app-defined int constant. The callback method gets the
                     // result of the request.
                 }
-            } else if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
-
+            } else if (checkSelfPermission(
+                    Manifest.permission.WRITE_CALENDAR) == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
-
                 Uri.Builder builder = CalendarContract.CONTENT_URI.buildUpon();
                 builder.appendPath("time");
                 ContentUris.appendId(builder, Calendar.getInstance().getTimeInMillis());
                 Intent intent = new Intent(Intent.ACTION_VIEW)
                         .setData(builder.build());
                 startActivity(intent);
-
             }
 
         } else if (id == R.id.logout_drawer) {
@@ -447,17 +443,13 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private class MyPagerAdapter extends FragmentPagerAdapter {
-
-        // region pager setup
         private int TAB_COUNT = 3;
-
+        private Context context;
         private String tabTitles[] = new String[]{
                 getString(R.string.appointment_type_approved),
                 getString(R.string.appointment_type_pending),
-                getString(R.string.appointment_type_upcoming)
+                getString(R.string.appointment_type_past)
         };
-
-        private Context context;
 
         public MyPagerAdapter(FragmentManager fm, Context context) {
             super(fm);
@@ -468,22 +460,25 @@ public class HomeActivity extends AppCompatActivity
         public int getCount() {
             return TAB_COUNT;
         }
-        //endregion
 
         @Override
         public Fragment getItem(int position) {
-
             switch (position) {
                 case 0:
-                    return AppointmentsFragment.newInstance(position, getString(R.string.appointment_type_approved), currentUserEmail);
+                    return AppointmentsFragment.newInstance(position,
+                            getString(R.string.appointment_type_approved),
+                            currentUserEmail);
 
                 case 1:
-                    return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_pending), currentUserEmail);
+                    return AppointmentsFragment.newInstance(position + 1,
+                            getString(R.string.appointment_type_pending),
+                            currentUserEmail);
 
                 case 2:
-                    return AppointmentsFragment.newInstance(position + 1, getString(R.string.appointment_type_past), currentUserEmail);
+                    return AppointmentsFragment.newInstance(position + 1,
+                            getString(R.string.appointment_type_past),
+                            currentUserEmail);
             }
-
             return null;
         }
 

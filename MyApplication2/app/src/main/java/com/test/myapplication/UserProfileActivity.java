@@ -49,25 +49,34 @@ public class UserProfileActivity extends AppCompatActivity {
     private TextView textViewNumber;
     private TextView textViewDoctor;
 
-    private RadioGroup radioGroupAlcohol;
-    private RadioGroup radioGroupBleeding;
-    private RadioGroup radioGroupCancer;
-    private RadioGroup radioGroupDiabetes;
-    private RadioGroup radioGroupEpilepsy;
-    private RadioGroup radioGroupBp;
-    private RadioGroup radioGroupHeart;
-    private RadioGroup radioGroupMigraine;
+    private TextView textViewAlcohol;
+    private TextView textViewBleeding;
+    private TextView textViewCancer;
+    private TextView textViewDiabetes;
+    private TextView textViewEpilepsy;
+    private TextView textViewBp;
+    private TextView textViewHeartDisease;
+    private TextView textViewMigraine;
+
+//    private RadioGroup radioGroupAlcohol;
+//    private RadioGroup radioGroupBleeding;
+//    private RadioGroup radioGroupCancer;
+//    private RadioGroup radioGroupDiabetes;
+//    private RadioGroup radioGroupEpilepsy;
+//    private RadioGroup radioGroupBp;
+//    private RadioGroup radioGroupHeart;
+//    private RadioGroup radioGroupMigraine;
 //    private RadioGroup radioGroupGender;
 
-    private RadioButton radioButtonAlcohol;
-    private RadioButton radioButtonBleeding;
-    private RadioButton radioButtonCancer;
-    private RadioButton radioButtonDiabetes;
-    private RadioButton radioButtonEpilepsy;
-    private RadioButton radioButtonBp;
-    private RadioButton radioButtonHeart;
-    private RadioButton radioButtonMigraine;
-    private RadioButton radioButtonIsFemale;
+//    private RadioButton radioButtonAlcohol;
+//    private RadioButton radioButtonBleeding;
+//    private RadioButton radioButtonCancer;
+//    private RadioButton radioButtonDiabetes;
+//    private RadioButton radioButtonEpilepsy;
+//    private RadioButton radioButtonBp;
+//    private RadioButton radioButtonHeart;
+//    private RadioButton radioButtonMigraine;
+//    private RadioButton radioButtonIsFemale;
 
     private String photoUrl;
 
@@ -130,14 +139,24 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewNumber = (TextView) findViewById(R.id.user_profile_activity_number);
         textViewDoctor = (TextView) findViewById(R.id.user_profile_activity_doctor);
 
-        radioGroupAlcohol = (RadioGroup) findViewById(R.id.profile_activity_radio_group_alcohol);
-        radioGroupBleeding = (RadioGroup) findViewById(R.id.profile_activity_radio_group_bleeding);
-        radioGroupCancer = (RadioGroup) findViewById(R.id.profile_activity_radio_group_cancer);
-        radioGroupDiabetes = (RadioGroup) findViewById(R.id.profile_activity_radio_group_diabetes);
-        radioGroupEpilepsy = (RadioGroup) findViewById(R.id.profile_activity_radio_group_epilepsy);
-        radioGroupBp = (RadioGroup) findViewById(R.id.profile_activity_radio_group_bp);
-        radioGroupHeart = (RadioGroup) findViewById(R.id.profile_activity_radio_group_heart);
-        radioGroupMigraine = (RadioGroup) findViewById(R.id.profile_activity_radio_group_migraine);
+
+        textViewAlcohol = (TextView) findViewById(R.id.user_profile_activity_text_view_alcohol);
+        textViewBleeding = (TextView) findViewById(R.id.user_profile_activity_text_view_bleeding);
+        textViewCancer = (TextView) findViewById(R.id.user_profile_activity_text_view_cancer);
+        textViewDiabetes = (TextView) findViewById(R.id.user_profile_activity_text_view_diabetes);
+        textViewEpilepsy = (TextView) findViewById(R.id.user_profile_activity_text_view_epilepsy);
+        textViewBp = (TextView) findViewById(R.id.user_profile_activity_text_view_bp);
+        textViewHeartDisease = (TextView) findViewById(R.id.user_profile_activity_text_view_heart_disease);
+        textViewMigraine = (TextView) findViewById(R.id.user_profile_activity_text_view_migraine);
+
+//        radioGroupAlcohol = (RadioGroup) findViewById(R.id.profile_activity_radio_group_alcohol);
+//        radioGroupBleeding = (RadioGroup) findViewById(R.id.profile_activity_radio_group_bleeding);
+//        radioGroupCancer = (RadioGroup) findViewById(R.id.profile_activity_radio_group_cancer);
+//        radioGroupDiabetes = (RadioGroup) findViewById(R.id.profile_activity_radio_group_diabetes);
+//        radioGroupEpilepsy = (RadioGroup) findViewById(R.id.profile_activity_radio_group_epilepsy);
+//        radioGroupBp = (RadioGroup) findViewById(R.id.profile_activity_radio_group_bp);
+//        radioGroupHeart = (RadioGroup) findViewById(R.id.profile_activity_radio_group_heart);
+//        radioGroupMigraine = (RadioGroup) findViewById(R.id.profile_activity_radio_group_migraine);
 
     }
 
@@ -162,6 +181,15 @@ public class UserProfileActivity extends AppCompatActivity {
         textViewDoctor.setText(currentUserInfo.getDoctorId());
         textViewGender.setText(currentUserInfo.getMedicalRecord().getGender());
 
+        textViewAlcohol.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getAlcoholism().toUpperCase());
+        textViewBleeding.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getBleedingProblems().toUpperCase());
+        textViewCancer.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getCancer().toUpperCase());
+        textViewDiabetes.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getDiabetesHighBloodSugar().toUpperCase());
+        textViewEpilepsy.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getEpilepsySeizures().toUpperCase());
+        textViewBp.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getHighBloodPressure().toUpperCase());
+        textViewHeartDisease.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getHeartDisease().toUpperCase());
+        textViewMigraine.setText(currentUserInfo.getMedicalRecord().getFamilyMedicalHistory().getMigraineHeadaches().toUpperCase());
+
     }
 
     private void initializeRetrofit() {
@@ -175,8 +203,8 @@ public class UserProfileActivity extends AppCompatActivity {
     }
 
     private void getUserInfoApi(String emailId) {
-
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
 
@@ -184,18 +212,12 @@ public class UserProfileActivity extends AppCompatActivity {
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
-
                     try {
-                        Log.d(TAG, "*********************** onResponse: Success *******************");
-                        Log.d(TAG, "onResponse: ethnicity = " + response.body().getMedicalRecord().getEthnicity());
-
                         setUserDetails(response.body());
-
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     t.printStackTrace();

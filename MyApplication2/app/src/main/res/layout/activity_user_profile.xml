@@ -78,12 +78,12 @@
                         android:text="Neha Rege"
                         android:textSize="15dp" />
 
-                    <ImageView
-                        android:id="@+id/user_profile_activity_name_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_mode_edit_black_24dp"
-                        />
+                    <!--<ImageView-->
+                        <!--android:id="@+id/user_profile_activity_name_edit"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:src="@drawable/ic_mode_edit_black_24dp"-->
+                        <!--/>-->
 
                 </LinearLayout>
 
@@ -504,27 +504,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_alcohol"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_alcohol"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_alcohol_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_alcohol"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_alcohol_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_alcohol_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_alcohol_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
 
 
                 </LinearLayout>
@@ -551,27 +559,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_bleeding"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_bleeding"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_bleeding_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_bleeding"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_bleeding_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_bleeding_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_bleeding_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
 
                 <View
@@ -592,31 +608,39 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="10dp"
                         android:layout_weight="0.25"
-                        android:text="Cancer (what kind?) :"
+                        android:text="Cancer :"
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_cancer"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_cancer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_cancer_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_cancer"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_cancer_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_cancer_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_cancer_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
 
                 <View
@@ -641,27 +665,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_diabetes"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_diabetes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_diabetes_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_diabetes"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_diabetes_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_diabetes_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_diabetes_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
 
                 <View
@@ -686,27 +718,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_epilepsy"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_epilepsy"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_epilepsy_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_epilepsy"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_epilepsy_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_epilepsy_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_epilepsy_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
 
                 <View
@@ -731,27 +771,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_bp"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_bp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_bp_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_bp"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_bp_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_bp_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_bp_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
 
                 <View
@@ -776,27 +824,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_heart"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_heart_disease"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_heart_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_heart"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_heart_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_heart_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_heart_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
 
                 <View
@@ -821,27 +877,35 @@
                         android:textSize="@dimen/profile_activity_text"
                         android:textStyle="normal" />
 
-                    <RadioGroup
-                        android:id="@+id/profile_activity_radio_group_migraine"
+                    <TextView
+                        android:id="@+id/user_profile_activity_text_view_migraine"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:text="NA"
                         android:layout_weight="0.25"
-                        android:orientation="horizontal">
+                        />
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_migraine_yes"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Yes" />
+                    <!--<RadioGroup-->
+                        <!--android:id="@+id/profile_activity_radio_group_migraine"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:layout_weight="0.25"-->
+                        <!--android:orientation="horizontal">-->
 
-                        <RadioButton
-                            android:id="@+id/profile_activity_radio_migraine_no"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="6dp"
-                            android:text="No" />
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_migraine_yes"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="Yes" />-->
 
-                    </RadioGroup>
+                        <!--<RadioButton-->
+                            <!--android:id="@+id/profile_activity_radio_migraine_no"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="6dp"-->
+                            <!--android:text="No" />-->
+
+                    <!--</RadioGroup>-->
                 </LinearLayout>
             </LinearLayout>
 

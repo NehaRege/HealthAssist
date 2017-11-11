@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:uber="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
         <item
@@ -22,30 +21,24 @@
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
             android:title="Tools" />
-
     </group>
 
     <item android:title="Communicate">
         <menu>
-
             <item
                 android:id="@+id/nav_uber"
                 android:icon="@drawable/ic_local_taxi_black_24dp"
                 android:title="Uber" />
-
         </menu>
     </item>
 
     <group>
-
         <menu>
             <item
                 android:id="@+id/logout_drawer"
                 android:icon="@drawable/ic_menu_logout"
                 android:title="LOGOUT" />
         </menu>
-
-
     </group>
 
 

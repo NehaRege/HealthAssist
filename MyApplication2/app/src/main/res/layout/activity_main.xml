@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:alpha="0.9"
-    android:background="@drawable/light"
+    android:background="@drawable/sthethescope"
     android:orientation="vertical"
     android:padding="@dimen/activity_horizontal_margin"
     tools:context=".MainActivity">
@@ -118,7 +118,9 @@
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="40dp"
-        android:text="OR" />
+        android:text="OR"
+        android:textStyle="bold"
+        />
 
     <View
         android:layout_width="match_parent"

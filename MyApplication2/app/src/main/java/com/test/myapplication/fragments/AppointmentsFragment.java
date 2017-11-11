@@ -114,9 +114,9 @@ public class AppointmentsFragment extends Fragment
         } else if (appType.equals(getString(R.string.appointment_type_pending))) {
             loadAppointments(currentUserEmail, getString(R.string.appointment_type_pending));
 
-        } else if (appType.equals(getString(R.string.appointment_type_upcoming))) {
+        } else if (appType.equals(getString(R.string.appointment_type_past))) {
 
-            loadAppointments(currentUserEmail, getString(R.string.appointment_type_upcoming));
+            loadAppointments(currentUserEmail, getString(R.string.appointment_type_past));
 
         }
 
@@ -146,57 +146,42 @@ public class AppointmentsFragment extends Fragment
     }
 
     private void loadAppointments(String emailId, final String type) {
-
         Call<ArrayList<Appointment>> call = service.getAppointments(emailId);
         call.enqueue(new Callback<ArrayList<Appointment>>() {
             @Override
-            public void onResponse(Call<ArrayList<Appointment>> call, Response<ArrayList<Appointment>> response) {
-
+            public void onResponse(Call<ArrayList<Appointment>> call,
+                                   Response<ArrayList<Appointment>> response) {
                 try {
-
-                    Log.d(TAG, "----------------onResponse: Success - Appointments -------------------");
-
                     dataListAppointment.clear();
 
                     if (type.equals(getString(R.string.appointment_type_approved))) {
-
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("approved")) {
                                 dataListAppointment.add(response.body().get(i));
                             }
                         }
-
                         rvAdapter.notifyDataSetChanged();
 
                     } else if (type.equals(getString(R.string.appointment_type_pending))) {
-
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("pending")) {
                                 dataListAppointment.add(response.body().get(i));
                             }
                         }
-
                         rvAdapter.notifyDataSetChanged();
 
                     } else if (type.equals(getString(R.string.appointment_type_past))) {
-
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("past")) {
                                 dataListAppointment.add(response.body().get(i));
                             }
                         }
-
                         rvAdapter.notifyDataSetChanged();
-
                     }
-
-                    Log.d(TAG, "onResponse: data list body = " + response.body().size());
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(Call<ArrayList<Appointment>> call, Throwable t) {
                 t.printStackTrace();

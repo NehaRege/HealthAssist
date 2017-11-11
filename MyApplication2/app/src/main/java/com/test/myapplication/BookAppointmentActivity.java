@@ -252,28 +252,21 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     }
 
     private void postReq() {
-
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         if (networkInfo != null && networkInfo.isConnected()) {
-
             Call<BookAppointment> call = service.createNewAppointment(newAppointment);
-
-            Log.d(TAG, "postReq: appointment obj = " + newAppointment.toString());
-
             call.enqueue(new Callback<BookAppointment>() {
                 @Override
-                public void onResponse(Call<BookAppointment> call, Response<BookAppointment> response) {
-
+                public void onResponse(Call<BookAppointment> call,
+                                       Response<BookAppointment> response) {
                     try {
                         Log.d(TAG, "*********************** onResponse: Post Appointment Success *******************");
 
                         Toast.makeText(BookAppointmentActivity.this, "Appointment added successfully! ", Toast.LENGTH_SHORT).show();
-
                         Log.d(TAG, "onResponse: purpose = " + response.message());
-
                     } catch (Exception e) {
-                        Log.d(TAG, "onResponse: exception");
                         e.printStackTrace();
                     }
                 }

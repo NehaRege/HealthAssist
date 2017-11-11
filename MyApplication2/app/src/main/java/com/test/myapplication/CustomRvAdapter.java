@@ -30,7 +30,8 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
     private static OnRecyclerViewItemClickListener onItemClickListener;
 
 
-    public CustomRvAdapter(ArrayList<Appointment> inComingData, OnRecyclerViewItemClickListener listener) {
+    public CustomRvAdapter(ArrayList<Appointment> inComingData,
+                           OnRecyclerViewItemClickListener listener) {
         this.onItemClickListener = listener;
 
         if (inComingData != null) {
