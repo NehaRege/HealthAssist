@@ -300,8 +300,12 @@ public class HomeActivity extends AppCompatActivity
 
         switch (view.getId()) {
             case R.id.fab:
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Log.d(TAG, "onClick: fab");
+                Intent intent = new Intent(this, PredictionsActivity.class);
+                startActivity(intent);
+
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
                 break;
 
         }

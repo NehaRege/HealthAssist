@@ -2,6 +2,7 @@ package com.test.myapplication.api;
 
 import com.test.myapplication.models.appointments.Appointment;
 import com.test.myapplication.models.appointments.BookAppointment;
+import com.test.myapplication.models.predictions.Predictions;
 import com.test.myapplication.models.user.User;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 /**
  * Created by NehaRege on 10/25/17.
@@ -26,5 +28,22 @@ public interface ApiService {
     @POST("/api/appointments")
     Call<BookAppointment> createNewAppointment(@Body BookAppointment newAppointment);
 
+    /*
+    https://remote-health-api.herokuapp.com/api/prediction?symptoms=weight%20loss,tired&email=jesantos0527@gmail.com
+     */
+
+    @GET("/api/prediction")
+    Call<Predictions> getPredictions(
+            @Query("symptoms") String symptoms,
+            @Query("email") String email
+    );
+
+//    @GET("/v3/events/search/?expand=venue,category,ticket_classes")
+//    Call<FreeEventsObject> getAllNearbyEvents(
+//            @Query("location.within") String within,
+//            @Query("location.latitude") String lat,
+//            @Query("location.longitude") String longi,
+//            @Header("Authorization") String token
+//    );
 
 }

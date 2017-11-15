@@ -82,7 +82,6 @@ public class UserProfileActivity extends AppCompatActivity {
 
     private ApiService service;
 
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -218,6 +217,7 @@ public class UserProfileActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                 }
+
                 @Override
                 public void onFailure(Call<User> call, Throwable t) {
                     t.printStackTrace();

@@ -95,6 +95,16 @@
 
         </activity>
 
+        <activity
+            android:name=".PredictionsActivity"
+            android:label="@string/title_activity_book_appointment"
+            android:theme="@style/AppThemeActionBar">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.test.myapplication.HomeActivity" />
+
+        </activity>
 
     </application>
 
