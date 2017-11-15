@@ -3,6 +3,8 @@ package com.test.myapplication;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -44,9 +46,18 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.test.myapplication.api.ApiService;
+import com.test.myapplication.models.user.User;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity
         implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
@@ -81,6 +92,9 @@ public class MainActivity extends AppCompatActivity
 
     private String idTokenString = "";
 
+    private ApiService service;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +103,8 @@ public class MainActivity extends AppCompatActivity
         initializeViews();
 
         setUpGoogleApiClient();
+
+        initializeRetrofit();
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -412,23 +428,99 @@ public class MainActivity extends AppCompatActivity
 
                 Toast.makeText(MainActivity.this, "Logged in via Gmail as: " + acct.getEmail(), Toast.LENGTH_SHORT).show();
 
-                SharedPreferences.Editor editor = getSharedPreferences(
-                        KEY_SHARED_PREFS_USER_GMAIL,
-                        MODE_PRIVATE).edit();
-                editor.putString(getString(R.string.shared_pref_gmail), email);
-                editor.apply();
+//                SharedPreferences.Editor editor = getSharedPreferences(
+//                        KEY_SHARED_PREFS_USER_GMAIL,
+//                        MODE_PRIVATE).edit();
+//                editor.putString(getString(R.string.shared_pref_gmail), email);
+//                editor.apply();
 
-                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                intent.putExtra("user_email_gmail", email);
-                intent.putExtra("user_name_gmail", name);
-                intent.putExtra("user_photo_gmail", photoUrl);
-                startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
+                checkIfUserExists(email, photoUrl, name);
+
+
+
+//                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                intent.putExtra("user_email_gmail", email);
+//                intent.putExtra("user_name_gmail", name);
+//                intent.putExtra("user_photo_gmail", photoUrl);
+//                startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
             }
             updateUIGmail(true);
         } else {
             updateUIGmail(false);
             Log.i(TAG, "handleGoogleSignInResult: gmail login failed !");
         }
+    }
+
+    private void initializeRetrofit() {
+        String BASE_URL = "https://remote-health-api.herokuapp.com";
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        service = retrofit.create(ApiService.class);
+    }
+
+    private void checkIfUserExists(final String email, final String photoUrl, final String name) {
+        Log.d(TAG, "checkIfUserExists: ");
+
+        Toast.makeText(MainActivity.this, "Checking if user is valid", Toast.LENGTH_SHORT).show();
+
+        ConnectivityManager connMgr = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()) {
+
+            Call<User> call = service.getUser(email);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> call, Response<User> response) {
+                    try {
+                        if (!Objects.equals(response.message(), "User not found")) {
+                            Log.d(TAG, "onResponse: User found");
+                            if (Objects.equals(response.body().getId(), email)) {
+                                Log.d(TAG, "onResponse: User found and email verified");
+
+                                Toast.makeText(MainActivity.this, "User verified!", Toast.LENGTH_SHORT).show();
+
+                                SharedPreferences.Editor editor = getSharedPreferences(
+                                        KEY_SHARED_PREFS_USER_GMAIL,
+                                        MODE_PRIVATE).edit();
+                                editor.putString(getString(R.string.shared_pref_gmail), response.body().getId());
+                                editor.apply();
+
+                                Log.d(TAG, "onResponse: starting homeActivity");
+
+                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                intent.putExtra("user_email_gmail", response.body().getId());
+                                intent.putExtra("user_name_gmail", name);
+                                intent.putExtra("user_photo_gmail", photoUrl);
+                                startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
+
+                            } else {
+                                Toast.makeText(MainActivity.this, "Error in verifying!", Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else if (Objects.equals(response.message(), "User not found")) {
+                            Toast.makeText(MainActivity.this, "User not found. Please register!", Toast.LENGTH_LONG).show();
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> call, Throwable t) {
+                    t.printStackTrace();
+                    Log.d(TAG, "onFailure: Retrofit call failed: ");
+                }
+            });
+        } else {
+            Log.d(TAG, "getUserInfoApi: Failed : Network problem");
+        }
+
+
     }
 
     private void updateUIGmail(boolean signedIn) {

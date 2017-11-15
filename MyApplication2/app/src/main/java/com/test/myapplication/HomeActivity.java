@@ -77,6 +77,8 @@ public class HomeActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        Log.d(TAG, "onCreate: HomeActivity created!");
+
         if (getIntent().hasExtra("user_email_gmail")) {
             currentUserEmail = getIntent().getStringExtra("user_email_gmail");
         }

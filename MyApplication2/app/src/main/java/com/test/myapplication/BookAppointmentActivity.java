@@ -25,8 +25,6 @@ import com.test.myapplication.fragments.DatePickerFragment;
 import com.test.myapplication.fragments.TimePickerFragment;
 import com.test.myapplication.models.appointments.BookAppointment;
 
-import org.w3c.dom.Text;
-
 import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
