@@ -58,7 +58,7 @@ dependencies {
 
     compile 'com.squareup.okhttp:okhttp:2.7.2'
 
-
+    compile 'com.github.javiersantos:BottomDialogs:1.2.1'
 
 }
 apply plugin: 'com.google.gms.google-services'
