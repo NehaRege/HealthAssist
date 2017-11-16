@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.google.gson.Gson;
 import com.test.myapplication.api.ApiService;
 import com.test.myapplication.models.predictions.Predictions;
@@ -74,6 +75,7 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
         editTextSym3 = (EditText) findViewById(R.id.predictions_activity_symp3);
 
         buttonSubmit = (Button) findViewById(R.id.predictions_activity_submit);
+        buttonSubmit.setOnClickListener(this);
     }
 
 
@@ -83,12 +85,40 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.predictions_activity_submit:
                 Log.d(TAG, "onClick: submit predictions");
+                openBottomDialog();
 
 //                getPredictions("weight loss,tired", "jesantos0527@gmail.com");
 
                 break;
         }
 
+    }
+
+    private void openBottomDialog() {
+        new BottomDialog.Builder(this)
+                .setTitle("Awesome!")
+                .setContent("What can we improve? Your feedback is always welcome.")
+                .setPositiveText("OK")
+                .setPositiveBackgroundColorResource(R.color.colorPrimary)
+                //.setPositiveBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary)
+                .setPositiveTextColorResource(android.R.color.white)
+                //.setPositiveTextColor(ContextCompat.getColor(this, android.R.color.colorPrimary)
+                .onPositive(new BottomDialog.ButtonCallback() {
+                    @Override
+                    public void onClick(BottomDialog dialog) {
+                        Log.d("BottomDialogs", "Do something!");
+                    }
+                })
+                .setCancelable(false)
+                .setNegativeText("Exit")
+                .setNegativeTextColorResource(R.color.colorAccent)
+                //.setNegativeTextColor(ContextCompat.getColor(this, R.color.colorAccent)
+                .onNegative(new BottomDialog.ButtonCallback() {
+                    @Override
+                    public void onClick(BottomDialog dialog) {
+                        Log.d("BottomDialogs", "Do something!");
+                    }
+                }).show();
     }
 
     private void getSharedPrefs() {
