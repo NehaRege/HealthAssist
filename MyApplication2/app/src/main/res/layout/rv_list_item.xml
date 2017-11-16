@@ -33,11 +33,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
         android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/list_item_text_purpose"
         android:layout_weight="1"
         android:gravity="end"
         android:paddingLeft="150dp"
-        android:layout_marginTop="10dp"
-        android:layout_toRightOf="@id/list_item_text_purpose"
         android:text="Location"
         android:textColor="@android:color/black"
         android:textStyle="bold" />
@@ -70,8 +70,8 @@
         android:id="@+id/list_item_line"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="5dp"
         android:layout_below="@id/list_item_text_date"
+        android:layout_marginTop="5dp"
         android:background="@android:color/darker_gray" />
 
 
