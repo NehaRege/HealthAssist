@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.test.myapplication.CustomRvAdapter;
@@ -45,6 +46,8 @@ public class AppointmentsFragment extends Fragment
     private RecyclerView recyclerView;
     private RecyclerView.Adapter rvAdapter;
     private RecyclerView.LayoutManager rvLayoutManager;
+
+    private ProgressBar spinner;
 
     private int page;
     private String appType;
@@ -104,6 +107,9 @@ public class AppointmentsFragment extends Fragment
 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
 
+        spinner = (ProgressBar) rootView.findViewById(R.id.progressBar2);
+        spinner.setVisibility(View.VISIBLE);
+
         rvLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView.setLayoutManager(rvLayoutManager);
 
@@ -155,6 +161,8 @@ public class AppointmentsFragment extends Fragment
                     dataListAppointment.clear();
 
                     if (type.equals(getString(R.string.appointment_type_approved))) {
+                        spinner.setVisibility(View.GONE);
+
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("approved")) {
                                 dataListAppointment.add(response.body().get(i));
@@ -163,6 +171,8 @@ public class AppointmentsFragment extends Fragment
                         rvAdapter.notifyDataSetChanged();
 
                     } else if (type.equals(getString(R.string.appointment_type_pending))) {
+                        spinner.setVisibility(View.GONE);
+
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("pending")) {
                                 dataListAppointment.add(response.body().get(i));
@@ -171,6 +181,8 @@ public class AppointmentsFragment extends Fragment
                         rvAdapter.notifyDataSetChanged();
 
                     } else if (type.equals(getString(R.string.appointment_type_past))) {
+                        spinner.setVisibility(View.GONE);
+
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("past")) {
                                 dataListAppointment.add(response.body().get(i));

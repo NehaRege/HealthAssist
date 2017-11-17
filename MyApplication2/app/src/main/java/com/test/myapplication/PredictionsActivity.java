@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.github.javiersantos.bottomdialogs.BottomDialog;
 import com.google.gson.Gson;
@@ -48,6 +49,8 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
 
     private ApiService service;
 
+    private ProgressBar spinner;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,19 +66,19 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
 
         initializeRetrofit();
 
-        getPredictions("weight%20loss,tired", "neharege28@gmail.com");
-
-
     }
 
     private void initializeViews() {
         Log.d(TAG, "initializeViews: ");
         editTextSym1 = (EditText) findViewById(R.id.predictions_activity_symp1);
         editTextSym2 = (EditText) findViewById(R.id.predictions_activity_symp2);
-        editTextSym3 = (EditText) findViewById(R.id.predictions_activity_symp3);
+//        editTextSym3 = (EditText) findViewById(R.id.predictions_activity_symp3);
 
         buttonSubmit = (Button) findViewById(R.id.predictions_activity_submit);
         buttonSubmit.setOnClickListener(this);
+
+        spinner = (ProgressBar) findViewById(R.id.predictions_progressBar);
+        spinner.setVisibility(View.INVISIBLE);
     }
 
 
@@ -85,7 +88,11 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
         switch (view.getId()) {
             case R.id.predictions_activity_submit:
                 Log.d(TAG, "onClick: submit predictions");
-                openBottomDialog();
+                spinner.setVisibility(View.VISIBLE);
+
+
+                getPredictions("neharege28@gmail.com", getDataFromEditText());
+//                openBottomDialog();
 
 //                getPredictions("weight loss,tired", "jesantos0527@gmail.com");
 
@@ -94,10 +101,18 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void openBottomDialog() {
+    private String getDataFromEditText() {
+        String sym1 = editTextSym1.getText().toString().trim().toLowerCase();
+        String sym2 = editTextSym2.getText().toString().trim().toLowerCase();
+
+        return sym1+","+sym2;
+
+    }
+
+    private void openBottomDialog(String diseaseName, String diseaseDescription) {
         new BottomDialog.Builder(this)
-                .setTitle("Awesome!")
-                .setContent("What can we improve? Your feedback is always welcome.")
+                .setTitle(diseaseName)
+                .setContent(diseaseDescription)
                 .setPositiveText("OK")
                 .setPositiveBackgroundColorResource(R.color.colorPrimary)
                 //.setPositiveBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary)
@@ -110,15 +125,7 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
                     }
                 })
                 .setCancelable(false)
-                .setNegativeText("Exit")
-                .setNegativeTextColorResource(R.color.colorAccent)
-                //.setNegativeTextColor(ContextCompat.getColor(this, R.color.colorAccent)
-                .onNegative(new BottomDialog.ButtonCallback() {
-                    @Override
-                    public void onClick(BottomDialog dialog) {
-                        Log.d("BottomDialogs", "Do something!");
-                    }
-                }).show();
+                .show();
     }
 
     private void getSharedPrefs() {
@@ -140,7 +147,7 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .connectTimeout(100, TimeUnit.SECONDS)
-                .readTimeout(100,TimeUnit.SECONDS).build();
+                .readTimeout(100, TimeUnit.SECONDS).build();
 
         Log.d(TAG, "initializeRetrofit: ");
         String BASE_URL = "https://remote-health-api.herokuapp.com";
@@ -161,22 +168,26 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
 
         Call<Predictions> call = service.getPredictions(symptoms, emailId);
         Log.d(TAG, "getPredictions: will enter call.enque");
+
         call.enqueue(new Callback<Predictions>() {
             @Override
             public void onResponse(Call<Predictions> call, Response<Predictions> response) {
                 try {
                     Log.d(TAG, "onResponse: ");
-                    if(response==null) {
+                    if (response == null) {
                         Log.d(TAG, "onResponse: response = null");
                     } else {
-                        Log.d(TAG, "onResponse: response = "+response.body());
+                        spinner.setVisibility(View.INVISIBLE);
+
+                        openBottomDialog(response.body().getDisease().toUpperCase(), response.body().getDescription());
+                        Log.d(TAG, "onResponse: response = " + response.body());
 
                     }
 //                    Log.d(TAG, "onResponse: description = " + response.body().getDescription());
 //                    Log.d(TAG, "onResponse: disease = " + response.body().getDisease());
 
                 } catch (Exception e) {
-                    Log.d(TAG, "onResponse: exception = "+e);
+                    Log.d(TAG, "onResponse: exception = " + e);
                     e.printStackTrace();
                 }
             }
@@ -184,7 +195,7 @@ public class PredictionsActivity extends AppCompatActivity implements View.OnCli
             @Override
             public void onFailure(Call<Predictions> call, Throwable t) {
                 t.printStackTrace();
-                Log.d(TAG, "onFailure: Retrofit call failed: "+t);
+                Log.d(TAG, "onFailure: Retrofit call failed: " + t);
             }
         });
 

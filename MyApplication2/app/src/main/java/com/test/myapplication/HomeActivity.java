@@ -12,7 +12,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -49,8 +48,11 @@ public class HomeActivity extends AppCompatActivity
     private static final String TAG = "HomeActivity";
     private ArrayList<Appointment> dataListAppointment = new ArrayList<>();
 
-    private String currentUserEmail;
-
+    private String currentUserSharedPrefsEmail;
+    private String currentUserSharedPrefsPhoto;
+    private String currentUserSharedPrefsName;
+    private String currentUserSharedPrefsNameFirst;
+    private String currentUserSharedPrefsNameLast;
 
     private TextView textViewNavHeaderName;
     private TextView textViewNavHeaderEmail;
@@ -80,15 +82,17 @@ public class HomeActivity extends AppCompatActivity
         Log.d(TAG, "onCreate: HomeActivity created!");
 
         if (getIntent().hasExtra("user_email_gmail")) {
-            currentUserEmail = getIntent().getStringExtra("user_email_gmail");
+            currentUserSharedPrefsEmail = getIntent().getStringExtra("user_email_gmail");
         }
 
         SharedPreferences prefs = getSharedPreferences(
                 MainActivity.KEY_SHARED_PREFS_USER_GMAIL,
                 MODE_PRIVATE);
-        currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+        currentUserSharedPrefsEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+        currentUserSharedPrefsPhoto = prefs.getString(getString(R.string.shared_pref_gmail_photo), null);
+        currentUserSharedPrefsName = prefs.getString(getString(R.string.shared_pref_gmail_name), null);
 
-        if (currentUserEmail != null) {
+        if (currentUserSharedPrefsEmail != null) {
             Log.d(TAG, "onCreate: shared prefs = null");
 //            String name = prefs.getString(getString(R.string.shared_pref_gmail), "No email available");
         }
@@ -143,8 +147,8 @@ public class HomeActivity extends AppCompatActivity
             if (photoUrl != null) {
                 intent.putExtra("user_photo", photoUrl);
             }
-            if (currentUserEmail != null) {
-                intent.putExtra("user_profile_email", currentUserEmail);
+            if (currentUserSharedPrefsEmail != null) {
+                intent.putExtra("user_profile_email", currentUserSharedPrefsEmail);
             }
 
             startActivity(intent);
@@ -152,7 +156,7 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_book_appointment) {
 
             Intent intent = new Intent(this, BookAppointmentActivity.class);
-            intent.putExtra("book_app_email_id", currentUserEmail);
+            intent.putExtra("book_app_email_id", currentUserSharedPrefsEmail);
             startActivity(intent);
 
         } else if (id == R.id.nav_manage) {
@@ -254,6 +258,7 @@ public class HomeActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
+
     }
 
     private void setIntent() {
@@ -272,7 +277,7 @@ public class HomeActivity extends AppCompatActivity
 
         if (intent.hasExtra("user_email_gmail")) {
             email = intent.getStringExtra("user_email_gmail");
-            currentUserEmail = intent.getStringExtra("user_email_gmail");
+            currentUserSharedPrefsEmail = intent.getStringExtra("user_email_gmail");
             textViewNavHeaderEmail.setText(email);
         }
 
@@ -473,17 +478,17 @@ public class HomeActivity extends AppCompatActivity
                 case 0:
                     return AppointmentsFragment.newInstance(position,
                             getString(R.string.appointment_type_approved),
-                            currentUserEmail);
+                            currentUserSharedPrefsEmail);
 
                 case 1:
                     return AppointmentsFragment.newInstance(position + 1,
                             getString(R.string.appointment_type_pending),
-                            currentUserEmail);
+                            currentUserSharedPrefsEmail);
 
                 case 2:
                     return AppointmentsFragment.newInstance(position + 1,
                             getString(R.string.appointment_type_past),
-                            currentUserEmail);
+                            currentUserSharedPrefsEmail);
             }
             return null;
         }

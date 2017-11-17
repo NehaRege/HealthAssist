@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -76,6 +77,8 @@ public class MainActivity extends AppCompatActivity
 
     private TextInputLayout usernameWrapper;
     private TextInputLayout passwordWrapper;
+
+    private ProgressBar spinner;
 
     private Pattern pattern = Pattern.compile(EMAIL_PATTERN);
     private Matcher matcher;
@@ -222,6 +225,11 @@ public class MainActivity extends AppCompatActivity
         gmailSignInButton.setOnClickListener(this);
         gmailSignInButton.setSize(SignInButton.SIZE_STANDARD);
         gmailSignInButton.setColorScheme(SignInButton.COLOR_AUTO);
+
+        spinner = (ProgressBar)findViewById(R.id.progressBar1);
+
+
+
 
     }
 
@@ -487,6 +495,10 @@ public class MainActivity extends AppCompatActivity
                                         KEY_SHARED_PREFS_USER_GMAIL,
                                         MODE_PRIVATE).edit();
                                 editor.putString(getString(R.string.shared_pref_gmail), response.body().getId());
+                                editor.putString(getString(R.string.shared_pref_gmail_photo), photoUrl);
+                                editor.putString(getString(R.string.shared_pref_gmail_name), name);
+                                editor.putString(getString(R.string.shared_pref_gmail_name_first), response.body().getName().getFirstName());
+                                editor.putString(getString(R.string.shared_pref_gmail_name_last), response.body().getName().getLastName());
                                 editor.apply();
 
                                 Log.d(TAG, "onResponse: starting homeActivity");
@@ -495,6 +507,9 @@ public class MainActivity extends AppCompatActivity
                                 intent.putExtra("user_email_gmail", response.body().getId());
                                 intent.putExtra("user_name_gmail", name);
                                 intent.putExtra("user_photo_gmail", photoUrl);
+
+                                spinner.setVisibility(View.GONE);
+
                                 startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
 
                             } else {
@@ -601,6 +616,9 @@ public class MainActivity extends AppCompatActivity
             }
 
             case R.id.sign_in_button_gmail: {
+
+                spinner.setVisibility(View.VISIBLE);
+
 
                 gmailSignIn();
 
