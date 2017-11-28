@@ -19,36 +19,36 @@
     <!--android:type="linear" />-->
 
     <!--<gradient-->
-        <!--android:angle="270"-->
-        <!--android:centerColor="@android:color/transparent"-->
-        <!--android:centerX="290%"-->
-        <!--android:endColor="#1de9b6"-->
-        <!--android:startColor="#1de9b6"-->
-        <!--android:type="linear" />-->
-
-    <gradient
-        android:angle="270"
-        android:centerColor="#00cbcc"
-        android:centerX="100%"
-        android:endColor="#76ffff"
-        android:startColor="#18ffff"
-        android:type="linear" />
+    <!--android:angle="270"-->
+    <!--android:centerColor="@android:color/transparent"-->
+    <!--android:centerX="290%"-->
+    <!--android:endColor="#1de9b6"-->
+    <!--android:startColor="#1de9b6"-->
+    <!--android:type="linear" />-->
 
     <!--<gradient-->
         <!--android:angle="270"-->
-        <!--android:centerColor="@color/secondaryColor"-->
+        <!--android:centerColor="#00cbcc"-->
         <!--android:centerX="100%"-->
-        <!--android:endColor="#F7F6F0"-->
-        <!--android:startColor="#ffd149"-->
+        <!--android:endColor="#76ffff"-->
+        <!--android:startColor="#18ffff"-->
         <!--android:type="linear" />-->
 
     <!--<gradient-->
-        <!--android:angle="270"-->
-        <!--android:centerColor="#32A1AD"-->
-        <!--android:centerX="100%"-->
-        <!--android:endColor="#F7F6F0"-->
-        <!--android:startColor="#76DDE8"-->
-        <!--android:type="linear" />-->
+    <!--android:angle="270"-->
+    <!--android:centerColor="@color/secondaryColor"-->
+    <!--android:centerX="100%"-->
+    <!--android:endColor="#F7F6F0"-->
+    <!--android:startColor="#ffd149"-->
+    <!--android:type="linear" />-->
+
+    <!--<gradient-->
+    <!--android:angle="270"-->
+    <!--android:centerColor="#32A1AD"-->
+    <!--android:centerX="100%"-->
+    <!--android:endColor="#F7F6F0"-->
+    <!--android:startColor="#76DDE8"-->
+    <!--android:type="linear" />-->
     <padding
         android:bottom="5dp"
         android:left="5dp"

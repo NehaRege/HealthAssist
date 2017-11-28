@@ -6,6 +6,7 @@
     <string name="title_activity_uber_activity">Call Uber</string>
     <string name="title_activity_user_profile">Health Profile</string>
     <string name="title_activity_book_appointment">Book Appointment</string>
+    <string name="title_activity_predictions">Search Diseases</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

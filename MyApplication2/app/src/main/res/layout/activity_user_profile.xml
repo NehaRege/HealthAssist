@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light"
+    android:background="@drawable/shutterstock_care"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,13 +13,13 @@
 
         <ImageView
             android:id="@+id/user_profile_activity_photo"
-            android:layout_width="75dp"
-            android:layout_height="75sp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:layout_gravity="center"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="25dp"
             android:elevation="60dp"
-            android:padding="1dp"
-            android:src="@android:drawable/sym_def_app_icon" />
+            android:padding="0dp"
+            android:src="@drawable/ic_user_profile" />
 
         <android.support.v7.widget.CardView
             android:id="@+id/card_view"
@@ -29,9 +29,9 @@
             android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="25dp"
             card_view:cardCornerRadius="12dp"
-            card_view:cardElevation="50dp">
+            card_view:cardElevation="60dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,9 +41,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:alpha="0.8"
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="About"
+                    android:background="@color/secondaryDarkColor"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/profile_activity_header"
                     android:textStyle="bold" />
 
@@ -79,11 +82,11 @@
                         android:textSize="15dp" />
 
                     <!--<ImageView-->
-                        <!--android:id="@+id/user_profile_activity_name_edit"-->
-                        <!--android:layout_width="wrap_content"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:src="@drawable/ic_mode_edit_black_24dp"-->
-                        <!--/>-->
+                    <!--android:id="@+id/user_profile_activity_name_edit"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:src="@drawable/ic_mode_edit_black_24dp"-->
+                    <!--/>-->
 
                 </LinearLayout>
 
@@ -110,35 +113,35 @@
                         android:textStyle="normal" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_gender"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.75"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_gender"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.75"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_male"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Male" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_male"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Male" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_female"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="Female" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_female"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="Female" />-->
 
                     <!--</RadioGroup>-->
 
                     <TextView
-                    android:id="@+id/user_profile_activity_gender"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:layout_weight="0.75"
-                    android:text="Female"
-                    android:textSize="15dp" />
+                        android:id="@+id/user_profile_activity_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_weight="0.75"
+                        android:text="Female"
+                        android:textSize="15dp" />
 
                     <!--<ImageView-->
                     <!--android:layout_width="wrap_content"-->
@@ -313,9 +316,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:alpha="0.8"
                     android:gravity="center"
                     android:padding="15dp"
+                    android:background="@color/secondaryDarkColor"
+
                     android:text="Contact Information"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/profile_activity_header"
 
                     android:textStyle="bold" />
@@ -476,9 +483,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:alpha="0.8"
                     android:gravity="center"
                     android:padding="15dp"
+                    android:background="@color/secondaryDarkColor"
+
                     android:text="Family Medical History"
+                    android:textColor="@android:color/white"
                     android:textSize="@dimen/profile_activity_header"
                     android:textStyle="bold" />
 
@@ -508,29 +519,28 @@
                         android:id="@+id/user_profile_activity_text_view_alcohol"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_alcohol"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_alcohol"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_alcohol_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_alcohol_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_alcohol_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_alcohol_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
 
@@ -563,29 +573,28 @@
                         android:id="@+id/user_profile_activity_text_view_bleeding"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_bleeding"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_bleeding"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_bleeding_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_bleeding_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_bleeding_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_bleeding_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -616,29 +625,28 @@
                         android:id="@+id/user_profile_activity_text_view_cancer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_cancer"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_cancer"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_cancer_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_cancer_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_cancer_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_cancer_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -669,29 +677,28 @@
                         android:id="@+id/user_profile_activity_text_view_diabetes"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_diabetes"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_diabetes"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_diabetes_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_diabetes_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_diabetes_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_diabetes_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -722,29 +729,28 @@
                         android:id="@+id/user_profile_activity_text_view_epilepsy"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_epilepsy"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_epilepsy"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_epilepsy_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_epilepsy_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_epilepsy_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_epilepsy_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -775,29 +781,28 @@
                         android:id="@+id/user_profile_activity_text_view_bp"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_bp"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_bp"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_bp_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_bp_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_bp_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_bp_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -828,29 +833,28 @@
                         android:id="@+id/user_profile_activity_text_view_heart_disease"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_heart"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_heart"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_heart_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_heart_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_heart_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_heart_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -881,29 +885,28 @@
                         android:id="@+id/user_profile_activity_text_view_migraine"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="NA"
                         android:layout_weight="0.25"
-                        />
+                        android:text="NA" />
 
                     <!--<RadioGroup-->
-                        <!--android:id="@+id/profile_activity_radio_group_migraine"-->
-                        <!--android:layout_width="0dp"-->
-                        <!--android:layout_height="wrap_content"-->
-                        <!--android:layout_weight="0.25"-->
-                        <!--android:orientation="horizontal">-->
+                    <!--android:id="@+id/profile_activity_radio_group_migraine"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="0.25"-->
+                    <!--android:orientation="horizontal">-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_migraine_yes"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:text="Yes" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_migraine_yes"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Yes" />-->
 
-                        <!--<RadioButton-->
-                            <!--android:id="@+id/profile_activity_radio_migraine_no"-->
-                            <!--android:layout_width="wrap_content"-->
-                            <!--android:layout_height="wrap_content"-->
-                            <!--android:layout_marginLeft="6dp"-->
-                            <!--android:text="No" />-->
+                    <!--<RadioButton-->
+                    <!--android:id="@+id/profile_activity_radio_migraine_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_marginLeft="6dp"-->
+                    <!--android:text="No" />-->
 
                     <!--</RadioGroup>-->
                 </LinearLayout>
@@ -913,16 +916,16 @@
 
 
         <!--<android.support.v7.widget.CardView-->
-            <!--android:id="@+id/card_view4"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginBottom="20dp"-->
-            <!--android:layout_marginLeft="10dp"-->
-            <!--android:layout_marginRight="10dp"-->
-            <!--android:layout_marginTop="20dp"-->
-            <!--card_view:cardCornerRadius="12dp"-->
-            <!--card_view:cardElevation="50dp">-->
+        <!--android:id="@+id/card_view4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_marginLeft="10dp"-->
+        <!--android:layout_marginRight="10dp"-->
+        <!--android:layout_marginTop="20dp"-->
+        <!--card_view:cardCornerRadius="12dp"-->
+        <!--card_view:cardElevation="50dp">-->
 
         <!--</android.support.v7.widget.CardView>-->
 

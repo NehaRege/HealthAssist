@@ -35,6 +35,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private static final String TAG = "UserProfileActivity";
 
     private String currentUserEmail;
+    private String currentUserSharedPrefsPhoto;
+    private String currentUserSharedPrefsName;
 
     private ImageView imageViewPhoto;
 
@@ -120,6 +122,8 @@ public class UserProfileActivity extends AppCompatActivity {
     private void getSharedPrefs() {
         SharedPreferences prefs = getSharedPreferences(MainActivity.KEY_SHARED_PREFS_USER_GMAIL, Context.MODE_PRIVATE);
         currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+        currentUserSharedPrefsName = prefs.getString(getString(R.string.shared_pref_gmail_name), null);
+        currentUserSharedPrefsPhoto = prefs.getString(getString(R.string.shared_pref_gmail_photo), null);
     }
 
     private void initializeViews() {
@@ -166,6 +170,11 @@ public class UserProfileActivity extends AppCompatActivity {
                     .apply(RequestOptions.circleCropTransform())
                     .into(imageViewPhoto);
         }
+
+        Glide.with(this)
+                .load(currentUserSharedPrefsPhoto)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageViewPhoto);
     }
 
     private void setUserDetails(User currentUserInfo) {

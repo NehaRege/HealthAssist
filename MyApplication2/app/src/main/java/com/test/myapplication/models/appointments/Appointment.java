@@ -149,4 +149,22 @@ public class Appointment {
         this.googleEventLink = googleEventLink;
     }
 
+    @Override
+    public String toString() {
+        return "Appointment{" +
+                "id='" + id + '\'' +
+                ", patientId='" + patientId + '\'' +
+                ", doctorId='" + doctorId + '\'' +
+                ", doctorName='" + doctorName + '\'' +
+                ", purpose='" + purpose + '\'' +
+                ", status='" + status + '\'' +
+                ", date='" + date + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
+                ", location='" + location + '\'' +
+                ", startTimeTimestamp=" + startTimeTimestamp +
+                ", v=" + v +
+                ", googleEventLink='" + googleEventLink + '\'' +
+                '}';
+    }
 }

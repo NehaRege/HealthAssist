@@ -2,6 +2,7 @@ package com.test.myapplication;
 
 import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Dialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -258,7 +260,6 @@ public class HomeActivity extends AppCompatActivity
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
 
-
     }
 
     private void setIntent() {
@@ -298,6 +299,16 @@ public class HomeActivity extends AppCompatActivity
 
             }
         }
+
+        Glide.with(HomeActivity.this)
+                .load(currentUserSharedPrefsPhoto)
+                .apply(RequestOptions.circleCropTransform())
+                .into(imageViewPhoto);
+
+        textViewNavHeaderName.setText(currentUserSharedPrefsName);
+        textViewNavHeaderEmail.setText(currentUserSharedPrefsEmail);
+
+
     }
 
     @Override
@@ -411,7 +422,78 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(HomeActivity.this, "Clicked on " + dataListAppointment.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(HomeActivity.this, "Clicked on " +
+//                dataListAppointment.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
+
+        Appointment appointment = dataListAppointment.get(position);
+
+        Log.d(TAG, "onItemClick: app details = "+appointment.toString());
+//
+//        if (!appointment.getStatus().equals("approved")) {
+//            showAppointmentDetailsDialog(
+//                    appointment.getPurpose(),
+//                    appointment.getDoctorName(),
+//                    appointment.getDoctorId(),
+//                    appointment.getDate(),
+//                    appointment.getStartTime(),
+//                    appointment.getLocation()
+//            );
+//        }
+
+
+
+//        final Dialog dialog = new Dialog(this);
+//        dialog.setContentView(R.layout.custom_dialog_list_view);
+//        dialog.setTitle("Title...");
+//
+//        // set the custom dialog components - text, image and button
+//        TextView text = (TextView) dialog.findViewById(R.id.text);
+//        text.setText("Android custom dialog example!");
+//        ImageView image = (ImageView) dialog.findViewById(R.id.image);
+//        image.setImageResource(R.drawable.ic_launcher);
+//
+//        Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
+//        // if button is clicked, close the custom dialog
+//        dialogButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
+
+//        dialog.show();
+
+
+    }
+
+    private void showAppointmentDetailsDialog(String title, String name, String email, String date, String time, String location) {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_dialog_list_view);
+
+        dialog.setTitle(title);
+
+        TextView textViewDoctorName = (TextView) dialog.findViewById(R.id.dialog_doctor_name);
+        TextView textViewDoctorEmail = (TextView) dialog.findViewById(R.id.dialog_doctor_email);
+        TextView textViewDate = (TextView) dialog.findViewById(R.id.dialog_appointment_date);
+        TextView textViewTime = (TextView) dialog.findViewById(R.id.dialog_app_time);
+        TextView textViewLocation = (TextView) dialog.findViewById(R.id.dialog_app_location);
+
+        textViewDoctorName.setText(name);
+        textViewDoctorEmail.setText(email);
+        textViewDate.setText(date);
+        textViewTime.setText(time);
+        textViewLocation.setText(location);
+
+//        Button ok = (Button) dialog.findViewById(R.id.dialog_app_ok);
+//
+//        ok.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                dialog.dismiss();
+//            }
+//        });
+
+        dialog.show();
     }
 
     class ViewPagerAdapter extends FragmentPagerAdapter {

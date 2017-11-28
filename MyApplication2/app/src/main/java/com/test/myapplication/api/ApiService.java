@@ -2,6 +2,7 @@ package com.test.myapplication.api;
 
 import com.test.myapplication.models.appointments.Appointment;
 import com.test.myapplication.models.appointments.BookAppointment;
+import com.test.myapplication.models.login.Login;
 import com.test.myapplication.models.predictions.Predictions;
 import com.test.myapplication.models.user.User;
 
@@ -36,6 +37,18 @@ public interface ApiService {
     Call<Predictions> getPredictions(
             @Query("symptoms") String symptoms,
             @Query("email") String email
+    );
+
+    /*
+    https://remote-health-api.herokuapp.com/api/users/{USER_EMAIL}/{PASSWORD}/login
+
+    https://remote-health-api.herokuapp.com/api/users/jesantos0527-test@gmail.com/Testing1/login
+     */
+
+    @GET("/api/users/{USER_EMAIL}/{PASSWORD}/login")
+    Call<Login> checkLoginCredentials(
+            @Path("USER_EMAIL") String USER_EMAIL,
+            @Path("PASSWORD") String PASSWORD
     );
 
 //    @GET("/v3/events/search/?expand=venue,category,ticket_classes")

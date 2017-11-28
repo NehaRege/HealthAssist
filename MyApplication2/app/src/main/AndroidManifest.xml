@@ -97,7 +97,7 @@
 
         <activity
             android:name=".PredictionsActivity"
-            android:label="@string/title_activity_book_appointment"
+            android:label="@string/title_activity_predictions"
             android:theme="@style/AppThemeActionBar">
 
             <meta-data

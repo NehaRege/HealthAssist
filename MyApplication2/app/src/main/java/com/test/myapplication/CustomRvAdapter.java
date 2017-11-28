@@ -1,6 +1,11 @@
 package com.test.myapplication;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
+import android.preference.DialogPreference;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -8,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +35,8 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
     private static OnRecyclerViewItemClickListener onItemClickListener;
 
+    private Context appContext;
+
 
     public CustomRvAdapter(ArrayList<Appointment> inComingData,
                            OnRecyclerViewItemClickListener listener) {
@@ -46,6 +54,7 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
     @Override
     public SampleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
+        appContext = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         View listItemLayout = inflater.inflate(R.layout.rv_list_item, parent, false);
@@ -56,7 +65,7 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
     @Override
     public void onBindViewHolder(SampleViewHolder holder, int position) {
 
-        Appointment dataItem = data.get(position);
+        final Appointment dataItem = data.get(position);
 
         TextView textViewPurpose = holder.textViewPurpose;
         TextView textViewDate = holder.textViewDate;
@@ -76,11 +85,102 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
             textViewClickMe.setMovementMethod(LinkMovementMethod.getInstance());
 
         } else {
-            textViewClickMe.setText("");
+            textViewClickMe.setTextColor(Color.parseColor("#c67100"));
+            textViewClickMe.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+
+//                    final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+//
+//                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//
+//                    String simpleDateFormatDate = simpleDateFormat.format(calendar.getTime());
+//
+//                    dateFormat.format(calendar.getTime());
+//                    String date = dateFormat.format(calendar.getTime());
+//
+//                    buttonDate.setText(date);
+//
+                    showAppointmentDetailsDialog(
+                            dataItem.getPurpose(),
+                            dataItem.getDoctorName(),
+                            dataItem.getDoctorId(),
+                            dataItem.getDate(),
+                            dataItem.getStartTime(),
+                            dataItem.getLocation()
+                    );
+                }
+            });
         }
 
         textViewDate.setText("");
 
+    }
+
+    private void showAppointmentDetailsDialog(String title, String name, String email, String date, String time, String location) {
+
+//        Log.d(TAG, "showAppointmentDetailsDialog: ");
+//
+//        LayoutInflater inflater = LayoutInflater.from(appContext);
+//        View dialogLayout = inflater.inflate(R.layout.custom_dialog_list_view, null);
+//        final AlertDialog.Builder builder = new AlertDialog.Builder(appContext);
+//        builder.setView(dialogLayout);
+//        builder.setTitle(title);
+//
+//        TextView textViewDoctorName = (TextView) dialogLayout.findViewById(R.id.dialog_doctor_name);
+//        TextView textViewDoctorEmail = (TextView) dialogLayout.findViewById(R.id.dialog_doctor_email);
+//        TextView textViewDate = (TextView) dialogLayout.findViewById(R.id.dialog_appointment_date);
+//        TextView textViewTime = (TextView) dialogLayout.findViewById(R.id.dialog_app_time);
+//        TextView textViewLocation = (TextView) dialogLayout.findViewById(R.id.dialog_app_location);
+//
+//        textViewDoctorName.setText(name);
+//        textViewDoctorEmail.setText(email);
+//        textViewDate.setText(date);
+//        textViewTime.setText(time);
+//        textViewLocation.setText(location);
+//
+//        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                dialogInterface.dismiss();
+//            }
+//        });
+
+
+
+
+
+        final Dialog dialog = new Dialog(appContext);
+        dialog.setContentView(R.layout.custom_dialog_list_view);
+
+        dialog.setTitle(title);
+
+        TextView textViewDoctorName = (TextView) dialog.findViewById(R.id.dialog_doctor_name);
+        TextView textViewDoctorEmail = (TextView) dialog.findViewById(R.id.dialog_doctor_email);
+        TextView textViewDate = (TextView) dialog.findViewById(R.id.dialog_appointment_date);
+        TextView textViewTime = (TextView) dialog.findViewById(R.id.dialog_app_time);
+        TextView textViewLocation = (TextView) dialog.findViewById(R.id.dialog_app_location);
+
+        TextView textViewTitle = (TextView) dialog.findViewById(R.id.dialog_app_title);
+
+        textViewTitle.setText(title);
+        textViewDoctorName.setText(name);
+        textViewDoctorEmail.setText(email);
+        textViewDate.setText(date);
+        textViewTime.setText(time);
+        textViewLocation.setText(location);
+
+        Button ok = (Button) dialog.findViewById(R.id.dialog_app_ok);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     @Override
@@ -104,7 +204,6 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
             textViewDate = (TextView) itemView.findViewById(R.id.list_item_text_date);
             textViewClickMe = (TextView) itemView.findViewById(R.id.list_item_text_click_me);
             textViewLocation = (TextView) itemView.findViewById(R.id.list_item_text_location_rv);
-            viewLine = itemView.findViewById(R.id.list_item_line);
             imageView = (ImageView) itemView.findViewById(R.id.list_item_image_view);
 
             itemView.setOnClickListener(new View.OnClickListener() {

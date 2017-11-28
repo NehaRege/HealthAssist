@@ -1,35 +1,62 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/light"
     android:orientation="vertical"
+    android:alpha="0.9"
+    android:background="@drawable/shutterstock_care"
     android:padding="@dimen/activity_horizontal_margin"
     tools:context=".MainActivity">
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
         android:orientation="vertical">
 
         <!--<ImageView-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:src="@drawable/ic_add_circle_outline_black_24dp" />-->
+            <!--android:id="@+id/icon"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="14dp"-->
+            <!--android:layout_marginTop="28dp"-->
+            <!--android:src="@drawable/heart"-->
+            <!---->
+            <!--/>-->
 
         <TextView
+            android:id="@+id/remote"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:elevation="3dp"
+            android:layout_marginTop="55dp"
             android:gravity="center"
-            android:text="Welcome to  Health Assist !"
-            android:textColor="@color/blue_grey_500"
-            android:textSize="38dp"
+            android:text="Health Assist"
+            android:textColor="@color/secondaryLightColor"
+            android:textSize="35dp"
             android:typeface="serif" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/icon2"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginLeft="70dp"-->
+            <!--android:layout_marginTop="28dp"-->
+            <!--android:layout_toRightOf="@+id/remote"-->
+            <!--android:src="@drawable/heart" />-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/remote_health"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_below="@+id/remote"-->
+            <!--android:layout_marginLeft="84dp"-->
+            <!--android:layout_marginTop="15dp"-->
+            <!--android:gravity="center"-->
+            <!--android:text="Health Assist"-->
+            <!--android:textColor="@color/white"-->
+            <!--android:textSize="38dp"-->
+            <!--android:typeface="serif" />-->
 
     </RelativeLayout>
 
@@ -43,14 +70,15 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_weight="0.5"
+        android:layout_marginTop="110dp"
         android:orientation="vertical">
 
         <android.support.design.widget.TextInputLayout
             android:id="@+id/usernameWrapper"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/custom_edit_text_bg">
 
             <EditText
                 android:id="@+id/username"
@@ -58,11 +86,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="25dp"
+                android:background="@android:color/transparent"
                 android:drawableLeft="@drawable/user"
-                android:elevation="2dp"
                 android:hint="Email"
-                android:inputType="textEmailAddress" />
+                android:padding="5dp"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/black"
+                android:textColorHint="@color/white" />
 
         </android.support.design.widget.TextInputLayout>
 
@@ -70,7 +100,8 @@
             android:id="@+id/passwordWrapper"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/usernameWrapper">
+            android:layout_below="@id/usernameWrapper"
+            android:background="@drawable/custom_edit_text_bg">
 
             <EditText
                 android:id="@+id/password"
@@ -78,9 +109,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                android:elevation="2dp"
+                android:padding="5dp"
+                android:background="@android:color/transparent"
                 android:hint="Password"
+
                 android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
@@ -92,13 +124,15 @@
 
     <Button
         android:id="@+id/activity_main_login_button"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginTop="25dp"
         android:background="@drawable/custom_login_button"
         android:elevation="60dp"
-        android:text="Login" />
+        android:text="Login"
+        android:onClick=""
+        android:layout_gravity="center"
+        android:textColor="@android:color/white" />
 
     <!--<TextView-->
     <!--android:id="@+id/link_signup"-->
@@ -116,15 +150,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:layout_marginTop="35dp"
-        android:text="OR"
+        android:layout_marginTop="30dp"
+        android:text="OR SIGN UP"
+        android:textColor="@color/secondaryLightColor"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginBottom="20dp"
-        android:background="@android:color/darker_gray" />
+        android:layout_height="2dp"
+        android:alpha="0.7"
+        android:background="@android:color/white" />
 
     <!--<android.support.v7.widget.CardView-->
     <!--android:id="@+id/card_view2"-->

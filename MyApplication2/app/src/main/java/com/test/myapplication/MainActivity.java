@@ -1,6 +1,7 @@
 package com.test.myapplication;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -11,7 +12,9 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -48,8 +51,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.test.myapplication.api.ApiService;
+import com.test.myapplication.models.appointments.Appointment;
+import com.test.myapplication.models.login.Login;
 import com.test.myapplication.models.user.User;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -219,6 +225,9 @@ public class MainActivity extends AppCompatActivity
         passwordWrapper = (TextInputLayout) findViewById(R.id.passwordWrapper);
         buttonLogin.setOnClickListener(this);
 
+        usernameWrapper.getEditText().getText().clear();
+        passwordWrapper.getEditText().getText().clear();
+
         fbLoginButton = (LoginButton) findViewById(R.id.button_facebook_login);
 
         gmailSignInButton = (SignInButton) findViewById(R.id.sign_in_button_gmail);
@@ -226,9 +235,7 @@ public class MainActivity extends AppCompatActivity
         gmailSignInButton.setSize(SignInButton.SIZE_STANDARD);
         gmailSignInButton.setColorScheme(SignInButton.COLOR_AUTO);
 
-        spinner = (ProgressBar)findViewById(R.id.progressBar1);
-
-
+        spinner = (ProgressBar) findViewById(R.id.progressBar1);
 
 
     }
@@ -269,6 +276,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void doLogin() {
+
+
         Intent intent = new Intent(MainActivity.this, HomeActivity.class);
         setResult(SIGNOUT_REQ);
         startActivity(intent);
@@ -445,7 +454,6 @@ public class MainActivity extends AppCompatActivity
                 checkIfUserExists(email, photoUrl, name);
 
 
-
 //                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
 //                intent.putExtra("user_email_gmail", email);
 //                intent.putExtra("user_name_gmail", name);
@@ -496,7 +504,7 @@ public class MainActivity extends AppCompatActivity
                                         MODE_PRIVATE).edit();
                                 editor.putString(getString(R.string.shared_pref_gmail), response.body().getId());
                                 editor.putString(getString(R.string.shared_pref_gmail_photo), photoUrl);
-                                editor.putString(getString(R.string.shared_pref_gmail_name), name);
+                                editor.putString(getString(R.string.shared_pref_gmail_name), response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
                                 editor.putString(getString(R.string.shared_pref_gmail_name_first), response.body().getName().getFirstName());
                                 editor.putString(getString(R.string.shared_pref_gmail_name_last), response.body().getName().getLastName());
                                 editor.apply();
@@ -505,7 +513,7 @@ public class MainActivity extends AppCompatActivity
 
                                 Intent intent = new Intent(MainActivity.this, HomeActivity.class);
                                 intent.putExtra("user_email_gmail", response.body().getId());
-                                intent.putExtra("user_name_gmail", name);
+                                intent.putExtra("user_name_gmail", response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
                                 intent.putExtra("user_photo_gmail", photoUrl);
 
                                 spinner.setVisibility(View.GONE);
@@ -596,20 +604,40 @@ public class MainActivity extends AppCompatActivity
         switch (view.getId()) {
             case R.id.activity_main_login_button: {
 
+                Log.d(TAG, "onClick: button login");
+
                 hideKeyboard();
 
-                String username = usernameWrapper.getEditText().getText().toString();
-                String password = usernameWrapper.getEditText().getText().toString();
 
-                if (!validateEmail(username)) {
-                    usernameWrapper.setError("Not a valid email address!");
-                } else if (!validatePassword(password)) {
-                    passwordWrapper.setError("Not a valid password!");
+                String email = usernameWrapper.getEditText().getText().toString().trim();
+
+                String password = passwordWrapper.getEditText().getText().toString().trim();
+
+
+                if (!Objects.equals(email, "") && !Objects.equals(password, "")) {
+                    spinner.setVisibility(View.VISIBLE);
+
+
+                    checkEmailPassword(email, password, view);
                 } else {
-                    usernameWrapper.setErrorEnabled(false);
-                    passwordWrapper.setErrorEnabled(false);
-                    doLogin();
+                    if (email.equals("")) {
+                        usernameWrapper.getEditText().setError("Please provide an email");
+                    }
+                    if (password.equals("")) {
+                        passwordWrapper.getEditText().setError("Please provide a password");
+                    }
                 }
+
+
+//                if (!validateEmail(username)) {
+//                    usernameWrapper.setError("Not a valid email address!");
+//                } else if (!validatePassword(password)) {
+//                    passwordWrapper.setError("Not a valid password!");
+//                } else {
+//                    usernameWrapper.setErrorEnabled(false);
+//                    passwordWrapper.setErrorEnabled(false);
+//                    doLogin();
+//                }
 
                 break;
 
@@ -619,7 +647,6 @@ public class MainActivity extends AppCompatActivity
 
                 spinner.setVisibility(View.VISIBLE);
 
-
                 gmailSignIn();
 
                 break;
@@ -627,23 +654,126 @@ public class MainActivity extends AppCompatActivity
 
         }
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
+//        buttonLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                hideKeyboard();
+//
+//                String username = usernameWrapper.getEditText().getText().toString();
+//                String password = usernameWrapper.getEditText().getText().toString();
+//
+//                if (!validateEmail(username)) {
+//                    usernameWrapper.setError("Not a valid email address!");
+//                } else if (!validatePassword(password)) {
+//                    passwordWrapper.setError("Not a valid password!");
+//                } else {
+//                    usernameWrapper.setErrorEnabled(false);
+//                    passwordWrapper.setErrorEnabled(false);
+//                    doLogin();
+//                }
+//            }
+//        });
+    }
+
+    private void checkEmailPassword(final String email, String password, final View view) {
+        Call<Login> call = service.checkLoginCredentials(email, password);
+        Log.d(TAG, "checkEmailPassword: email = " + email);
+        Log.d(TAG, "checkEmailPassword: password = " + password);
+
+        Log.d(TAG, "checkEmailPassword: req url = " + call.request().url());
+        call.enqueue(new Callback<Login>() {
             @Override
-            public void onClick(View view) {
-                hideKeyboard();
+            public void onResponse(Call<Login> call, Response<Login> response) {
+                try {
+                    if (response != null) {
+                        Log.d(TAG, "onResponse: not null = " + response.message());
 
-                String username = usernameWrapper.getEditText().getText().toString();
-                String password = usernameWrapper.getEditText().getText().toString();
+                        if (response.message().equals("OK")) {
 
-                if (!validateEmail(username)) {
-                    usernameWrapper.setError("Not a valid email address!");
-                } else if (!validatePassword(password)) {
-                    passwordWrapper.setError("Not a valid password!");
-                } else {
-                    usernameWrapper.setErrorEnabled(false);
-                    passwordWrapper.setErrorEnabled(false);
-                    doLogin();
+                            if(response.body().getMessage().equals("Login Successful!")) {
+                                Log.d(TAG, "onResponse: User email and password valid");
+
+                                usernameWrapper.getEditText().getText().clear();
+                                passwordWrapper.getEditText().getText().clear();
+
+                                getUserInfo(email);
+                            }
+
+
+
+                        } else /*if (response.message().equals("Unauthorized") || response.message().equals("Service Unavailable") )*/ {
+                            spinner.setVisibility(View.INVISIBLE);
+                            Log.d(TAG, "onResponse: user email and password login failed");
+
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                            builder1.setMessage("Please verify your email and password");
+                            builder1.setTitle("Login failed !");
+                            builder1.setCancelable(true);
+
+                            builder1.setPositiveButton(
+                                    "OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
+                        }
+                    } else {
+                        Log.d(TAG, "onResponse: null ");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
+
+            @Override
+            public void onFailure(Call<Login> call, Throwable t) {
+                t.printStackTrace();
+                Log.d(TAG, "onFailure: Retrofit call failed: ");
+            }
+        });
+    }
+
+    private void getUserInfo(String email) {
+        Log.d(TAG, "getUserInfo: ");
+        Call<User> call = service.getUser(email);
+        call.enqueue(new Callback<User>() {
+            @Override
+            public void onResponse(Call<User> call, Response<User> response) {
+                try {
+                    if (response != null) {
+                        String name = response.body().getName().getFirstName() + response.body().getName().getLastName();
+                        String email = response.body().getId();
+                        String stamp = "login_button";
+
+                        Log.d(TAG, "onResponse: name = " + name);
+                        Log.d(TAG, "onResponse: email = " + email);
+
+                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                        intent.putExtra("login_button_name", name);
+                        intent.putExtra("login_button_email", email);
+                        intent.putExtra("login_button_stamp", stamp);
+
+                        spinner.setVisibility(View.INVISIBLE);
+
+                        startActivity(intent);
+
+
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<User> call, Throwable t) {
+                t.printStackTrace();
+                Log.d(TAG, "onFailure: Retrofit call failed: ");
             }
         });
     }
