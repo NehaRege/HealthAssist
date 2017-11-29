@@ -63,7 +63,7 @@
             android:layout_marginLeft="10dp"
             android:gravity="end"
             android:text="CLICK ME"
-            android:textColor="@android:color/black"
+            android:textColor="@color/secondaryColor"
             android:textStyle="bold" />
 
         <TextView

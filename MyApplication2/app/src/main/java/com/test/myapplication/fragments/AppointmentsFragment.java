@@ -134,7 +134,7 @@ public class AppointmentsFragment extends Fragment
 
     @Override
     public void onItemClick(int position) {
-        Toast.makeText(this.getActivity(), "Clicked on " + dataListAppointment.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this.getActivity(), "Clicked on " + dataListAppointment.get(position) + " at position " + position, Toast.LENGTH_SHORT).show();
     }
 
     private void initializeRetrofit() {

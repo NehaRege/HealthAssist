@@ -2,8 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/border"
-    android:orientation="vertical">
+    android:background="@color/primaryColor"
+    android:elevation="40dp"
+    android:orientation="vertical"
+    android:padding="2dp">
 
     <!--<TextView-->
     <!--android:id="@+id/dialog_title_purpose"-->
@@ -34,26 +36,28 @@
     <!--"__v": 0-->
 
     <!--<View-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="2dp"-->
-        <!--android:background="@android:color/darker_gray"-->
-        <!--android:backgroundTint="@android:color/black" />-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="2dp"-->
+    <!--android:background="@android:color/darker_gray"-->
+    <!--android:backgroundTint="@android:color/black" />-->
 
     <TextView
         android:id="@+id/dialog_app_title"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_gravity="center"
-        android:alpha="0.7"
+        android:background="@color/secondaryLightColor"
         android:gravity="center"
         android:padding="10dp"
         android:text="Title"
+        android:textColor="@color/black"
         android:textSize="15dp"
+        android:alpha="0.7"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         android:backgroundTint="@android:color/holo_blue_dark" />
 
@@ -67,11 +71,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="0.17"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.20"
             android:text="Doctor:"
+            android:textColor="@color/white"
             android:textSize="15dp"
+
             android:textStyle="normal" />
 
         <TextView
@@ -79,8 +84,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:layout_weight="0.95"
+            android:layout_weight="0.75"
             android:text="Doctor Name"
+            android:textColor="@color/white"
+
             android:textSize="15dp" />
 
         <!--<ImageView-->
@@ -108,10 +115,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="0.17"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.20"
             android:text="Email :"
+            android:textColor="@color/white"
+
             android:textSize="15dp"
             android:textStyle="normal" />
 
@@ -120,8 +128,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_weight="0.95"
+            android:layout_weight="0.75"
             android:text="Doctor's Email"
+            android:textColor="@color/white"
+
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -142,11 +152,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="0.17"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.20"
             android:text="Date :"
+            android:textColor="@color/white"
             android:textSize="15dp"
+
             android:textStyle="normal" />
 
         <TextView
@@ -154,8 +165,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_weight="0.95"
+            android:layout_weight="0.75"
             android:text="Date"
+            android:textColor="@color/white"
+
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -177,11 +190,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="0.17"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.20"
             android:text="Time :"
+            android:textColor="@color/white"
             android:textSize="15dp"
+
             android:textStyle="normal" />
 
         <TextView
@@ -189,8 +203,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:layout_weight="0.95"
+            android:layout_weight="0.75"
             android:text="Time"
+            android:textColor="@color/white"
+
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -210,38 +226,42 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="30dp"
-            android:layout_weight="0.17"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="5dp"
+            android:layout_weight="0.25"
             android:text="Location:"
+            android:textColor="@color/white"
             android:textSize="15dp"
+
             android:textStyle="normal" />
 
         <TextView
             android:id="@+id/dialog_app_location"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="15dp"
             android:layout_weight="0.75"
             android:text="Location"
+            android:textColor="@color/white"
             android:textSize="15dp" />
 
     </LinearLayout>
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="@android:color/darker_gray"
-        android:backgroundTint="@android:color/holo_blue_light" />
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@android:color/darker_gray"
+    android:backgroundTint="@android:color/holo_blue_light" />
 
     <Button
         android:id="@+id/dialog_app_ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@android:color/transparent"
-        android:padding="5dp"
-        android:text="OK" />
+        android:alpha="0.7"
+        android:background="@color/secondaryLightColor"
+        android:padding="10dp"
+        android:text="OK"
+        android:textColor="@color/black" />
 
 </LinearLayout>

@@ -23,6 +23,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -85,10 +86,44 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
             textViewClickMe.setMovementMethod(LinkMovementMethod.getInstance());
 
         } else {
-            textViewClickMe.setTextColor(Color.parseColor("#c67100"));
+//            textViewClickMe.setTextColor(Color.parseColor("#c67100"));
             textViewClickMe.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+
+                    String dtStart = dataItem.getDate();
+                    String appDate = "";
+
+                    SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+                    try {
+                        Date date = formatDate.parse(dtStart.replaceAll("Z$", "+0000"));
+                        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
+                        dateFormat.format(Calendar.getInstance().getTime());
+                        appDate = dateFormat.format(date);
+                        Log.d(TAG, "onClick: -------------------------");
+                        Log.d(TAG, "onClick: date = " + appDate);
+
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+
+                    String timeStart = dataItem.getStartTime();
+
+                    String appTime = "";
+
+                    SimpleDateFormat formatTime = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+                    try {
+                        Date date = formatTime.parse(timeStart.replaceAll("Z$", "+0000"));
+                        DateFormat timeFormatter = new SimpleDateFormat("HH:mm:ss");
+                        appTime = timeFormatter.format(date);
+                        Log.d(TAG, "onClick: -------------------------");
+                        Log.d(TAG, "onClick: time = " + appTime);
+
+                    } catch (ParseException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
 
 
 //                    final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.MEDIUM);
@@ -101,13 +136,13 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 //                    String date = dateFormat.format(calendar.getTime());
 //
 //                    buttonDate.setText(date);
-//
+
                     showAppointmentDetailsDialog(
                             dataItem.getPurpose(),
                             dataItem.getDoctorName(),
                             dataItem.getDoctorId(),
-                            dataItem.getDate(),
-                            dataItem.getStartTime(),
+                            appDate,
+                            appTime,
                             dataItem.getLocation()
                     );
                 }
@@ -146,9 +181,6 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 //                dialogInterface.dismiss();
 //            }
 //        });
-
-
-
 
 
         final Dialog dialog = new Dialog(appContext);

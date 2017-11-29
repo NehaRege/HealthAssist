@@ -488,6 +488,9 @@ public class MainActivity extends AppCompatActivity
         if (networkInfo != null && networkInfo.isConnected()) {
 
             Call<User> call = service.getUser(email);
+
+            Log.d(TAG, "checkIfUserExists: user url = "+call.request().url());
+
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
@@ -696,7 +699,9 @@ public class MainActivity extends AppCompatActivity
                                 usernameWrapper.getEditText().getText().clear();
                                 passwordWrapper.getEditText().getText().clear();
 
-                                getUserInfo(email);
+                                checkIfUserExists(email,null,"");
+
+//                                getUserInfo(email);
                             }
 
 

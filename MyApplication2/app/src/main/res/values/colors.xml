@@ -28,6 +28,10 @@
     <color name="colorRed">#c62828</color>
     <color name="colorGreen">#26a69a</color>
 
+    <color name="colorB1">#00cbcc</color>
+    <color name="colorB2">#76ffff</color>
+    <color name="colorB3">#18ffff</color>
+
     <color name="blue_grey_500">#607D8B</color>
     <color name="grey_300">#E0E0E0</color>
     <color name="blue2">#5c6bc0</color>
@@ -73,6 +77,8 @@
     <color name="secondaryDarkColor">#c67100</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="secondaryTextColor">#000000</color>
+
+
 
 
 

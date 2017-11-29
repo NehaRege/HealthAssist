@@ -41,12 +41,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.8"
+                    android:alpha="0.7"
                     android:gravity="center"
                     android:padding="15dp"
                     android:text="About"
-                    android:background="@color/secondaryDarkColor"
-                    android:textColor="@android:color/white"
+                    android:background="@color/secondaryLightColor"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/profile_activity_header"
                     android:textStyle="bold" />
 
@@ -316,13 +316,12 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.8"
+                    android:alpha="0.7"
                     android:gravity="center"
                     android:padding="15dp"
-                    android:background="@color/secondaryDarkColor"
-
+                    android:background="@color/secondaryLightColor"
                     android:text="Contact Information"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/profile_activity_header"
 
                     android:textStyle="bold" />
@@ -483,13 +482,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:alpha="0.8"
+                    android:alpha="0.7"
                     android:gravity="center"
                     android:padding="15dp"
-                    android:background="@color/secondaryDarkColor"
+                    android:background="@color/secondaryLightColor"
 
                     android:text="Family Medical History"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="@dimen/profile_activity_header"
                     android:textStyle="bold" />
 
