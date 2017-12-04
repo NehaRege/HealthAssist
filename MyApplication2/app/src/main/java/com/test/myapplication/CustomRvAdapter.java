@@ -45,8 +45,9 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
         if (inComingData != null) {
             this.data = inComingData;
-            Log.d(TAG, "CustomRvAdapter: data null ");
+            Log.d(TAG, "CustomRvAdapter: data not null = "+inComingData.size());
         } else {
+            Log.d(TAG, "CustomRvAdapter: data null");
             this.data = new ArrayList<>();
             Log.d(TAG, "CustomRvAdapter: data = " + data.get(0).getPurpose());
         }
@@ -82,10 +83,13 @@ public class CustomRvAdapter extends RecyclerView.Adapter<CustomRvAdapter.Sample
 
         String googleEventLink = dataItem.getGoogleEventLink();
         if (googleEventLink != null) {
+            Log.d(TAG, "onBindViewHolder: google event link not null ");
             textViewClickMe.setText(Html.fromHtml("<a href=" + dataItem.getGoogleEventLink() + "> CLICK ME "));
             textViewClickMe.setMovementMethod(LinkMovementMethod.getInstance());
 
         } else {
+            Log.d(TAG, "onBindViewHolder: google event link = null ");
+
 //            textViewClickMe.setTextColor(Color.parseColor("#c67100"));
             textViewClickMe.setOnClickListener(new View.OnClickListener() {
                 @Override

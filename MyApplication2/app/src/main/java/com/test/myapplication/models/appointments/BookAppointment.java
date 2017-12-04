@@ -8,6 +8,9 @@ public class BookAppointment {
     @SerializedName("patient_id")
     @Expose
     private String patientId;
+    @SerializedName("patient_name")
+    @Expose
+    private String patientName;
     @SerializedName("doctor_id")
     @Expose
     private String doctorId;
@@ -39,6 +42,14 @@ public class BookAppointment {
 
     public void setPatientId(String patientId) {
         this.patientId = patientId;
+    }
+
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
     }
 
     public String getDoctorId() {
@@ -109,6 +120,7 @@ public class BookAppointment {
     public String toString() {
         return "BookAppointment{" +
                 "patientId='" + patientId + '\'' +
+                ", patientName='" + patientName + '\'' +
                 ", doctorId='" + doctorId + '\'' +
                 ", doctorName='" + doctorName + '\'' +
                 ", purpose='" + purpose + '\'' +

@@ -26,6 +26,10 @@ public interface ApiService {
     @GET("/api/appointments/patient/{emailId}")
     Call<ArrayList<Appointment>> getAppointments(@Path("emailId") String emailId);
 
+    /*
+    https://remote-health-api.herokuapp.com/api/appointments/patient/neharege28@gmail.com
+     */
+
     @POST("/api/appointments")
     Call<BookAppointment> createNewAppointment(@Body BookAppointment newAppointment);
 

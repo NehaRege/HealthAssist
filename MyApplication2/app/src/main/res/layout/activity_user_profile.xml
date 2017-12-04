@@ -353,7 +353,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.65"
+                        android:layout_weight="0.85"
                         android:text="Patient"
                         android:textSize="@dimen/profile_activity_text" />
 
@@ -386,7 +386,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.65"
+                        android:layout_weight="0.85"
                         android:fitsSystemWindows="true"
                         android:text="neharege28@gmail.com"
                         android:textSize="@dimen/profile_activity_text" />
@@ -420,7 +420,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.65"
+                        android:layout_weight="0.85"
                         android:fitsSystemWindows="true"
                         android:text="6508675443"
                         android:textSize="@dimen/profile_activity_text" />
@@ -453,7 +453,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:layout_weight="0.65"
+                        android:layout_weight="0.85"
                         android:text="Doctor Name"
                         android:textSize="@dimen/profile_activity_text" />
                 </LinearLayout>
@@ -913,34 +913,6 @@
 
         </android.support.v7.widget.CardView>
 
-
-        <!--<android.support.v7.widget.CardView-->
-        <!--android:id="@+id/card_view4"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--card_view:cardCornerRadius="12dp"-->
-        <!--card_view:cardElevation="50dp">-->
-
-        <!--</android.support.v7.widget.CardView>-->
-
-
-        <!--<Button-->
-        <!--android:id="@+id/profile_activity_submit"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_marginTop="20dp"-->
-        <!--android:background="@drawable/custom_login_button"-->
-        <!--android:elevation="50dp"-->
-        <!--android:text="Submit" />-->
 
     </LinearLayout>
 

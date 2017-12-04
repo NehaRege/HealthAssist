@@ -46,6 +46,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private static final String TAG = "BookAppointmentActivity";
 
     private String currentUserEmail;
+    private String currentUserName;
 
     private EditText editTextDoctorName;
     private EditText editTextDoctorEmail;
@@ -67,6 +68,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private String location;
 
     private String patientId;
+    private String patientName;
     private String status;
 
     private ApiService service;
@@ -90,6 +92,8 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
 
 //        Intent intent = getIntent();
 //        patientId = intent.getStringExtra("book_app_email_id");
+
+        Log.d(TAG, "onCreate: ");
 
         getSharedPrefs();
 
@@ -158,6 +162,12 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     private void getSharedPrefs() {
         SharedPreferences prefs = getSharedPreferences(MainActivity.KEY_SHARED_PREFS_USER_GMAIL, Context.MODE_PRIVATE);
         currentUserEmail = prefs.getString(getString(R.string.shared_pref_gmail), null);
+        currentUserName = prefs.getString(getString(R.string.shared_pref_gmail_name), null);
+
+        Log.d(TAG, "getSharedPrefs: name = "+currentUserName);
+        Log.d(TAG, "getSharedPrefs: email = "+currentUserEmail);
+
+
     }
 
     private void initializeViews() {
@@ -194,7 +204,6 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
             }
         });
 
-
         Button buttonSubmit = (Button) findViewById(R.id.appointment_activity_submit);
         buttonSubmit.setOnClickListener(this);
     }
@@ -210,16 +219,18 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
     }
 
     private void getAppointmentInfoFromEditText() {
-        doctorName = editTextDoctorName.getText().toString();
-        doctorId = editTextDoctorEmail.getText().toString();
+        doctorName = editTextDoctorName.getText().toString().trim();
+        doctorId = editTextDoctorEmail.getText().toString().trim();
 //        startTime = editTextStartTime.getText().toString();
 //        endTime = editTextEndTime.getText().toString();
-        location = editTextLocation.getText().toString();
-        purpose = editTextPurpose.getText().toString();
+        location = editTextLocation.getText().toString().trim();
+        purpose = editTextPurpose.getText().toString().trim();
 //        date = editTextDate.getText().toString();
         status = "pending";
 
         patientId = currentUserEmail;
+//        patientName = currentUserName.trim();
+        patientName = "Neha Rege";
 //        patientId = "neharege28@gmail.com";
     }
 
@@ -233,6 +244,7 @@ public class BookAppointmentActivity extends AppCompatActivity implements View.O
         newAppointment.setPurpose(purpose);
         newAppointment.setStartTime(startTime);
         newAppointment.setPatientId(patientId);
+        newAppointment.setPatientName(patientName);
         newAppointment.setStatus(status);
 
 //        newAppointment.setDate("2017-11-10");

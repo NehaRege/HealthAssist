@@ -489,47 +489,118 @@ public class MainActivity extends AppCompatActivity
 
             Call<User> call = service.getUser(email);
 
-            Log.d(TAG, "checkIfUserExists: user url = "+call.request().url());
+            Log.d(TAG, "checkIfUserExists: user url = " + call.request().url());
 
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> call, Response<User> response) {
                     try {
-                        if (!Objects.equals(response.message(), "User not found")) {
-                            Log.d(TAG, "onResponse: User found");
-                            if (Objects.equals(response.body().getId(), email)) {
-                                Log.d(TAG, "onResponse: User found and email verified");
+                        if (response != null) {
+                            if (response.message().equals("User not found")) {
+                                spinner.setVisibility(View.INVISIBLE);
+                                Log.d(TAG, "onResponse: user not found");
 
-                                Toast.makeText(MainActivity.this, "User verified!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "User not found", Toast.LENGTH_SHORT).show();
 
-                                SharedPreferences.Editor editor = getSharedPreferences(
-                                        KEY_SHARED_PREFS_USER_GMAIL,
-                                        MODE_PRIVATE).edit();
-                                editor.putString(getString(R.string.shared_pref_gmail), response.body().getId());
-                                editor.putString(getString(R.string.shared_pref_gmail_photo), photoUrl);
-                                editor.putString(getString(R.string.shared_pref_gmail_name), response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
-                                editor.putString(getString(R.string.shared_pref_gmail_name_first), response.body().getName().getFirstName());
-                                editor.putString(getString(R.string.shared_pref_gmail_name_last), response.body().getName().getLastName());
-                                editor.apply();
 
-                                Log.d(TAG, "onResponse: starting homeActivity");
+                                //todo alert box for asking the user to register!
 
-                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
-                                intent.putExtra("user_email_gmail", response.body().getId());
-                                intent.putExtra("user_name_gmail", response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
-                                intent.putExtra("user_photo_gmail", photoUrl);
+                                showAlertDialog("USER AUTHENTICATION FAILED !", "Please register using our web application", "OK", "");
 
-                                spinner.setVisibility(View.GONE);
-
-                                startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
 
                             } else {
-                                Toast.makeText(MainActivity.this, "Error in verifying!", Toast.LENGTH_SHORT).show();
+                                //todo user found
+                                if (response.body() == null) {
+
+                                    showAlertDialog("LOGIN FAILED !", "Please verify email and password", "OK", "");
+                                    spinner.setVisibility(View.INVISIBLE);
+
+                                    Log.d(TAG, "onResponse: response.body() = null");
+
+                                    Toast.makeText(MainActivity.this, "response.body() = null", Toast.LENGTH_SHORT).show();
+
+                                } else {
+                                    //todo response.body() not null
+                                    if (response.body().getId().equals(email)) {
+                                        //todo email matches
+
+                                        spinner.setVisibility(View.INVISIBLE);
+                                        Log.d(TAG, "onResponse: User found and email verified");
+
+                                        Toast.makeText(MainActivity.this, "User verified!", Toast.LENGTH_SHORT).show();
+
+                                        SharedPreferences.Editor editor = getSharedPreferences(
+                                                KEY_SHARED_PREFS_USER_GMAIL,
+                                                MODE_PRIVATE).edit();
+                                        editor.putString(getString(R.string.shared_pref_gmail), response.body().getId());
+                                        editor.putString(getString(R.string.shared_pref_gmail_photo), photoUrl);
+                                        editor.putString(getString(R.string.shared_pref_gmail_name), response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
+                                        editor.putString(getString(R.string.shared_pref_gmail_name_first), response.body().getName().getFirstName());
+                                        editor.putString(getString(R.string.shared_pref_gmail_name_last), response.body().getName().getLastName());
+                                        editor.apply();
+
+                                        Log.d(TAG, "onResponse: starting homeActivity");
+
+                                        Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                                        intent.putExtra("user_email_gmail", response.body().getId());
+                                        intent.putExtra("user_name_gmail", response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
+                                        intent.putExtra("user_photo_gmail", photoUrl);
+
+                                        spinner.setVisibility(View.GONE);
+
+                                        startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
+
+                                    } else {
+                                        spinner.setVisibility(View.INVISIBLE);
+                                        showAlertDialog("LOGIN FAILED !", "Error in verifying username and password. Please try again", "OK", "");
+                                        //todo email does not match. Verification failed! ask user to create an account! alert box
+                                        Log.d(TAG, "onResponse: email does not match. Verification failed");
+                                        Toast.makeText(MainActivity.this, "Error in verifying!", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
                             }
 
-                        } else if (Objects.equals(response.message(), "User not found")) {
-                            Toast.makeText(MainActivity.this, "User not found. Please register!", Toast.LENGTH_LONG).show();
+                        } else {
+                            spinner.setVisibility(View.INVISIBLE);
+                            Toast.makeText(MainActivity.this, "response = null", Toast.LENGTH_SHORT).show();
+                            Log.d(TAG, "onResponse: response = null");
                         }
+
+//                        if (!Objects.equals(response.message(), "User not found")) {
+//                            Log.d(TAG, "onResponse: User found");
+//                            if (Objects.equals(response.body().getId(), email)) {
+//                                Log.d(TAG, "onResponse: User found and email verified");
+//
+//                                Toast.makeText(MainActivity.this, "User verified!", Toast.LENGTH_SHORT).show();
+//
+//                                SharedPreferences.Editor editor = getSharedPreferences(
+//                                        KEY_SHARED_PREFS_USER_GMAIL,
+//                                        MODE_PRIVATE).edit();
+//                                editor.putString(getString(R.string.shared_pref_gmail), response.body().getId());
+//                                editor.putString(getString(R.string.shared_pref_gmail_photo), photoUrl);
+//                                editor.putString(getString(R.string.shared_pref_gmail_name), response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
+//                                editor.putString(getString(R.string.shared_pref_gmail_name_first), response.body().getName().getFirstName());
+//                                editor.putString(getString(R.string.shared_pref_gmail_name_last), response.body().getName().getLastName());
+//                                editor.apply();
+//
+//                                Log.d(TAG, "onResponse: starting homeActivity");
+//
+//                                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+//                                intent.putExtra("user_email_gmail", response.body().getId());
+//                                intent.putExtra("user_name_gmail", response.body().getName().getFirstName() + " " + response.body().getName().getLastName());
+//                                intent.putExtra("user_photo_gmail", photoUrl);
+//
+//                                spinner.setVisibility(View.GONE);
+//
+//                                startActivityForResult(intent, GMAIL_SIGNOUT_REQ);
+//
+//                            } else {
+//                                Toast.makeText(MainActivity.this, "Error in verifying!", Toast.LENGTH_SHORT).show();
+//                            }
+//
+//                        } else if (Objects.equals(response.message(), "User not found")) {
+//                            Toast.makeText(MainActivity.this, "User not found. Please register!", Toast.LENGTH_LONG).show();
+//                        }
 
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -693,38 +764,38 @@ public class MainActivity extends AppCompatActivity
 
                         if (response.message().equals("OK")) {
 
-                            if(response.body().getMessage().equals("Login Successful!")) {
+                            if (response.body().getMessage().equals("Login Successful!")) {
                                 Log.d(TAG, "onResponse: User email and password valid");
 
                                 usernameWrapper.getEditText().getText().clear();
                                 passwordWrapper.getEditText().getText().clear();
 
-                                checkIfUserExists(email,null,"");
+                                checkIfUserExists(email, null, "");
 
 //                                getUserInfo(email);
                             }
-
 
 
                         } else /*if (response.message().equals("Unauthorized") || response.message().equals("Service Unavailable") )*/ {
                             spinner.setVisibility(View.INVISIBLE);
                             Log.d(TAG, "onResponse: user email and password login failed");
 
-                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
-                            builder1.setMessage("Please verify your email and password");
-                            builder1.setTitle("Login failed !");
-                            builder1.setCancelable(true);
-
-                            builder1.setPositiveButton(
-                                    "OK",
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialog, int id) {
-                                            dialog.cancel();
-                                        }
-                                    });
-
-                            AlertDialog alert11 = builder1.create();
-                            alert11.show();
+                            showAlertDialog("Login Failed!", "Please verify your email and password", "OK", "");
+//                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+//                            builder1.setMessage("Please verify your email and password");
+//                            builder1.setTitle("Login failed !");
+//                            builder1.setCancelable(true);
+//
+//                            builder1.setPositiveButton(
+//                                    "OK",
+//                                    new DialogInterface.OnClickListener() {
+//                                        public void onClick(DialogInterface dialog, int id) {
+//                                            dialog.cancel();
+//                                        }
+//                                    });
+//
+//                            AlertDialog alert11 = builder1.create();
+//                            alert11.show();
                         }
                     } else {
                         Log.d(TAG, "onResponse: null ");
@@ -741,6 +812,24 @@ public class MainActivity extends AppCompatActivity
                 Log.d(TAG, "onFailure: Retrofit call failed: ");
             }
         });
+    }
+
+    private void showAlertDialog(String tile, String message, String positiveButtonText, String negativeButtonText) {
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+        builder1.setTitle(tile);
+        builder1.setMessage(message);
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                positiveButtonText,
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
     }
 
     private void getUserInfo(String email) {

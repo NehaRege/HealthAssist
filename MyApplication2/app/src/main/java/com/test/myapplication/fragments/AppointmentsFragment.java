@@ -166,9 +166,12 @@ public class AppointmentsFragment extends Fragment
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("approved")) {
                                 dataListAppointment.add(response.body().get(i));
+                                Log.d(TAG, "onResponse: approved data = "+dataListAppointment.get(0).getPurpose());
+                                Log.d(TAG, "onResponse: approved data link = "+dataListAppointment.get(0).getGoogleEventLink());
+                                rvAdapter.notifyDataSetChanged();
+
                             }
                         }
-                        rvAdapter.notifyDataSetChanged();
 
                     } else if (type.equals(getString(R.string.appointment_type_pending))) {
                         spinner.setVisibility(View.GONE);
@@ -176,9 +179,12 @@ public class AppointmentsFragment extends Fragment
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("pending")) {
                                 dataListAppointment.add(response.body().get(i));
+                                Log.d(TAG, "onResponse: pending data = "+dataListAppointment.get(0).getPurpose());
+
+                                rvAdapter.notifyDataSetChanged();
+
                             }
                         }
-                        rvAdapter.notifyDataSetChanged();
 
                     } else if (type.equals(getString(R.string.appointment_type_past))) {
                         spinner.setVisibility(View.GONE);
@@ -186,9 +192,10 @@ public class AppointmentsFragment extends Fragment
                         for (int i = 0; i < response.body().size(); i++) {
                             if ((response.body().get(i).getStatus()).equals("past")) {
                                 dataListAppointment.add(response.body().get(i));
+                                rvAdapter.notifyDataSetChanged();
+
                             }
                         }
-                        rvAdapter.notifyDataSetChanged();
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

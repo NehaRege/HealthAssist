@@ -2,9 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primaryColor"
-    android:elevation="40dp"
     android:orientation="vertical"
+    android:alpha="0.9"
     android:padding="2dp">
 
     <!--<TextView-->
@@ -41,6 +40,12 @@
     <!--android:background="@android:color/darker_gray"-->
     <!--android:backgroundTint="@android:color/black" />-->
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@android:color/darker_gray"
+        android:backgroundTint="@android:color/holo_blue_light" />
+
     <TextView
         android:id="@+id/dialog_app_title"
         android:layout_width="match_parent"
@@ -52,12 +57,11 @@
         android:text="Title"
         android:textColor="@color/black"
         android:textSize="15dp"
-        android:alpha="0.7"
         android:textStyle="bold" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="1.5dp"
         android:background="@android:color/darker_gray"
         android:backgroundTint="@android:color/holo_blue_dark" />
 
@@ -74,7 +78,6 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="0.20"
             android:text="Doctor:"
-            android:textColor="@color/white"
             android:textSize="15dp"
 
             android:textStyle="normal" />
@@ -86,7 +89,6 @@
             android:layout_marginBottom="10dp"
             android:layout_weight="0.75"
             android:text="Doctor Name"
-            android:textColor="@color/white"
 
             android:textSize="15dp" />
 
@@ -118,8 +120,6 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="0.20"
             android:text="Email :"
-            android:textColor="@color/white"
-
             android:textSize="15dp"
             android:textStyle="normal" />
 
@@ -130,8 +130,6 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="0.75"
             android:text="Doctor's Email"
-            android:textColor="@color/white"
-
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -155,9 +153,7 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="0.20"
             android:text="Date :"
-            android:textColor="@color/white"
             android:textSize="15dp"
-
             android:textStyle="normal" />
 
         <TextView
@@ -167,8 +163,6 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="0.75"
             android:text="Date"
-            android:textColor="@color/white"
-
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -193,7 +187,6 @@
             android:layout_marginLeft="5dp"
             android:layout_weight="0.20"
             android:text="Time :"
-            android:textColor="@color/white"
             android:textSize="15dp"
 
             android:textStyle="normal" />
@@ -205,8 +198,6 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="0.75"
             android:text="Time"
-            android:textColor="@color/white"
-
             android:textSize="15dp" />
 
     </LinearLayout>
@@ -228,11 +219,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginLeft="5dp"
-            android:layout_weight="0.25"
+            android:layout_weight="0.23"
             android:text="Location:"
-            android:textColor="@color/white"
             android:textSize="15dp"
-
             android:textStyle="normal" />
 
         <TextView
@@ -242,14 +231,13 @@
             android:layout_marginBottom="15dp"
             android:layout_weight="0.75"
             android:text="Location"
-            android:textColor="@color/white"
             android:textSize="15dp" />
 
     </LinearLayout>
 
     <View
     android:layout_width="match_parent"
-    android:layout_height="1dp"
+    android:layout_height="1.5dp"
     android:background="@android:color/darker_gray"
     android:backgroundTint="@android:color/holo_blue_light" />
 
@@ -258,10 +246,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:alpha="0.7"
         android:background="@color/secondaryLightColor"
         android:padding="10dp"
         android:text="OK"
         android:textColor="@color/black" />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@android:color/darker_gray"
+        android:backgroundTint="@android:color/holo_blue_light" />
 
 </LinearLayout>
