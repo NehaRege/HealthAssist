@@ -87,7 +87,6 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@android:color/transparent"
-                android:drawableLeft="@drawable/user"
                 android:hint="Email"
                 android:padding="5dp"
                 android:inputType="textEmailAddress"
