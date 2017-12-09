@@ -699,7 +699,6 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
                         spinner.setVisibility(View.INVISIBLE);
 
                         startActivity(intent);
-
                     }
 
                 } catch (Exception e) {
